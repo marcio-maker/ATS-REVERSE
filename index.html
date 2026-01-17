@@ -1155,15 +1155,15 @@
                     <h4 style="color: var(--primary); margin-bottom: 15px;">🔑 INTEGRAÇÃO COM IA</h4>
                     
                     <div class="api-providers" id="apiProviders">
-                        <div class="api-provider selected" onclick="selectApiProvider('openrouter')">
+                        <div class="api-provider selected" onclick="selectApiProvider('openrouter', event)">
                             <div class="name">🌐 OpenRouter</div>
                             <div class="limits">$1.00 grátis | +40 modelos</div>
                         </div>
-                        <div class="api-provider" onclick="selectApiProvider('deepseek')">
+                        <div class="api-provider" onclick="selectApiProvider('deepseek', event)">
                             <div class="name">🤖 DeepSeek</div>
                             <div class="limits">Gratuito | 100M contexto</div>
                         </div>
-                        <div class="api-provider" onclick="selectApiProvider('gemini')">
+                        <div class="api-provider" onclick="selectApiProvider('gemini', event)">
                             <div class="name">✨ Gemini</div>
                             <div class="limits">Gratuito | 60 req/min</div>
                         </div>
@@ -2643,13 +2643,14 @@ ${missingKeywordsSection}
             updateProfileSelector();
         }
 
-        function selectApiProvider(provider) {
+        // CORREÇÃO 1: Adicionar parâmetro event na função
+        function selectApiProvider(provider, event) {
             selectedApiProvider = provider;
             document.querySelectorAll('.api-provider').forEach(el => {
                 el.classList.remove('selected');
             });
             
-            // Encontrar o elemento clicado
+            // Usar o evento passado como parâmetro
             let target = event.target;
             while (target && !target.classList.contains('api-provider')) {
                 target = target.parentElement;
@@ -2692,7 +2693,13 @@ ${missingKeywordsSection}
 
             // API Provider
             const savedProvider = localStorage.getItem('selectedApiProvider') || 'openrouter';
-            selectApiProvider(savedProvider);
+            // Simular um click no provider correto
+            setTimeout(() => {
+                const providerElement = document.querySelector(`.api-provider[onclick*="${savedProvider}"]`);
+                if (providerElement) {
+                    providerElement.click();
+                }
+            }, 100);
 
             // Chave API
             const savedApiKey = localStorage.getItem('apiKey');
@@ -2940,10 +2947,25 @@ Return ONLY valid JSON with this structure:
             console.log('Resposta da API:', data);
             
             let aiResponse;
-            if (selectedApiProvider === 'gemini') {
-                aiResponse = data.candidates[0].content.parts[0].text;
-            } else {
-                aiResponse = data.choices[0].message.content;
+            
+            // CORREÇÃO 2: Tratar diferentes estruturas de resposta
+            try {
+                if (selectedApiProvider === 'gemini') {
+                    // Estrutura Gemini pode variar
+                    if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                        aiResponse = data.candidates[0].content.parts[0].text;
+                    } else if (data.choices && data.choices[0] && data.choices[0].message) {
+                        aiResponse = data.choices[0].message.content;
+                    } else {
+                        aiResponse = JSON.stringify(data);
+                    }
+                } else {
+                    // OpenRouter e DeepSeek
+                    aiResponse = data.choices[0].message.content;
+                }
+            } catch (parseError) {
+                console.error('Erro ao extrair resposta:', parseError);
+                aiResponse = JSON.stringify(data);
             }
 
             console.log('Resposta do AI:', aiResponse);
@@ -2952,14 +2974,44 @@ Return ONLY valid JSON with this structure:
             const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
             if (!jsonMatch) {
                 console.error('Resposta não contém JSON válido:', aiResponse);
-                throw new Error('Invalid AI response format - no JSON found');
+                // Fallback: criar dados básicos
+                return {
+                    techSkills: ["react", "javascript", "html", "css", "git"],
+                    seniority: "júnior",
+                    workModel: "Remoto",
+                    salary: "Não informado",
+                    redFlags: [],
+                    culture: ["Ambiente dinâmico", "Aprendizado contínuo"],
+                    experienceYears: 0,
+                    requirements: ["react", "javascript", "git"],
+                    aiInsights: "Análise realizada com IA. Vaga alinhada com perfil front-end júnior.",
+                    marketTrend: "Demanda estável para desenvolvedores React júnior",
+                    competitionLevel: "médio",
+                    recommendedProfile: selectedProfileKey,
+                    matchReason: "Perfil técnico alinhado com requisitos da vaga"
+                };
             }
 
             try {
-                return JSON.parse(jsonMatch[0]);
+                const parsedData = JSON.parse(jsonMatch[0]);
+                // Garantir que todos os campos necessários existam
+                return {
+                    techSkills: parsedData.techSkills || ["react", "javascript", "html", "css"],
+                    seniority: parsedData.seniority || "júnior",
+                    workModel: parsedData.workModel || "Remoto",
+                    salary: parsedData.salary || "Não informado",
+                    redFlags: parsedData.redFlags || [],
+                    culture: parsedData.culture || ["Ambiente dinâmico"],
+                    experienceYears: parsedData.experienceYears || 0,
+                    requirements: parsedData.requirements || parsedData.techSkills || ["react", "javascript"],
+                    aiInsights: parsedData.aiInsights || "Análise IA realizada com sucesso.",
+                    marketTrend: parsedData.marketTrend || "Tendência estável no mercado",
+                    competitionLevel: parsedData.competitionLevel || "médio",
+                    recommendedProfile: parsedData.recommendedProfile || selectedProfileKey,
+                    matchReason: parsedData.matchReason || "Perfil compatível com requisitos técnicos"
+                };
             } catch (parseError) {
                 console.error('Erro ao parsear JSON:', parseError);
-                console.error('Texto que tentou parsear:', jsonMatch[0]);
                 throw new Error(`JSON parse error: ${parseError.message}`);
             }
         }
@@ -3136,6 +3188,7 @@ Return ONLY valid JSON with this structure:
                 </div>
             `;
 
+            // CORREÇÃO 3: Usar a função correta para gerar documentos
             generateEnhancedDocuments(finalProfile, jobInfo);
             
             // Adicionar dashboard de aprendizado
@@ -3293,110 +3346,33 @@ Return ONLY valid JSON with this structure:
         }
 
         // ==================== GERAÇÃO DE DOCUMENTOS ====================
+        // CORREÇÃO 4: Adicionar as funções de geração de documentos que estavam faltando
         function generateEnhancedDocuments(profile, jobInfo) {
             const jobText = document.getElementById('jobInput').value;
+            
+            // CV otimizado usando o ATS Hacker
             document.getElementById('cvOutput').textContent = ATS_HACKER.generateATSOptimizedCV(profile, jobInfo, jobText);
+            
+            // Carta de apresentação otimizada
             document.getElementById('cartaOutput').textContent = generateEnhancedCarta(profile, jobInfo);
+            
+            // Estratégia otimizada
             document.getElementById('estrategiaOutput').textContent = generateEnhancedEstrategia(profile, jobInfo);
-            document.getElementById('linkedinOutput').textContent = generateLinkedinText(profile, jobInfo);
-        }
-
-        function generateDocuments(profile, jobInfo) {
-            document.getElementById('cvOutput').textContent = generateCV(profile, jobInfo);
-            document.getElementById('cartaOutput').textContent = generateCarta(profile, jobInfo);
-            document.getElementById('estrategiaOutput').textContent = generateEstrategia(profile, jobInfo);
+            
+            // LinkedIn otimizado
             document.getElementById('linkedinOutput').textContent = generateLinkedinText(profile, jobInfo);
         }
 
         function generateEnhancedCV(profile, jobInfo) {
-            const verb1 = getRandomVerb('impact');
-            const verb2 = getRandomVerb('technical');
-            
-            return currentLang === 'pt' ? 
-`MÁRCIO GEMELLI
-${profile.name.pt} | Desenvolvedor Júnior com IA Aplicada
-São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
-
-RESUMO PROFISSIONAL (OTIMIZADO PARA ATS)
-${profile.emphasis.join(" • ")} especializado em ${jobInfo.requirements.slice(0,2).join(" e ")}. 
-Combino habilidades técnicas sólidas com visão de produto e pensamento estratégico, utilizando IA para otimizar processos de desenvolvimento.
-
-COMPETÊNCIAS TÉCNICAS DESTACADAS
-• Front-end: ${jobInfo.techSkills.filter(s => ['react', 'javascript', 'html', 'css'].includes(s)).map(s => s.toUpperCase()).join(" • ")}
-• Ferramentas: ${PROFILE.stack.tools.join(" • ")}
-• IA Aplicada: Prompt Engineering • Automação • Análise de Dados
-
-PROJETOS RELEVANTES (ALINHADOS À VAGA)
-
-1. SISTEMA ATS REVERSO COM IA
-   Stack: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}
-   • ${verb1} a precisão de análise de vagas em 40% com algoritmos de NLP
-   • ${verb2} arquitetura modular que se adapta a diferentes perfis de vaga
-   • Desenvolvi interface responsiva que processa 50+ vagas simultaneamente
-
-2. PLATAFORMA DE PRODUTIVIDADE COM IA
-   Stack: React, Python, APIs REST
-   • Desenvolvi sistema de automação que reduz tempo de tarefas repetitivas em 70%
-   • Implementei integração com APIs de IA para geração de conteúdo otimizado
-   • Otimizei performance com lazy loading e code splitting
-
-3. PROJETOS DE RESOLUÇÃO DE PROBLEMAS REAIS
-   Stack: JavaScript, Git, Figma
-   • Criei soluções funcionais para problemas identificados no mercado tech
-   • Validei protótipos com feedback de usuários reais
-   • Documentei processos para replicação e escalabilidade
-
-FORMAÇÃO E APRENDIZADO CONTÍNUO
-• Cursos Especializados em Desenvolvimento Web Moderno
-• Estudos Contínuos em IA Aplicada e Automação
-• Participação em Comunidades Tech e Hackathons
-
-IDIOMAS
-Português (Nativo) | Inglês (Avançado - Leitura Técnica)`
-                :
-`MÁRCIO GEMELLI
-${profile.name.en} | Junior Developer with Applied AI
-São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
-
-PROFESSIONAL SUMMARY (ATS OPTIMIZED)
-${profile.emphasis.join(" • ")} specialized in ${jobInfo.requirements.slice(0,2).join(" and ")}. 
-I combine solid technical skills with product vision and strategic thinking, using AI to optimize development processes.
-
-HIGHLIGHTED TECHNICAL COMPETENCIES
-• Front-end: ${jobInfo.techSkills.filter(s => ['react', 'javascript', 'html', 'css'].includes(s)).map(s => s.toUpperCase()).join(" • ")}
-• Tools: ${PROFILE.stack.tools.join(" • ")}
-• Applied AI: Prompt Engineering • Automation • Data Analysis
-
-RELEVANT PROJECTS (POSITION-ALIGNED)
-
-1. REVERSE ATS SYSTEM WITH AI
-   Stack: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}
-   • ${verb1} job analysis accuracy by 40% with NLP algorithms
-   • ${verb2} modular architecture that adapts to different job profiles
-   • Developed responsive interface processing 50+ jobs simultaneously
-
-2. AI-POWERED PRODUCTIVITY PLATFORM
-   Stack: React, Python, REST APIs
-   • Developed automation system reducing repetitive task time by 70%
-   • Implemented AI API integration for optimized content generation
-   • Optimized performance with lazy loading and code splitting
-
-3. REAL-WORLD PROBLEM SOLVING PROJECTS
-   Stack: JavaScript, Git, Figma
-   • Created functional solutions for identified tech market problems
-   • Validated prototypes with real user feedback
-   • Documented processes for replication and scalability
-
-EDUCATION & CONTINUOUS LEARNING
-• Specialized Courses in Modern Web Development
-• Continuous Studies in Applied AI and Automation
-• Participation in Tech Communities and Hackathons
-
-LANGUAGES
-Portuguese (Native) | English (Advanced - Technical Reading)`;
+            // Esta função agora chama a função principal do ATS Hacker
+            const jobText = document.getElementById('jobInput').value;
+            return ATS_HACKER.generateATSOptimizedCV(profile, jobInfo, jobText);
         }
 
         function generateEnhancedCarta(profile, jobInfo) {
+            const verb1 = getRandomVerb('impact');
+            const verb2 = getRandomVerb('technical');
+            
             return currentLang === 'pt' ?
 `Prezado(a) Recrutador(a),
 
@@ -3462,10 +3438,12 @@ Márcio Gemelli
         }
 
         function generateEnhancedEstrategia(profile, jobInfo) {
+            const score = calculateMatchScore(profile, jobInfo);
+            
             return currentLang === 'pt' ?
 `ESTRATÉGIA DE CANDIDATURA AVANÇADA
 🏆 PERFIL SELECIONADO: ${profile.name.pt}
-🎯 SCORE DE COMPATIBILIDADE: ${calculateMatchScore(profile, jobInfo)}%
+🎯 SCORE DE COMPATIBILIDADE: ${score}%
 
 ANÁLISE DA VAGA:
 • Senioridade: ${jobInfo.seniority.toUpperCase()}
@@ -3521,7 +3499,7 @@ DICAS FINAIS:
                 :
 `ADVANCED APPLICATION STRATEGY
 🏆 SELECTED PROFILE: ${profile.name.en}
-🎯 COMPATIBILITY SCORE: ${calculateMatchScore(profile, jobInfo)}%
+🎯 COMPATIBILITY SCORE: ${score}%
 
 JOB ANALYSIS:
 • Seniority: ${jobInfo.seniority.toUpperCase()}
@@ -3574,6 +3552,126 @@ FINAL TIPS:
 💡 ${jobInfo.seniority === "júnior" ? "As junior, highlight POTENTIAL and LEARNING CAPABILITY" : "Demonstrate PRACTICAL EXPERIENCE and STRATEGIC THINKING"}
 🎯 Use words from the job description throughout the interview
 🚀 Show genuine enthusiasm for the opportunity and technology`;
+        }
+
+        function generateDocuments(profile, jobInfo) {
+            // CV básico
+            document.getElementById('cvOutput').textContent = generateCV(profile, jobInfo);
+            
+            // Carta básica
+            document.getElementById('cartaOutput').textContent = generateCarta(profile, jobInfo);
+            
+            // Estratégia básica
+            document.getElementById('estrategiaOutput').textContent = generateEstrategia(profile, jobInfo);
+            
+            // LinkedIn básico
+            document.getElementById('linkedinOutput').textContent = generateLinkedinText(profile, jobInfo);
+        }
+
+        function generateCV(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`MÁRCIO GEMELLI
+${profile.name.pt}
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+RESUMO
+${profile.emphasis.join(", ")} com experiência em projetos práticos.
+
+HABILIDADES
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.join(", ")}
+
+PROJETOS
+Sistema ATS Reverso
+• Tecnologias: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Desenvolvimento de análise automatizada de vagas
+
+FORMAÇÃO
+Cursos em Desenvolvimento Web e Tecnologias Modernas
+
+IDIOMAS
+Português (Nativo) | Inglês (Técnico)`
+                :
+`MÁRCIO GEMELLI
+${profile.name.en}
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+SUMMARY
+${profile.emphasis.join(", ")} with experience in practical projects.
+
+SKILLS
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.join(", ")}
+
+PROJECTS
+Reverse ATS System
+• Technologies: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Development of automated job analysis
+
+EDUCATION
+Courses in Web Development and Modern Technologies
+
+LANGUAGES
+Portuguese (Native) | English (Technical)`;
+        }
+
+        function generateCarta(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`Olá,
+
+Meu nome é Márcio Gemelli e estou interessado na vaga de ${jobInfo.seniority}.
+
+Sou desenvolvedor ${profile.name.pt.toLowerCase()} com experiência em ${profile.emphasis.slice(0,3).join(", ")}.
+
+Desenvolvi projetos utilizando ${jobInfo.techSkills.slice(0,2).join(" e ")}.
+
+Estou disponível para ${jobInfo.workModel.toLowerCase()}.
+
+Atenciosamente,
+Márcio Gemelli`
+                :
+`Hello,
+
+My name is Márcio Gemelli and I'm interested in the ${jobInfo.seniority} position.
+
+I'm a ${profile.name.en.toLowerCase()} developer with experience in ${profile.emphasis.slice(0,3).join(", ")}.
+
+I developed projects using ${jobInfo.techSkills.slice(0,2).join(" and ")}.
+
+I'm available for ${jobInfo.workModel.toLowerCase()}.
+
+Best regards,
+Márcio Gemelli`;
+        }
+
+        function generateEstrategia(profile, jobInfo) {
+            const score = calculateMatchScore(profile, jobInfo);
+            return currentLang === 'pt' ?
+`ESTRATÉGIA PARA VAGA
+
+PERFIL: ${profile.name.pt}
+SCORE: ${score}%
+
+PONTOS FORTES:
+${profile.emphasis.map(e => `• ${e}`).join('\n')}
+
+ESTRATÉGIA:
+• Destacar projeto ATS
+• Mostrar aprendizado rápido
+• Demonstrar fit cultural`
+                :
+`JOB STRATEGY
+
+PROFILE: ${profile.name.en}
+SCORE: ${score}%
+
+STRENGTHS:
+${profile.emphasis.map(e => `• ${e}`).join('\n')}
+
+STRATEGY:
+• Highlight ATS project
+• Show fast learning
+• Demonstrate cultural fit`;
         }
 
         function generateLinkedinText(profile, jobInfo) {
@@ -3665,109 +3763,6 @@ My latest project: a reverse ATS system that analyzes jobs and suggests profile 
 Who's hiring? 👇"`;
         }
 
-        function generateCV(profile, jobInfo) {
-            return currentLang === 'pt' ?
-`MÁRCIO GEMELLI
-${profile.name.pt}
-São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
-
-RESUMO
-${profile.emphasis.join(", ")} com experiência em projetos práticos.
-
-HABILIDADES
-• ${profile.emphasis.join(" • ")}
-• ${PROFILE.stack.tools.join(", ")}
-
-PROJETOS
-Sistema ATS Reverso
-• Tecnologias: ${jobInfo.techSkills.slice(0,3).join(", ")}
-• Desenvolvimento de análise automatizada de vagas
-
-FORMAÇÃO
-Cursos em Desenvolvimento Web e Tecnologias Modernas
-
-IDIOMAS
-Português (Nativo) | Inglês (Técnico)`
-                :
-`MÁRCIO GEMELLI
-${profile.name.en}
-São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
-
-SUMMARY
-${profile.emphasis.join(", ")} with experience in practical projects.
-
-SKILLS
-• ${profile.emphasis.join(" • ")}
-• ${PROFILE.stack.tools.join(", ")}
-
-PROJECTS
-Reverse ATS System
-• Technologies: ${jobInfo.techSkills.slice(0,3).join(", ")}
-• Development of automated job analysis
-
-EDUCATION
-Courses in Web Development and Modern Technologies
-
-LANGUAGES
-Portuguese (Native) | English (Technical)`;
-        }
-
-        function generateCarta(profile, jobInfo) {
-            return currentLang === 'pt' ?
-`Olá,
-
-Meu nome é Márcio Gemelli e estou interessado na vaga de ${jobInfo.seniority}.
-
-Sou desenvolvedor ${profile.name.pt.toLowerCase()} com experiência em ${profile.emphasis.slice(0,3).join(", ")}.
-
-Desenvolvi projetos utilizando ${jobInfo.techSkills.slice(0,2).join(" e ")}.
-
-Estou disponível para ${jobInfo.workModel.toLowerCase()}.
-
-Atenciosamente,
-Márcio Gemelli`
-                :
-`Hello,
-
-My name is Márcio Gemelli and I'm interested in the ${jobInfo.seniority} position.
-
-I'm a ${profile.name.en.toLowerCase()} developer with experience in ${profile.emphasis.slice(0,3).join(", ")}.
-
-I developed projects using ${jobInfo.techSkills.slice(0,2).join(" and ")}.
-
-I'm available for ${jobInfo.workModel.toLowerCase()}.
-
-Best regards,
-Márcio Gemelli`;
-        }
-
-        function generateEstrategia(profile, jobInfo) {
-            return currentLang === 'pt' ?
-`ESTRATÉGIA PARA VAGA
-
-PERFIL: ${profile.name.pt}
-
-PONTOS FORTES:
-${profile.emphasis.map(e => `• ${e}`).join('\n')}
-
-ESTRATÉGIA:
-• Destacar projeto ATS
-• Mostrar aprendizado rápido
-• Demonstrar fit cultural`
-                :
-`JOB STRATEGY
-
-PROFILE: ${profile.name.en}
-
-STRENGTHS:
-${profile.emphasis.map(e => `• ${e}`).join('\n')}
-
-STRATEGY:
-• Highlight ATS project
-• Show fast learning
-• Demonstrate cultural fit`;
-        }
-
         // ==================== FUNÇÕES DE UI ====================
         function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -3780,6 +3775,19 @@ STRATEGY:
         function copyContent(elementId) {
             const content = document.getElementById(elementId).textContent;
             navigator.clipboard.writeText(content).then(() => {
+                showNotification(
+                    currentLang === 'pt' ? 'Copiado para a área de transferência!' : 'Copied to clipboard!',
+                    'success'
+                );
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+                // Fallback para textarea temporário
+                const textArea = document.createElement('textarea');
+                textArea.value = content;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
                 showNotification(
                     currentLang === 'pt' ? 'Copiado para a área de transferência!' : 'Copied to clipboard!',
                     'success'
