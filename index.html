@@ -1,0 +1,3397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Pessoal Hacker PRO - Márcio Maker</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --ai-blue: #3b82f6;
+            --ai-purple: #8b5cf6;
+            --learning-color: #8b5cf6;
+            --evolution-color: #06b6d4;
+            --light: #ffffff;
+            --dark: #111827;
+            --gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --border: #e5e7eb;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --ai-blue: #60a5fa;
+            --ai-purple: #a78bfa;
+            --learning-color: #a78bfa;
+            --evolution-color: #22d3ee;
+            --light: #111827;
+            --dark: #f9fafb;
+            --gray: #9ca3af;
+            --light-gray: #1f2937;
+            --border: #374151;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px solid var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: var(--light);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .header .status {
+            color: var(--gray);
+            font-size: 0.9em;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .lang-switch {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+        }
+
+        .lang-btn {
+            background: var(--light);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .lang-btn:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel {
+            background: var(--light);
+            border: 2px solid var(--border);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .panel:hover {
+            box-shadow: 0 8px 12px var(--shadow);
+        }
+
+        .panel-title {
+            color: var(--primary);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            background: linear-gradient(135deg, var(--ai-blue), var(--ai-purple));
+            color: white;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .learning-badge {
+            background: linear-gradient(135deg, var(--learning-color), var(--ai-purple));
+        }
+
+        .api-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            border: 2px dashed var(--border);
+        }
+
+        .api-providers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .api-provider {
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .api-provider:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .api-provider.selected {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .api-provider .name {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .api-provider .limits {
+            font-size: 0.85em;
+            color: var(--gray);
+        }
+
+        .api-input-group {
+            margin: 15px 0;
+        }
+
+        .api-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            margin: 10px 0;
+            background: var(--light);
+            color: var(--dark);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .api-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .api-help {
+            font-size: 0.85em;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .api-help a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .api-help a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-section {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .profile-label {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+
+        .profile-value {
+            color: var(--dark);
+            opacity: 0.9;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 250px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            color: var(--dark);
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            resize: vertical;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            border-radius: 8px;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--light);
+        }
+
+        .btn-ai {
+            background: linear-gradient(135deg, var(--ai-blue), var(--ai-purple));
+            color: white;
+            border: none;
+        }
+
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-learning {
+            background: linear-gradient(135deg, var(--learning-color), var(--ai-purple));
+            color: white;
+            border: none;
+        }
+
+        .btn-learning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            margin: 20px 0;
+            background: var(--light-gray);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-text {
+            color: var(--primary);
+            font-size: 1.2em;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        .spinner {
+            border: 4px solid rgba(37, 99, 235, 0.1);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        .ai-spinner {
+            border-top-color: var(--ai-blue);
+        }
+
+        .learning-spinner {
+            border-top-color: var(--learning-color);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .verdict-panel {
+            padding: 40px;
+            border: 3px solid;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .verdict-panel.aplicar {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .verdict-panel.ajustar {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+        }
+
+        .verdict-panel.rejeitar {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+        }
+
+        .verdict-title {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .verdict-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 4em;
+            font-weight: 800;
+            margin: 20px 0;
+        }
+
+        .score-label {
+            font-size: 1.1em;
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .info-box {
+            background: var(--light-gray);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .info-box h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .info-item {
+            margin: 10px 0;
+            padding-left: 15px;
+            position: relative;
+            color: var(--dark);
+        }
+
+        .info-item:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-size: 0.8em;
+        }
+
+        .profile-card {
+            background: var(--light-gray);
+            border: 2px solid var(--primary);
+            padding: 24px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .profile-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+        }
+
+        .document-output {
+            background: var(--light);
+            border: 2px solid var(--border);
+            padding: 24px;
+            margin-top: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px 5px 5px 0;
+            background: rgba(37, 99, 235, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .tag.critical {
+            border-color: var(--danger);
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .tag.success {
+            border-color: var(--success);
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .tag.warning {
+            border-color: var(--warning);
+            color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .tag.ai {
+            border-color: var(--ai-blue);
+            color: var(--ai-blue);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .tag.learning {
+            border-color: var(--learning-color);
+            color: var(--learning-color);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            color: var(--gray);
+            cursor: pointer;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: var(--primary);
+            color: var(--light);
+            border-color: var(--primary);
+        }
+
+        .tab:hover:not(.active) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .copy-btn {
+            background: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-top: 15px;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .profile-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .profile-option {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .profile-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .profile-option.selected {
+            background: var(--primary);
+            color: var(--light);
+            border-color: var(--primary);
+        }
+
+        .match-score {
+            font-size: 3em;
+            font-weight: 800;
+            color: var(--primary);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--light-gray);
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .ai-enhanced {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--ai-blue);
+            border-radius: 8px;
+        }
+
+        .ai-enhanced h4 {
+            color: var(--ai-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ai-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .ai-feature {
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--ai-blue);
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: var(--ai-blue);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .learning-feature {
+            background: rgba(139, 92, 246, 0.1);
+            border-color: var(--learning-color);
+            color: var(--learning-color);
+        }
+
+        .evolution-chart {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--evolution-color);
+            border-radius: 8px;
+        }
+
+        .chart-container {
+            height: 200px;
+            margin: 20px 0;
+            position: relative;
+            background: var(--light);
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s;
+        }
+
+        .chart-bar:hover {
+            opacity: 0.8;
+        }
+
+        .learning-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--gray);
+        }
+
+        .keyword-trend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .trend-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+
+        .trend-up {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .trend-down {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .trend-stable {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .smart-suggestion {
+            margin: 15px 0;
+            padding: 15px;
+            background: var(--light);
+            border: 2px solid var(--learning-color);
+            border-radius: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background: var(--light);
+            border: 2px solid var(--success);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px var(--shadow);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .notification.warning {
+            border-color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .notification.error {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="lang-switch">
+                <button class="lang-btn" onclick="toggleLanguage()">🌐 EN</button>
+            </div>
+            <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark Mode</button>
+            
+            <h1 id="title">⚡ ATS PESSOAL HACKER PRO ⚡</h1>
+            <div class="status">
+                <span id="statusText">SISTEMA COM APRENDIZADO CONTÍNUO | PERFIL: MÁRCIO MAKER | STATUS: ONLINE</span>
+                <span class="ai-badge learning-badge">🧠 IA + APRENDIZADO</span>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="panel">
+                <div class="panel-title">👤 PERFIL BASE CARREGADO</div>
+                
+                <div class="profile-section">
+                    <div class="profile-label" id="nameLabel">NOME:</div>
+                    <div class="profile-value">Márcio Gemelli</div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-label" id="targetLabel">POSIÇÃO ALVO:</div>
+                    <div class="profile-value">Dev Front-end Jr / Full Stack Jr / Dev Jr + IA</div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-label" id="stackLabel">STACK PRINCIPAL:</div>
+                    <div class="profile-value">JavaScript, React, HTML5, CSS3, Python, Git, APIs REST, Node.js, Figma, IA/Prompts</div>
+                </div>
+
+                <div class="profile-section">
+                    <div class="profile-label" id="profilesLabel">PERFIS DERIVADOS:</div>
+                    <div class="profile-value">
+                        <div class="profile-selector" id="profileSelector">
+                            <!-- Profiles will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-features">
+                    <div class="ai-feature learning-feature">🔍 Extração IA</div>
+                    <div class="ai-feature learning-feature">📊 Análise de Mercado</div>
+                    <div class="ai-feature learning-feature">🧠 Aprendizado Contínuo</div>
+                    <div class="ai-feature learning-feature">🎯 Match Inteligente</div>
+                    <div class="ai-feature learning-feature">📈 Evolução de Keywords</div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title" id="analysisTitle">🎯 ANÁLISE DE VAGA</div>
+                
+                <div class="api-section">
+                    <h4 style="color: var(--primary); margin-bottom: 15px;">🔑 INTEGRAÇÃO COM IA</h4>
+                    
+                    <div class="api-providers" id="apiProviders">
+                        <div class="api-provider selected" onclick="selectApiProvider('openrouter')">
+                            <div class="name">🌐 OpenRouter</div>
+                            <div class="limits">$1.00 grátis | +40 modelos</div>
+                        </div>
+                        <div class="api-provider" onclick="selectApiProvider('deepseek')">
+                            <div class="name">🤖 DeepSeek</div>
+                            <div class="limits">Gratuito | 100M contexto</div>
+                        </div>
+                        <div class="api-provider" onclick="selectApiProvider('gemini')">
+                            <div class="name">✨ Gemini</div>
+                            <div class="limits">Gratuito | 60 req/min</div>
+                        </div>
+                    </div>
+
+                    <div class="api-input-group">
+                        <label for="apiKey" id="apiKeyLabel">Chave API:</label>
+                        <input type="password" id="apiKey" class="api-input" placeholder="Cole sua chave API aqui...">
+                        
+                        <div class="api-help" id="apiHelp">
+                            <strong>🔗 Obtenha sua chave gratuitamente:</strong><br>
+                            • <a href="https://openrouter.ai/keys" target="_blank">OpenRouter.ai/keys</a> - $1.00 grátis, acesso a ChatGPT-4, Claude, Gemini<br>
+                            • <a href="https://platform.deepseek.com/api_keys" target="_blank">DeepSeek.com/api_keys</a> - Totalmente gratuito, 100M contexto<br>
+                            • <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a> - Gemini API gratuita
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 15px; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 6px;">
+                        <small style="color: var(--success);">
+                            💡 <strong>Dica:</strong> Use OpenRouter para acesso a múltiplos modelos ou DeepSeek para uso totalmente gratuito.
+                            As análises com IA são mais precisas e detalhadas.
+                        </small>
+                    </div>
+                </div>
+                
+                <textarea id="jobInput" placeholder="COLE AQUI O LINK OU TEXTO COMPLETO DA VAGA...
+
+📌 COM IA ATIVADA, O SISTEMA VAI:
+• Analisar profundamente o texto
+• Extrair requisitos implícitos
+• Aprender com cada análise
+• Evoluir as recomendações
+• Gerar conteúdo otimizado por IA
+
+💡 Exemplo de vaga para testar:
+'Procuramos desenvolvedor Front-end React Júnior para startup de tecnologia. Requisitos: React, JavaScript, HTML, CSS, Git. Diferencial: conhecimento em IA aplicada.'"></textarea>
+                
+                <div class="btn-group">
+                    <button class="btn btn-ai" onclick="analyzeJobWithAI()" id="analyzeAI">
+                        🧠 ANALISAR COM IA + APRENDIZADO
+                    </button>
+                    <button class="btn btn-secondary" onclick="analyzeJob()" id="analyzeLocal">
+                        ⚡ ANALISAR LOCAL
+                    </button>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-learning" onclick="showLearningDashboard()" id="learningBtn">
+                        📈 VER APRENDIZADO
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadLastJob()" id="loadBtn">
+                        ↻ CARREGAR ÚLTIMA
+                    </button>
+                    <button class="btn btn-secondary" onclick="testAIAnalysis()" id="testBtn">
+                        🧪 TESTE RÁPIDO
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner" id="spinner"></div>
+            <div class="loading-text" id="loadingText">PROCESSANDO VAGA...</div>
+            <div class="loading-text" style="font-size: 0.9em; margin-top: 10px;" id="loadingDetails">
+                > Conectando com IA...<br>
+                > Aprendendo com padrões...<br>
+                > Evoluindo recomendações...<br>
+                > Gerando estratégia personalizada...
+            </div>
+        </div>
+
+        <div class="results" id="results">
+            <div class="verdict-panel" id="verdictPanel">
+                <div class="score-display" id="scoreDisplay">0%</div>
+                <div class="verdict-title" id="verdictTitle"></div>
+                <div class="verdict-subtitle" id="verdictSubtitle"></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                
+                <div class="ai-enhanced" id="aiEnhancedSection" style="display: none;">
+                    <h4>🤖 ANÁLISE APERFEIÇOADA POR IA</h4>
+                    <div id="aiInsights"></div>
+                </div>
+            </div>
+
+            <!-- Dashboard de Aprendizado será injetado aqui pelo JavaScript -->
+            
+            <div class="panel">
+                <div class="panel-title" id="deepAnalysisTitle">🧠 ANÁLISE PROFUNDA DA VAGA</div>
+                <div class="section-grid" id="jobAnalysis"></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title" id="selectedProfileTitle">🎭 PERFIL DERIVADO SELECIONADO</div>
+                <div class="profile-card" id="selectedProfile"></div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title" id="documentsTitle">📋 DOCUMENTOS GERADOS</div>
+                <div class="tab-container">
+                    <div class="tab active" onclick="switchTab('cv')" id="tabCv">CV OTIMIZADO</div>
+                    <div class="tab" onclick="switchTab('carta')" id="tabCarta">CARTA</div>
+                    <div class="tab" onclick="switchTab('estrategia')" id="tabEstrategia">ESTRATÉGIA</div>
+                    <div class="tab" onclick="switchTab('linkedin')" id="tabLinkedin">LINKEDIN</div>
+                </div>
+
+                <div class="tab-content active" id="tab-cv">
+                    <div class="document-output" id="cvOutput"></div>
+                    <div class="export-buttons">
+                        <button class="copy-btn" onclick="copyContent('cvOutput')" id="copyCvBtn">📋 COPIAR CV</button>
+                        <button class="copy-btn btn-secondary" onclick="exportAsTxt('cvOutput', 'curriculo')">📄 EXPORTAR .TXT</button>
+                        <button class="copy-btn btn-secondary" onclick="exportAsMarkdown('cvOutput', 'curriculo')">📝 EXPORTAR .MD</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-carta">
+                    <div class="document-output" id="cartaOutput"></div>
+                    <div class="export-buttons">
+                        <button class="copy-btn" onclick="copyContent('cartaOutput')" id="copyLetterBtn">📋 COPIAR CARTA</button>
+                        <button class="copy-btn btn-secondary" onclick="exportAsTxt('cartaOutput', 'carta_apresentacao')">📄 EXPORTAR .TXT</button>
+                        <button class="copy-btn btn-secondary" onclick="exportAsPDF('cartaOutput', 'carta_apresentacao')">📑 EXPORTAR .PDF</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-estrategia">
+                    <div class="document-output" id="estrategiaOutput"></div>
+                    <div class="export-buttons">
+                        <button class="copy-btn" onclick="copyContent('estrategiaOutput')" id="copyStrategyBtn">📋 COPIAR ESTRATÉGIA</button>
+                        <button class="copy-btn btn-secondary" onclick="exportAsTxt('estrategiaOutput', 'estrategia_entrevista')">📄 EXPORTAR .TXT</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="tab-linkedin">
+                    <div class="document-output" id="linkedinOutput"></div>
+                    <div class="export-buttons">
+                        <button class="copy-btn" onclick="copyContent('linkedinOutput')" id="copyLinkedinBtn">📋 COPIAR TEXTO</button>
+                        <button class="copy-btn btn-secondary" onclick="optimizeLinkedinProfile()">🔧 OTIMIZAR PERFIL</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // ==================== SISTEMA DE APRENDIZADO CONTÍNUO ====================
+        const ATS_LEARNING = {
+            storageKey: 'atsLearningSystem',
+            jobHistory: [],
+            learnedKeywords: {},
+            jobPatterns: {},
+            successRates: {},
+            keywordEvolution: [],
+            
+            init() {
+                const saved = localStorage.getItem(this.storageKey);
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        this.jobHistory = data.jobHistory || [];
+                        this.learnedKeywords = data.learnedKeywords || {};
+                        this.jobPatterns = data.jobPatterns || {};
+                        this.successRates = data.successRates || {};
+                        this.keywordEvolution = data.keywordEvolution || [];
+                    } catch (e) {
+                        console.error('Erro ao carregar dados de aprendizado:', e);
+                    }
+                }
+                return this;
+            },
+            
+            save() {
+                const data = {
+                    jobHistory: this.jobHistory.slice(-100),
+                    learnedKeywords: this.learnedKeywords,
+                    jobPatterns: this.jobPatterns,
+                    successRates: this.successRates,
+                    keywordEvolution: this.keywordEvolution.slice(-50),
+                    lastUpdated: new Date().toISOString()
+                };
+                localStorage.setItem(this.storageKey, JSON.stringify(data));
+            },
+            
+            hashJobText(jobText) {
+                const words = jobText.toLowerCase().match(/\b[a-z]{4,}\b/g) || [];
+                const keywords = [...new Set(words)]
+                    .filter(word => word.length > 3)
+                    .sort()
+                    .slice(0, 15);
+                return keywords.join('|').substring(0, 80);
+            },
+            
+            learnFromAnalysis(jobText, profileKey, optimizations, finalScore, userActions = {}) {
+                const jobHash = this.hashJobText(jobText);
+                const jobType = this.identifyJobType(jobText);
+                const timestamp = new Date().toISOString();
+                
+                // Adicionar ao histórico
+                const analysisRecord = {
+                    id: Date.now(),
+                    jobHash,
+                    profileKey,
+                    jobType,
+                    optimizations: optimizations.missingKeywords?.map(k => k.keyword) || [],
+                    appliedOptimizations: userActions.appliedOptimizations || [],
+                    ignoredOptimizations: userActions.ignoredOptimizations || [],
+                    finalScore,
+                    timestamp,
+                    keywords: this.extractKeywords(jobText)
+                };
+                
+                this.jobHistory.unshift(analysisRecord);
+                
+                // Atualizar aprendizado
+                this.updateKeywordLearning(jobText, finalScore);
+                this.updatePatternLearning(profileKey, optimizations, finalScore);
+                this.updateSuccessRate(jobType, finalScore);
+                this.updateKeywordEvolution(jobText);
+                
+                // Limitar histórico
+                if (this.jobHistory.length > 200) {
+                    this.jobHistory = this.jobHistory.slice(0, 200);
+                }
+                
+                this.save();
+                
+                return {
+                    similarJobs: this.findSimilarJobs(jobHash),
+                    improvementTrend: this.calculateImprovementTrend(profileKey),
+                    smartSuggestions: this.generateSmartSuggestions(),
+                    keywordTrends: this.getKeywordTrends()
+                };
+            },
+            
+            identifyJobType(jobText) {
+                const text = jobText.toLowerCase();
+                const types = [
+                    { type: 'frontend', keywords: ['frontend', 'front-end', 'react', 'vue', 'angular', 'ui', 'interface', 'javascript'] },
+                    { type: 'backend', keywords: ['backend', 'back-end', 'node', 'python', 'java', 'spring', 'api', 'server'] },
+                    { type: 'fullstack', keywords: ['fullstack', 'full-stack', 'end-to-end', 'both frontend backend'] },
+                    { type: 'mobile', keywords: ['mobile', 'react native', 'flutter', 'ios', 'android'] },
+                    { type: 'devops', keywords: ['devops', 'aws', 'docker', 'kubernetes', 'ci/cd', 'infrastructure'] },
+                    { type: 'data', keywords: ['data', 'analytics', 'python', 'sql', 'machine learning', 'analysis'] }
+                ];
+                
+                for (const { type, keywords } of types) {
+                    if (keywords.some(keyword => text.includes(keyword))) {
+                        return type;
+                    }
+                }
+                return 'outros';
+            },
+            
+            extractKeywords(jobText) {
+                const words = jobText.toLowerCase().match(/\b[a-z]{3,}\b/g) || [];
+                const freq = {};
+                words.forEach(word => {
+                    if (word.length > 2) {
+                        freq[word] = (freq[word] || 0) + 1;
+                    }
+                });
+                
+                return Object.entries(freq)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 20)
+                    .map(([word]) => word);
+            },
+            
+            updateKeywordLearning(jobText, score) {
+                const keywords = this.extractKeywords(jobText);
+                const weight = score / 100;
+                
+                keywords.forEach(keyword => {
+                    if (!this.learnedKeywords[keyword]) {
+                        this.learnedKeywords[keyword] = {
+                            count: 1,
+                            totalScore: score,
+                            averageScore: score,
+                            lastSeen: new Date().toISOString(),
+                            trend: 'new'
+                        };
+                    } else {
+                        const data = this.learnedKeywords[keyword];
+                        data.count++;
+                        data.totalScore += score;
+                        data.averageScore = data.totalScore / data.count;
+                        data.lastSeen = new Date().toISOString();
+                        
+                        // Atualizar tendência
+                        if (score > data.averageScore * 1.1) {
+                            data.trend = 'up';
+                        } else if (score < data.averageScore * 0.9) {
+                            data.trend = 'down';
+                        } else {
+                            data.trend = 'stable';
+                        }
+                    }
+                });
+            },
+            
+            updatePatternLearning(profileKey, optimizations, score) {
+                const patternKey = `${profileKey}_${optimizations.missingKeywords?.length || 0}`;
+                
+                if (!this.jobPatterns[patternKey]) {
+                    this.jobPatterns[patternKey] = {
+                        count: 1,
+                        totalScore: score,
+                        successRate: score >= 70 ? 1 : 0,
+                        lastUsed: new Date().toISOString()
+                    };
+                } else {
+                    const pattern = this.jobPatterns[patternKey];
+                    pattern.count++;
+                    pattern.totalScore += score;
+                    pattern.successRate = ((pattern.successRate * (pattern.count - 1)) + (score >= 70 ? 1 : 0)) / pattern.count;
+                    pattern.lastUsed = new Date().toISOString();
+                }
+            },
+            
+            updateSuccessRate(jobType, score) {
+                if (!this.successRates[jobType]) {
+                    this.successRates[jobType] = {
+                        attempts: 1,
+                        successes: score >= 70 ? 1 : 0,
+                        averageScore: score
+                    };
+                } else {
+                    const rate = this.successRates[jobType];
+                    rate.attempts++;
+                    if (score >= 70) rate.successes++;
+                    rate.averageScore = (rate.averageScore * (rate.attempts - 1) + score) / rate.attempts;
+                }
+            },
+            
+            updateKeywordEvolution(jobText) {
+                const keywords = this.extractKeywords(jobText);
+                const timestamp = new Date().toISOString();
+                
+                keywords.forEach(keyword => {
+                    this.keywordEvolution.push({
+                        keyword,
+                        timestamp,
+                        frequency: 1
+                    });
+                });
+                
+                // Manter apenas últimos 1000 registros
+                if (this.keywordEvolution.length > 1000) {
+                    this.keywordEvolution = this.keywordEvolution.slice(-1000);
+                }
+            },
+            
+            findSimilarJobs(jobHash) {
+                return this.jobHistory
+                    .filter(job => job.jobHash === jobHash)
+                    .slice(0, 5);
+            },
+            
+            calculateImprovementTrend(profileKey) {
+                const profileJobs = this.jobHistory.filter(job => job.profileKey === profileKey);
+                if (profileJobs.length < 2) return 'neutral';
+                
+                const recentScore = profileJobs[0]?.finalScore || 0;
+                const oldScore = profileJobs[profileJobs.length - 1]?.finalScore || 0;
+                
+                if (recentScore > oldScore + 10) return 'improving';
+                if (recentScore < oldScore - 10) return 'declining';
+                return 'stable';
+            },
+            
+            generateSmartSuggestions() {
+                const suggestions = [];
+                const topKeywords = Object.entries(this.learnedKeywords)
+                    .sort((a, b) => b[1].count - a[1].count)
+                    .slice(0, 10);
+                
+                // Sugestão 1: Keywords em alta
+                const trendingKeywords = topKeywords
+                    .filter(([_, data]) => data.trend === 'up')
+                    .slice(0, 3);
+                
+                if (trendingKeywords.length > 0) {
+                    suggestions.push({
+                        type: 'trending',
+                        title: 'Keywords em Alta',
+                        description: 'Estas habilidades estão aparecendo mais nas vagas:',
+                        keywords: trendingKeywords.map(([keyword]) => keyword)
+                    });
+                }
+                
+                // Sugestão 2: Padrões de sucesso
+                const successfulPatterns = Object.entries(this.jobPatterns)
+                    .filter(([_, pattern]) => pattern.successRate >= 0.7)
+                    .sort((a, b) => b[1].count - a[1].count)
+                    .slice(0, 3);
+                
+                if (successfulPatterns.length > 0) {
+                    suggestions.push({
+                        type: 'pattern',
+                        title: 'Padrões de Sucesso',
+                        description: 'Estes perfis têm maior taxa de match:',
+                        patterns: successfulPatterns.map(([pattern]) => pattern)
+                    });
+                }
+                
+                return suggestions;
+            },
+            
+            getKeywordTrends() {
+                const trends = {};
+                Object.entries(this.learnedKeywords).forEach(([keyword, data]) => {
+                    if (data.count >= 3) {
+                        trends[keyword] = {
+                            trend: data.trend,
+                            frequency: data.count,
+                            importance: data.averageScore
+                        };
+                    }
+                });
+                return trends;
+            },
+            
+            getStatistics() {
+                return {
+                    totalAnalyses: this.jobHistory.length,
+                    averageScore: this.jobHistory.length > 0 
+                        ? Math.round(this.jobHistory.reduce((sum, job) => sum + job.finalScore, 0) / this.jobHistory.length)
+                        : 0,
+                    mostUsedProfile: this.getMostUsedProfile(),
+                    bestPerformingType: this.getBestPerformingType(),
+                    keywordCount: Object.keys(this.learnedKeywords).length
+                };
+            },
+            
+            getMostUsedProfile() {
+                const profileCount = {};
+                this.jobHistory.forEach(job => {
+                    profileCount[job.profileKey] = (profileCount[job.profileKey] || 0) + 1;
+                });
+                
+                return Object.entries(profileCount)
+                    .sort((a, b) => b[1] - a[1])[0]?.[0] || 'Nenhum';
+            },
+            
+            getBestPerformingType() {
+                let bestType = 'Nenhum';
+                let bestScore = 0;
+                
+                Object.entries(this.successRates).forEach(([type, data]) => {
+                    if (data.averageScore > bestScore) {
+                        bestScore = data.averageScore;
+                        bestType = type;
+                    }
+                });
+                
+                return bestType;
+            }
+        };
+
+        // ==================== SISTEMA ATS HACKER ====================
+        const ATS_HACKER = {
+            prioritizedKeywords: [
+                "react", "javascript", "python", "typescript", "node", "html", "css",
+                "git", "api", "rest", "frontend", "backend", "fullstack", "aws", "docker",
+                "sql", "nosql", "agile", "scrum", "testing", "ci/cd", "devops"
+            ],
+
+            analyzeKeywordDensity(jobText) {
+                const text = jobText.toLowerCase();
+                const words = text.split(/\W+/).filter(w => w.length > 2);
+                const totalWords = words.length;
+                
+                const keywordCounts = {};
+                this.prioritizedKeywords.forEach(keyword => {
+                    const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+                    const matches = text.match(regex);
+                    keywordCounts[keyword] = matches ? matches.length : 0;
+                });
+
+                const density = {};
+                Object.keys(keywordCounts).forEach(keyword => {
+                    if (keywordCounts[keyword] > 0) {
+                        density[keyword] = {
+                            count: keywordCounts[keyword],
+                            percentage: ((keywordCounts[keyword] / totalWords) * 100).toFixed(2),
+                            importance: this.calculateImportance(keywordCounts[keyword], totalWords)
+                        };
+                    }
+                });
+
+                const sortedKeywords = Object.keys(density)
+                    .sort((a, b) => density[b].importance - density[a].importance)
+                    .slice(0, 10);
+
+                return {
+                    density: density,
+                    topKeywords: sortedKeywords,
+                    totalKeywordsFound: Object.keys(density).length
+                };
+            },
+
+            calculateImportance(count, totalWords) {
+                const frequencyScore = (count / totalWords) * 100;
+                const positionBonus = 1.5;
+                return frequencyScore * positionBonus;
+            },
+
+            suggestOptimizations(jobText, profile) {
+                const analysis = this.analyzeKeywordDensity(jobText);
+                const profileSkills = this.extractProfileSkills(profile);
+                
+                const optimizations = {
+                    missingKeywords: [],
+                    weakKeywords: [],
+                    orderingSuggestions: [],
+                    synonymReplacements: []
+                };
+
+                analysis.topKeywords.forEach(keyword => {
+                    if (!this.hasSkillOrSynonym(profileSkills, keyword)) {
+                        optimizations.missingKeywords.push({
+                            keyword,
+                            importance: analysis.density[keyword].importance,
+                            suggestion: `Adicionar "${keyword}" em 2-3 posições estratégicas no CV`
+                        });
+                    }
+                });
+
+                const synonymMap = {
+                    "frontend": ["front-end", "interface", "ui", "client-side"],
+                    "backend": ["back-end", "server-side", "api", "server"],
+                    "javascript": ["js", "ecmascript", "es6"],
+                    "react": ["reactjs", "react.js", "hooks", "redux"],
+                    "python": ["py", "django", "flask"],
+                    "node": ["nodejs", "node.js", "express"],
+                    "api": ["rest api", "graphql", "web services"],
+                    "git": ["github", "gitlab", "version control"]
+                };
+
+                Object.keys(synonymMap).forEach(original => {
+                    if (analysis.density[original] && this.hasSkillOrSynonym(profileSkills, original)) {
+                        optimizations.synonymReplacements.push({
+                            original,
+                            synonyms: synonymMap[original],
+                            reason: "Use o termo exato da vaga para melhor score ATS"
+                        });
+                    }
+                });
+
+                return optimizations;
+            },
+
+            extractProfileSkills(profile) {
+                const skills = [];
+                
+                if (PROFILE.stack) {
+                    skills.push(...PROFILE.stack.languages);
+                    skills.push(...PROFILE.stack.frameworks);
+                    skills.push(...PROFILE.stack.tools);
+                    if (PROFILE.stack.special) {
+                        skills.push(...PROFILE.stack.special);
+                    }
+                }
+                
+                if (profile.emphasis) {
+                    skills.push(...profile.emphasis);
+                }
+                
+                if (profile.aiKeywords) {
+                    skills.push(...profile.aiKeywords);
+                }
+
+                return [...new Set(skills.map(s => s.toLowerCase()))];
+            },
+
+            hasSkillOrSynonym(profileSkills, keyword) {
+                const synonymGroups = [
+                    ["react", "reactjs", "hooks", "redux"],
+                    ["javascript", "js", "ecmascript"],
+                    ["python", "py", "django"],
+                    ["git", "github", "version control"],
+                    ["api", "rest", "web services"],
+                    ["frontend", "front-end", "ui"],
+                    ["backend", "back-end", "server"]
+                ];
+
+                if (profileSkills.includes(keyword.toLowerCase())) return true;
+
+                for (const group of synonymGroups) {
+                    if (group.includes(keyword.toLowerCase())) {
+                        return group.some(syn => profileSkills.includes(syn));
+                    }
+                }
+
+                return false;
+            },
+
+            generateATSOptimizedCV(profile, jobInfo, jobText) {
+                const analysis = this.analyzeKeywordDensity(jobText);
+                const optimizations = this.suggestOptimizations(jobText, profile);
+                const orderedSkills = this.orderSkillsByImportance(profile, analysis);
+                
+                return this.buildATSCVContent(profile, jobInfo, orderedSkills, optimizations, analysis);
+            },
+
+            orderSkillsByImportance(profile, analysis) {
+                const profileSkills = this.extractProfileSkills(profile);
+                
+                const weightedSkills = profileSkills.map(skill => {
+                    let weight = 0;
+                    
+                    Object.keys(analysis.density).forEach(keyword => {
+                        if (skill.includes(keyword) || keyword.includes(skill)) {
+                            weight += analysis.density[keyword].importance;
+                        }
+                    });
+
+                    const technicalKeywords = this.prioritizedKeywords;
+                    if (technicalKeywords.some(k => skill.includes(k))) {
+                        weight += 10;
+                    }
+
+                    return { skill, weight };
+                });
+
+                return weightedSkills
+                    .sort((a, b) => b.weight - a.weight)
+                    .map(item => item.skill)
+                    .slice(0, 15);
+            },
+
+            buildATSCVContent(profile, jobInfo, orderedSkills, optimizations, analysis) {
+                const verb1 = getRandomVerb('impact');
+                const verb2 = getRandomVerb('technical');
+                
+                const missingKeywordsSection = optimizations.missingKeywords.length > 0 
+                    ? `\nPONTOS DE MELHORIA IDENTIFICADOS:\n${optimizations.missingKeywords.map(m => `• ${m.keyword}: ${m.suggestion}`).join('\n')}`
+                    : '';
+                
+                return currentLang === 'pt' ?
+`MÁRCIO GEMELLI
+${profile.name.pt} | Desenvolvedor Júnior
+📍 São Paulo, SP | 📧 marcio@email.com | 📱 (11) 99999-9999
+🔗 GitHub: github.com/marciomaker | 🔗 LinkedIn: linkedin.com/in/marciogemelli
+
+🔍 RESUMO PROFISSIONAL OTIMIZADO PARA ATS:
+Desenvolvedor ${profile.name.pt.toLowerCase()} especializado em ${orderedSkills.slice(0, 3).join(", ")}. 
+${verb1} eficiência em processos de desenvolvimento através de ${jobInfo.techSkills.slice(0,2).join(" e ")} e IA aplicada. 
+${verb2} soluções escaláveis com foco em ${jobInfo.culture[0] || "qualidade e performance"}.
+
+🎯 COMPETÊNCIAS TÉCNICAS (ORDENADAS POR RELEVÂNCIA):
+${orderedSkills.map((skill, i) => `${i + 1}. ${skill.toUpperCase()}`).join("\n")}
+
+🚀 EXPERIÊNCIA RELEVANTE:
+
+1. SISTEMA ATS REVERSO COM IA
+Tecnologias: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}, Python, APIs REST
+• ${verb1} precisão de análise de match entre candidatos e vagas em 40%
+• Implementei algoritmos de NLP para extração de keywords de descrições de vagas
+• Desenvolvi sistema de scoring que considera peso relativo de cada competência
+• Otimizei interface para processamento de 50+ vagas simultaneamente
+
+2. PLATAFORMA DE AUTOMAÇÃO DE FLUXOS COM IA
+Tecnologias: React, Node.js, Express, PostgreSQL
+• Automatizei processos manuais, reduzindo tempo de tasks em 70%
+• Integrei APIs de IA (OpenAI, Claude) para geração de conteúdo contextualizado
+• Implementei sistema de logging e métricas para acompanhamento de performance
+• Garanti compatibilidade com principais sistemas ATS do mercado
+
+3. PROJETOS DE RESOLUÇÃO DE PROBLEMAS REAIS
+Tecnologias: JavaScript, Git, Figma, APIs REST
+• Identifiquei gaps no mercado de recrutamento tech e desenvolvi soluções práticas
+• Validei protótipos com feedback de usuários reais da área de tech recruiting
+• Documentei processos e resultados para escalabilidade e replicação
+• Mantive código limpo e documentado seguindo boas práticas de desenvolvimento
+
+📊 OTIMIZAÇÃO ATS APLICADA:
+• Densidade de keywords otimizada para "${analysis.topKeywords[0] || 'react'}" (${analysis.density[analysis.topKeywords[0]]?.percentage || '2.5'}% de presença)
+• Estrutura linear compatível com 98% dos sistemas ATS
+• Seções ordenadas por relevância para a vaga específica
+• Sinônimos normalizados para termos da vaga
+
+🎓 FORMAÇÃO E CERTIFICAÇÕES:
+• Cursos Especializados em Desenvolvimento Web Moderno - 2024
+• Bootcamp Full Stack Developer - 2023
+• Certificação em React e Ecossistema JavaScript - 2023
+• Estudos Contínuos em IA Aplicada e Automação de Processos
+
+💬 IDIOMAS:
+• Português: Nativo
+• Inglês: Avançado (Leitura Técnica, Conversação Intermediária)
+
+🔧 FERRAMENTAS E TECNOLOGIAS:
+${orderedSkills.slice(0, 10).join(" • ")}
+${missingKeywordsSection}
+
+⚠️ RECOMENDAÇÕES DO SISTEMA ATS HACKER:
+1. Incluir termos exatos da vaga 2-3 vezes em posições estratégicas
+2. Manter estrutura de uma coluna para máxima compatibilidade
+3. Priorizar hard skills no topo do documento
+4. Usar verbos de ação quantificáveis em todas as descrições
+5. Evitar tabelas, gráficos ou formatação complexa`
+                    :
+`MÁRCIO GEMELLI
+${profile.name.en} | Junior Developer
+📍 São Paulo, SP | 📧 marcio@email.com | 📱 +55 11 99999-9999
+🔗 GitHub: github.com/marciomaker | 🔗 LinkedIn: linkedin.com/in/marciogemelli
+
+🔍 ATS-OPTIMIZED PROFESSIONAL SUMMARY:
+${profile.name.en.toLowerCase()} developer specialized in ${orderedSkills.slice(0, 3).join(", ")}. 
+${verb1} development process efficiency through ${jobInfo.techSkills.slice(0,2).join(" and ")} and applied AI. 
+${verb2} scalable solutions focused on ${jobInfo.culture[0] || "quality and performance"}.
+
+🎯 TECHNICAL COMPETENCIES (RELEVANCE-ORDERED):
+${orderedSkills.map((skill, i) => `${i + 1}. ${skill.toUpperCase()}`).join("\n")}
+
+🚀 RELEVANT EXPERIENCE:
+
+1. REVERSE ATS SYSTEM WITH AI
+Technologies: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}, Python, REST APIs
+• ${verb1} candidate-job match analysis accuracy by 40%
+• Implemented NLP algorithms for keyword extraction from job descriptions
+• Developed scoring system considering relative weight of each competency
+• Optimized interface for processing 50+ jobs simultaneously
+
+2. WORKFLOW AUTOMATION PLATFORM WITH AI
+Technologies: React, Node.js, Express, PostgreSQL
+• Automated manual processes, reducing task time by 70%
+• Integrated AI APIs (OpenAI, Claude) for contextual content generation
+• Implemented logging and metrics system for performance tracking
+• Ensured compatibility with major market ATS systems
+
+3. REAL-WORLD PROBLEM SOLVING PROJECTS
+Technologies: JavaScript, Git, Figma, REST APIs
+• Identified gaps in tech recruitment market and developed practical solutions
+• Validated prototypes with feedback from real tech recruiting users
+• Documented processes and results for scalability and replication
+• Maintained clean, documented code following development best practices
+
+📊 APPLIED ATS OPTIMIZATION:
+• Keyword density optimized for "${analysis.topKeywords[0] || 'react'}" (${analysis.density[analysis.topKeywords[0]]?.percentage || '2.5'}% presence)
+• Linear structure compatible with 98% of ATS systems
+• Sections ordered by relevance to specific job
+• Synonyms normalized to job posting terms
+
+🎓 EDUCATION & CERTIFICATIONS:
+• Specialized Courses in Modern Web Development - 2024
+• Full Stack Developer Bootcamp - 2023
+• React and JavaScript Ecosystem Certification - 2023
+• Continuous Studies in Applied AI and Process Automation
+
+💬 LANGUAGES:
+• Portuguese: Native
+• English: Advanced (Technical Reading, Intermediate Conversation)
+
+🔧 TOOLS & TECHNOLOGIES:
+${orderedSkills.slice(0, 10).join(" • ")}
+${missingKeywordsSection}
+
+⚠️ ATS HACKER SYSTEM RECOMMENDATIONS:
+1. Include exact job terms 2-3 times in strategic positions
+2. Maintain single-column structure for maximum compatibility
+3. Prioritize hard skills at the top of the document
+4. Use quantifiable action verbs in all descriptions
+5. Avoid tables, charts, or complex formatting`;
+            },
+
+            generateOptimizationDashboard(jobText, profile, jobInfo) {
+                const analysis = this.analyzeKeywordDensity(jobText);
+                const optimizations = this.suggestOptimizations(jobText, profile);
+                const matchScore = calculateMatchScore(profile, jobInfo);
+                
+                return {
+                    analysis,
+                    optimizations,
+                    matchScore,
+                    atsScore: this.calculateATSScore(profile, jobText),
+                    recommendations: this.generateRecommendations(optimizations, matchScore)
+                };
+            },
+
+            calculateATSScore(profile, jobText) {
+                const analysis = this.analyzeKeywordDensity(jobText);
+                const profileSkills = this.extractProfileSkills(profile);
+                
+                let score = 50;
+                let matchedKeywords = 0;
+                
+                analysis.topKeywords.forEach(keyword => {
+                    if (this.hasSkillOrSynonym(profileSkills, keyword)) {
+                        matchedKeywords++;
+                    }
+                });
+                
+                score += (matchedKeywords / analysis.topKeywords.length) * 30;
+                
+                if (analysis.totalKeywordsFound >= 5) score += 10;
+                if (analysis.totalKeywordsFound >= 10) score += 10;
+                
+                return Math.min(100, Math.round(score));
+            },
+
+            generateRecommendations(optimizations, matchScore) {
+                const recommendations = [];
+                
+                if (optimizations.missingKeywords.length > 0) {
+                    recommendations.push({
+                        priority: "high",
+                        title: "Adicionar Keywords Faltantes",
+                        description: `Adicione estas ${optimizations.missingKeywords.length} keywords para aumentar seu score ATS:`,
+                        keywords: optimizations.missingKeywords.map(m => m.keyword)
+                    });
+                }
+                
+                if (matchScore < 70) {
+                    recommendations.push({
+                        priority: "medium",
+                        title: "Aumentar Densidade de Keywords",
+                        description: "Mencione as principais skills 2-3 vezes em diferentes seções do CV"
+                    });
+                }
+                
+                if (optimizations.synonymReplacements.length > 0) {
+                    recommendations.push({
+                        priority: "low",
+                        title: "Normalizar Terminologia",
+                        description: "Use os mesmos termos exatos da vaga para melhor parsing"
+                    });
+                }
+                
+                return recommendations;
+            }
+        };
+
+        // ==================== VARIÁVEIS GLOBAIS ====================
+        let currentLang = 'pt';
+        let selectedApiProvider = 'openrouter';
+        let aiEnhancedAnalysis = false;
+        let selectedProfileKey = 'frontend-react';
+        
+        // Inicializar sistema de aprendizado
+        const learningSystem = ATS_LEARNING.init();
+
+        // ==================== TRADUÇÕES ====================
+        const translations = {
+            pt: {
+                title: "⚡ ATS PESSOAL HACKER PRO ⚡",
+                status: "SISTEMA COM APRENDIZADO CONTÍNUO | PERFIL: MÁRCIO MAKER | STATUS: ONLINE",
+                nameLabel: "NOME:",
+                targetLabel: "POSIÇÃO ALVO:",
+                stackLabel: "STACK PRINCIPAL:",
+                profilesLabel: "PERFIS DERIVADOS:",
+                analysisTitle: "🎯 ANÁLISE DE VAGA",
+                apiKeyLabel: "Chave API:",
+                apiHelp: `<strong>🔗 Obtenha sua chave gratuitamente:</strong><br>
+                         • <a href="https://openrouter.ai/keys" target="_blank">OpenRouter.ai/keys</a> - $1.00 grátis, acesso a ChatGPT-4, Claude, Gemini<br>
+                         • <a href="https://platform.deepseek.com/api_keys" target="_blank">DeepSeek.com/api_keys</a> - Totalmente gratuito, 100M contexto<br>
+                         • <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a> - Gemini API gratuita`,
+                analyzeAI: "🧠 ANALISAR COM IA + APRENDIZADO",
+                analyzeLocal: "⚡ ANALISAR LOCAL",
+                learningBtn: "📈 VER APRENDIZADO",
+                loadBtn: "↻ CARREGAR ÚLTIMA",
+                testBtn: "🧪 TESTE RÁPIDO",
+                loadingText: "PROCESSANDO VAGA...",
+                loadingDetails: "> Conectando com IA...<br>> Aprendendo com padrões...<br>> Evoluindo recomendações...<br>> Gerando estratégia personalizada...",
+                deepAnalysisTitle: "🧠 ANÁLISE PROFUNDA DA VAGA",
+                selectedProfileTitle: "🎭 PERFIL DERIVADO SELECIONADO",
+                documentsTitle: "📋 DOCUMENTOS GERADOS",
+                tabCv: "CV OTIMIZADO",
+                tabCarta: "CARTA",
+                tabEstrategia: "ESTRATÉGIA",
+                tabLinkedin: "LINKEDIN",
+                copyCvBtn: "📋 COPIAR CV",
+                copyLetterBtn: "📋 COPIAR CARTA",
+                copyStrategyBtn: "📋 COPIAR ESTRATÉGIA",
+                copyLinkedinBtn: "📋 COPIAR TEXTO"
+            },
+            en: {
+                title: "⚡ PERSONAL ATS HACKER PRO ⚡",
+                status: "CONTINUOUS LEARNING SYSTEM | PROFILE: MÁRCIO MAKER | STATUS: ONLINE",
+                nameLabel: "NAME:",
+                targetLabel: "TARGET POSITION:",
+                stackLabel: "MAIN STACK:",
+                profilesLabel: "DERIVED PROFILES:",
+                analysisTitle: "🎯 JOB ANALYSIS",
+                apiKeyLabel: "API Key:",
+                apiHelp: `<strong>🔗 Get your free API key:</strong><br>
+                         • <a href="https://openrouter.ai/keys" target="_blank">OpenRouter.ai/keys</a> - $1.00 free, access to ChatGPT-4, Claude, Gemini<br>
+                         • <a href="https://platform.deepseek.com/api_keys" target="_blank">DeepSeek.com/api_keys</a> - Completely free, 100M context<br>
+                         • <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a> - Free Gemini API`,
+                analyzeAI: "🧠 ANALYZE WITH AI + LEARNING",
+                analyzeLocal: "⚡ ANALYZE LOCALLY",
+                learningBtn: "📈 VIEW LEARNING",
+                loadBtn: "↻ LOAD LAST",
+                testBtn: "🧪 QUICK TEST",
+                loadingText: "PROCESSING JOB...",
+                loadingDetails: "> Connecting with AI...<br>> Learning from patterns...<br>> Evolving recommendations...<br>> Generating personalized strategy...",
+                deepAnalysisTitle: "🧠 DEEP JOB ANALYSIS",
+                selectedProfileTitle: "🎭 SELECTED DERIVED PROFILE",
+                documentsTitle: "📋 GENERATED DOCUMENTS",
+                tabCv: "OPTIMIZED CV",
+                tabCarta: "COVER LETTER",
+                tabEstrategia: "STRATEGY",
+                tabLinkedin: "LINKEDIN",
+                copyCvBtn: "📋 COPY CV",
+                copyLetterBtn: "📋 COPY LETTER",
+                copyStrategyBtn: "📋 COPY STRATEGY",
+                copyLinkedinBtn: "📋 COPY TEXT"
+            }
+        };
+
+        // ==================== API PROVIDERS ====================
+        const API_PROVIDERS = {
+            openrouter: {
+                name: "OpenRouter",
+                endpoint: "https://openrouter.ai/api/v1/chat/completions",
+                freeCredits: "$1.00 grátis",
+                models: ["gpt-3.5-turbo", "gpt-4", "claude-3-haiku", "gemini-pro"],
+                headers: (apiKey) => ({
+                    "Authorization": `Bearer ${apiKey}`,
+                    "HTTP-Referer": window.location.origin,
+                    "X-Title": "ATS Pessoal Hacker"
+                })
+            },
+            deepseek: {
+                name: "DeepSeek",
+                endpoint: "https://api.deepseek.com/chat/completions",
+                freeCredits: "Totalmente gratuito",
+                models: ["deepseek-chat"],
+                headers: (apiKey) => ({
+                    "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json"
+                })
+            },
+            gemini: {
+                name: "Gemini",
+                endpoint: "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent",
+                freeCredits: "60 req/min grátis",
+                models: ["gemini-pro"],
+                headers: (apiKey) => ({
+                    "Content-Type": "application/json"
+                })
+            }
+        };
+
+        // ==================== PERFIS DERIVADOS ====================
+        const DERIVED_PROFILES = {
+            "frontend-ui": {
+                name: { pt: "Front-end UI/UX Focus", en: "Front-end UI/UX Focus" },
+                when: { pt: "vagas React, Front-end, UI Engineer", en: "React, Front-end, UI Engineer positions" },
+                emphasis: ["React", "CSS", "Responsividade", "Figma", "UX"],
+                hide: ["Python", "Back-end pesado"],
+                description: { pt: "Foco em interfaces e experiência do usuário", en: "Focus on interfaces and user experience" },
+                aiKeywords: ["UI Design", "User Experience", "Prototyping", "Design Systems", "Accessibility"]
+            },
+            "frontend-react": {
+                name: { pt: "Front-end React Puro", en: "Pure React Front-end" },
+                when: { pt: "vagas React clássicas", en: "classic React positions" },
+                emphasis: ["Componentização", "Hooks", "Consumo API", "Performance"],
+                hide: ["Design avançado", "Produto"],
+                description: { pt: "React puro com foco técnico", en: "Pure React with technical focus" },
+                aiKeywords: ["React Hooks", "State Management", "Performance Optimization", "Code Splitting", "Testing"]
+            },
+            "fullstack-jr": {
+                name: { pt: "Full Stack Júnior", en: "Junior Full Stack" },
+                when: { pt: "vagas generalistas", en: "generalist positions" },
+                emphasis: ["Front + Back", "Node", "APIs REST", "Fluxo completo"],
+                hide: ["Especialização profunda"],
+                description: { pt: "Desenvolvimento completo do projeto", en: "Complete project development" },
+                aiKeywords: ["Full Stack", "API Development", "Database Design", "DevOps Basics", "System Architecture"]
+            },
+            "dev-ia": {
+                name: { pt: "Dev Júnior com IA Aplicada", en: "Junior Dev with Applied AI" },
+                when: { pt: "vagas com buzzwords IA/automação", en: "positions with AI/automation buzzwords" },
+                emphasis: ["Prompt engineering", "IA produtividade", "Integração IA"],
+                hide: ["Design UI"],
+                description: { pt: "IA como ferramenta de produtividade", en: "AI as productivity tool" },
+                aiKeywords: ["AI Integration", "Prompt Engineering", "Automation", "ML Basics", "Data Processing"]
+            },
+            "dev-produto": {
+                name: { pt: "Dev Produto (Product-Minded)", en: "Product Developer" },
+                when: { pt: "startups", en: "startups" },
+                emphasis: ["Resolver problemas", "Pensar como usuário", "Iteração rápida"],
+                hide: ["Linguagem acadêmica"],
+                description: { pt: "Foco em resolver problemas do usuário", en: "Focus on solving user problems" },
+                aiKeywords: ["Product Thinking", "User Research", "MVP Development", "Metrics", "Business Value"]
+            }
+        };
+
+        // ==================== PERFIL BASE ====================
+        const PROFILE = {
+            nome: "Márcio Gemelli",
+            cargo: "Desenvolvedor Front-end Júnior",
+            stack: {
+                languages: ["JavaScript", "HTML5", "CSS3", "Python"],
+                frameworks: ["React"],
+                tools: ["Git", "GitHub", "Figma", "APIs REST", "Node.js"],
+                special: ["Prompt Engineering", "IA Aplicada"]
+            },
+            experience: "Projetos próprios, protótipos funcionais, foco em resolver problemas reais",
+            diferencial: "Visão de produto + Pensamento estratégico + IA como ferramenta",
+            softSkills: ["Pensamento analítico", "Aprendizado rápido", "Visão de usuário final"],
+            preferences: {
+                work: "Remoto (preferencial), aceita híbrido",
+                company: "Startups, empresas tech, ambientes de aprendizado"
+            }
+        };
+
+        // ==================== FUNÇÕES UTILITÁRIAS ====================
+        function getRandomVerb(category) {
+            const POWER_VERBS = {
+                technical: ["Otimizei", "Estruturei", "Implementei", "Desenvolvi", "Automatizei", "Refatorei", "Integrei"],
+                product: ["Identifiquei", "Projetei", "Validei", "Priorizei", "Solucionei"],
+                impact: ["Reduzi", "Aumentei", "Acelerei", "Simplifiquei", "Escalei"],
+                leadership: ["Coordenei", "Orientei", "Colaborei", "Conduzi"]
+            };
+            
+            const verbs = POWER_VERBS[category] || POWER_VERBS.technical;
+            return verbs[Math.floor(Math.random() * verbs.length)];
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==================== FUNÇÕES PRINCIPAIS ====================
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const toggleBtn = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('dark-mode')) {
+                toggleBtn.textContent = '☀️ Light Mode';
+            } else {
+                toggleBtn.textContent = '🌙 Dark Mode';
+            }
+            localStorage.setItem('atsTheme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'pt' ? 'en' : 'pt';
+            updateLanguage();
+            localStorage.setItem('atsLanguage', currentLang);
+        }
+
+        function updateLanguage() {
+            Object.keys(translations[currentLang]).forEach(key => {
+                const elements = document.querySelectorAll(`[id="${key}"]`);
+                elements.forEach(el => {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = translations[currentLang][key];
+                    } else {
+                        el.innerHTML = translations[currentLang][key];
+                    }
+                });
+            });
+            updateProfileSelector();
+        }
+
+        function selectApiProvider(provider) {
+            selectedApiProvider = provider;
+            document.querySelectorAll('.api-provider').forEach(el => {
+                el.classList.remove('selected');
+            });
+            event.target.closest('.api-provider').classList.add('selected');
+            
+            const helpTexts = {
+                openrouter: `<strong>🎯 OpenRouter (Recomendado)</strong><br>
+                           • <a href="https://openrouter.ai/keys" target="_blank">Obter chave</a> - $1.00 grátis<br>
+                           • Acesso a ChatGPT-4, Claude, Gemini, Llama<br>
+                           • Melhor custo-benefício`,
+                deepseek: `<strong>🤖 DeepSeek (Totalmente Grátis)</strong><br>
+                          • <a href="https://platform.deepseek.com/api_keys" target="_blank">Obter chave</a><br>
+                          • 100% gratuito, sem cartão de crédito<br>
+                          • 128K contexto, excelente para análise`,
+                gemini: `<strong>✨ Google Gemini (Gratuito)</strong><br>
+                        • <a href="https://makersuite.google.com/app/apikey" target="_blank">Obter chave</a><br>
+                        • 60 requisições por minuto grátis<br>
+                        • Integração nativa com Google AI`
+            };
+            
+            document.getElementById('apiHelp').innerHTML = helpTexts[provider];
+            localStorage.setItem('selectedApiProvider', provider);
+        }
+
+        function initialize() {
+            // Tema
+            const savedTheme = localStorage.getItem('atsTheme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.querySelector('.theme-toggle').textContent = '☀️ Light Mode';
+            }
+
+            // Idioma
+            const savedLang = localStorage.getItem('atsLanguage') || 'pt';
+            currentLang = savedLang;
+            updateLanguage();
+
+            // API Provider
+            const savedProvider = localStorage.getItem('selectedApiProvider') || 'openrouter';
+            selectApiProvider(savedProvider);
+
+            // Chave API
+            const savedApiKey = localStorage.getItem('apiKey');
+            if (savedApiKey) {
+                document.getElementById('apiKey').value = savedApiKey;
+            }
+
+            // Botão carregar última
+            if (localStorage.getItem('lastJob')) {
+                document.getElementById('loadBtn').style.display = 'inline-block';
+            }
+
+            // Atualizar interface
+            updateProfileSelector();
+            
+            // Mostrar estatísticas iniciais
+            setTimeout(() => {
+                const stats = learningSystem.getStatistics();
+                if (stats.totalAnalyses > 0) {
+                    showNotification(`Sistema carregado com ${stats.totalAnalyses} análises aprendidas!`, 'success');
+                }
+            }, 1000);
+        }
+
+        function updateProfileSelector() {
+            const selector = document.getElementById('profileSelector');
+            selector.innerHTML = '';
+            
+            Object.keys(DERIVED_PROFILES).forEach(key => {
+                const profile = DERIVED_PROFILES[key];
+                const div = document.createElement('div');
+                div.className = 'profile-option';
+                div.textContent = profile.name[currentLang];
+                div.onclick = () => selectProfile(key);
+                selector.appendChild(div);
+            });
+            
+            document.querySelector('.profile-option').classList.add('selected');
+        }
+
+        function selectProfile(key) {
+            selectedProfileKey = key;
+            const options = document.querySelectorAll('.profile-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            event.target.classList.add('selected');
+        }
+
+        // ==================== ANÁLISE COM IA ====================
+        async function analyzeJobWithAI() {
+            const jobInput = document.getElementById('jobInput').value.trim();
+            const apiKey = document.getElementById('apiKey').value.trim();
+            
+            if (!jobInput) {
+                alert(currentLang === 'pt' ? 'Cole a vaga primeiro!' : 'Paste the job first!');
+                return;
+            }
+
+            if (!apiKey) {
+                const useLocal = confirm(currentLang === 'pt' 
+                    ? 'Chave API não informada. Deseja usar análise local?\n\nPara usar IA, obtenha uma chave gratuita nos links acima.'
+                    : 'API key not provided. Use local analysis?\n\nTo use AI, get a free key from the links above.');
+                
+                if (useLocal) {
+                    analyzeJob();
+                }
+                return;
+            }
+
+            localStorage.setItem('apiKey', apiKey);
+            localStorage.setItem('lastJob', jobInput);
+
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            const spinner = document.getElementById('spinner');
+            
+            loading.classList.add('active');
+            spinner.classList.add('learning-spinner');
+            results.style.display = 'none';
+
+            try {
+                const jobInfo = await callAIForAnalysis(jobInput, apiKey);
+                const selectedProfile = DERIVED_PROFILES[selectedProfileKey];
+                const score = calculateMatchScore(selectedProfile, jobInfo);
+                
+                // Sistema de aprendizado
+                const optimizations = ATS_HACKER.suggestOptimizations(jobInput, selectedProfile);
+                const learningResult = learningSystem.learnFromAnalysis(
+                    jobInput, 
+                    selectedProfileKey, 
+                    optimizations, 
+                    score
+                );
+                
+                aiEnhancedAnalysis = true;
+                displayAIEnhancedResults(selectedProfile, jobInfo, score, learningResult);
+                
+                results.style.display = 'block';
+                results.scrollIntoView({ behavior: 'smooth' });
+                
+                showNotification(
+                    currentLang === 'pt' 
+                        ? 'Análise completa! Sistema aprendeu com esta vaga.' 
+                        : 'Analysis complete! System learned from this job.',
+                    'success'
+                );
+                
+            } catch (error) {
+                console.error('AI Analysis Error:', error);
+                showNotification(
+                    currentLang === 'pt' 
+                        ? `Erro na análise com IA. Usando análise local...` 
+                        : `AI Analysis Error. Using local analysis...`,
+                    'error'
+                );
+                
+                analyzeJob();
+            } finally {
+                loading.classList.remove('active');
+                spinner.classList.remove('learning-spinner');
+            }
+        }
+
+        async function callAIForAnalysis(jobText, apiKey) {
+            const provider = API_PROVIDERS[selectedApiProvider];
+            const userProfile = JSON.stringify(PROFILE, null, 2);
+            const derivedProfiles = JSON.stringify(DERIVED_PROFILES, null, 2);
+
+            const prompt = currentLang === 'pt' ? 
+                `Analise esta vaga de emprego e retorne um JSON estruturado:
+
+VAGA: "${jobText.substring(0, 2000)}"
+
+PERFIL DO CANDIDATO: ${userProfile}
+
+PERFIS DISPONÍVEIS: ${derivedProfiles}
+
+Retorne APENAS JSON válido com esta estrutura:
+{
+  "techSkills": ["skill1", "skill2", ...],
+  "seniority": "júnior|pleno|sênior",
+  "workModel": "Remoto|Híbrido|Presencial",
+  "salary": "valor ou Não informado",
+  "redFlags": ["flag1", "flag2", ...],
+  "culture": ["aspecto1", "aspecto2", ...],
+  "experienceYears": número,
+  "requirements": ["req1", "req2", ...],
+  "aiInsights": "análise detalhada em 2-3 frases",
+  "marketTrend": "tendência de mercado relevante",
+  "competitionLevel": "baixo|médio|alto",
+  "recommendedProfile": "chave do perfil recomendado",
+  "matchReason": "razão para o match"
+}` 
+                :
+                `Analyze this job posting and return structured JSON:
+
+JOB: "${jobText.substring(0, 2000)}"
+
+CANDIDATE PROFILE: ${userProfile}
+
+AVAILABLE PROFILES: ${derivedProfiles}
+
+Return ONLY valid JSON with this structure:
+{
+  "techSkills": ["skill1", "skill2", ...],
+  "seniority": "junior|mid|senior",
+  "workModel": "Remote|Hybrid|Onsite",
+  "salary": "value or Not informed",
+  "redFlags": ["flag1", "flag2", ...],
+  "culture": ["aspect1", "aspect2", ...],
+  "experienceYears": number,
+  "requirements": ["req1", "req2", ...],
+  "aiInsights": "detailed analysis in 2-3 sentences",
+  "marketTrend": "relevant market trend",
+  "competitionLevel": "low|medium|high",
+  "recommendedProfile": "key of recommended profile",
+  "matchReason": "reason for the match"
+}`;
+
+            let requestBody;
+            
+            if (selectedApiProvider === 'gemini') {
+                requestBody = {
+                    contents: [{
+                        parts: [{
+                            text: prompt
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.1,
+                        maxOutputTokens: 2000
+                    }
+                };
+            } else {
+                requestBody = {
+                    model: provider.models[0],
+                    messages: [
+                        { role: "system", content: currentLang === 'pt' 
+                            ? "Você é um analista de recrutamento especializado em tecnologia. Retorne APENAS JSON válido." 
+                            : "You are a tech recruitment analyst. Return ONLY valid JSON." },
+                        { role: "user", content: prompt }
+                    ],
+                    temperature: 0.1,
+                    max_tokens: 2000
+                };
+            }
+
+            let endpoint = provider.endpoint;
+            if (selectedApiProvider === 'gemini') {
+                endpoint += `?key=${apiKey}`;
+            }
+
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: provider.headers(apiKey),
+                body: JSON.stringify(requestBody)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+            }
+
+            const data = await response.json();
+            
+            let aiResponse;
+            if (selectedApiProvider === 'gemini') {
+                aiResponse = data.candidates[0].content.parts[0].text;
+            } else {
+                aiResponse = data.choices[0].message.content;
+            }
+
+            const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
+            if (!jsonMatch) {
+                throw new Error('Invalid AI response format');
+            }
+
+            return JSON.parse(jsonMatch[0]);
+        }
+
+        // ==================== ANÁLISE LOCAL ====================
+        function analyzeJob() {
+            const jobInput = document.getElementById('jobInput').value.trim();
+            
+            if (!jobInput) {
+                alert(currentLang === 'pt' ? 'Cole a vaga primeiro!' : 'Paste the job first!');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const results = document.getElementById('results');
+            const spinner = document.getElementById('spinner');
+            
+            loading.classList.add('active');
+            spinner.classList.remove('learning-spinner');
+            results.style.display = 'none';
+
+            localStorage.setItem('lastJob', jobInput);
+
+            setTimeout(() => {
+                loading.classList.remove('active');
+                
+                const jobInfo = extractJobInfo(jobInput);
+                const selectedProfile = DERIVED_PROFILES[selectedProfileKey];
+                const score = calculateMatchScore(selectedProfile, jobInfo);
+                
+                aiEnhancedAnalysis = false;
+                displayResults(selectedProfile, jobInfo, score);
+                
+                results.style.display = 'block';
+                results.scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        function extractJobInfo(text) {
+            const lowerText = text.toLowerCase();
+            
+            const techSkills = [];
+            const allPossibleSkills = ["react", "javascript", "python", "node", "html", "css", "git", "api", "rest", "typescript", "figma", "docker", "aws", "sql", "next", "vue", "angular"];
+            allPossibleSkills.forEach(skill => {
+                if (lowerText.includes(skill)) techSkills.push(skill);
+            });
+
+            let seniority = "júnior";
+            if (lowerText.match(/s[eê]nior|sr\./)) seniority = "sênior";
+            else if (lowerText.match(/pleno|mid-level/)) seniority = "pleno";
+
+            let workModel = "Não especificado";
+            if (lowerText.includes("remoto") || lowerText.includes("remote")) workModel = "Remoto";
+            else if (lowerText.includes("híbrido") || lowerText.includes("hybrid")) workModel = "Híbrido";
+            else if (lowerText.includes("presencial")) workModel = "Presencial";
+
+            const salaryMatch = text.match(/R\$\s*[\d.]+/);
+            const salary = salaryMatch ? salaryMatch[0] : "Não informado";
+
+            const redFlags = [];
+            if (seniority === "júnior" && techSkills.length > 8) redFlags.push("Vaga júnior com exigências de sênior");
+            if (lowerText.includes("startup") && lowerText.includes("equity")) redFlags.push("Compensação pode ser mais equity que salário");
+
+            const culture = [];
+            if (lowerText.includes("startup") || lowerText.includes("inovação")) culture.push("Ambiente dinâmico/startup");
+            if (lowerText.includes("agile") || lowerText.includes("scrum")) culture.push("Metodologia ágil");
+            if (lowerText.includes("mentoria") || lowerText.includes("aprendizado")) culture.push("Foco em desenvolvimento");
+
+            return {
+                techSkills,
+                seniority,
+                workModel,
+                salary,
+                redFlags,
+                culture,
+                requirements: techSkills.slice(0, 5),
+                experienceYears: 0
+            };
+        }
+
+        function calculateMatchScore(profile, jobInfo) {
+            let score = 0;
+            
+            const mySkills = [...profile.emphasis, ...PROFILE.stack.languages, ...PROFILE.stack.frameworks, ...PROFILE.stack.tools];
+            const matchedSkills = jobInfo.techSkills.filter(skill => 
+                mySkills.some(mySkill => mySkill.toLowerCase().includes(skill.toLowerCase()))
+            );
+            score += (matchedSkills.length / Math.max(jobInfo.techSkills.length, 1)) * 40;
+
+            if (jobInfo.seniority === "júnior") score += 20;
+            else if (jobInfo.seniority === "pleno") score += 10;
+            else score += 5;
+
+            if (jobInfo.culture.some(c => c.includes("startup") || c.includes("aprendizado"))) score += 15;
+            else if (jobInfo.culture.length > 0) score += 10;
+            else score += 5;
+
+            const redFlagPenalty = Math.min(jobInfo.redFlags.length * 5, 25);
+            score -= redFlagPenalty;
+
+            return Math.max(0, Math.min(100, Math.round(score)));
+        }
+
+        // ==================== DISPLAY FUNCTIONS ====================
+        function displayAIEnhancedResults(profile, jobInfo, score, learningResult) {
+            let verdict = "APLICAR COM AJUSTES";
+            let verdictClass = "ajustar";
+            let subtitle = currentLang === 'pt' ? "Compatibilidade boa. Ajuste CV e aplique." : "Good compatibility. Adjust CV and apply.";
+            
+            if (score >= 80) {
+                verdict = currentLang === 'pt' ? "✓ APLICAR AGORA" : "✓ APPLY NOW";
+                verdictClass = "aplicar";
+                subtitle = currentLang === 'pt' ? "Alta compatibilidade. Vá em frente!" : "High compatibility. Go ahead!";
+            } else if (score <= 50 || jobInfo.redFlags.length > 2) {
+                verdict = currentLang === 'pt' ? "✗ NÃO APLICAR" : "✗ DO NOT APPLY";
+                verdictClass = "rejeitar";
+                subtitle = currentLang === 'pt' ? "Muitos red flags ou requisitos irreais." : "Too many red flags or unrealistic requirements.";
+            }
+
+            document.getElementById('verdictPanel').className = `verdict-panel ${verdictClass}`;
+            document.getElementById('verdictTitle').textContent = verdict;
+            document.getElementById('verdictSubtitle').textContent = subtitle;
+            document.getElementById('scoreDisplay').textContent = `${score}%`;
+            document.getElementById('progressFill').style.width = `${score}%`;
+
+            const aiSection = document.getElementById('aiEnhancedSection');
+            aiSection.style.display = 'block';
+            document.getElementById('aiInsights').innerHTML = `
+                <div style="margin-bottom: 10px;">
+                    <strong>🤖 Insight IA:</strong> ${jobInfo.aiInsights || 'Análise aprofundada por IA'}
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>📈 Tendência:</strong> ${jobInfo.marketTrend || 'Demanda estável no mercado'}
+                </div>
+                <div>
+                    <strong>🎯 Competição:</strong> 
+                    <span class="tag ${jobInfo.competitionLevel === 'baixo' || jobInfo.competitionLevel === 'low' ? 'success' : jobInfo.competitionLevel === 'alto' || jobInfo.competitionLevel === 'high' ? 'critical' : ''}">
+                        ${jobInfo.competitionLevel || 'médio'}
+                    </span>
+                </div>
+            `;
+
+            const analysisDiv = document.getElementById('jobAnalysis');
+            analysisDiv.innerHTML = `
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'REQUISITOS TÉCNICOS' : 'TECHNICAL REQUIREMENTS'} 
+                        <span class="tag ai">IA</span>
+                    </h3>
+                    ${jobInfo.techSkills.map(s => `<div class="tag">${s.toUpperCase()}</div>`).join('')}
+                    <div class="ai-feature" style="margin-top: 10px;">
+                        🤖 ${jobInfo.matchReason || 'Perfil recomendado com base na análise IA'}
+                    </div>
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'INFORMAÇÕES CHAVE' : 'KEY INFORMATION'}</h3>
+                    <div class="info-item">${currentLang === 'pt' ? 'Senioridade:' : 'Seniority:'} ${jobInfo.seniority}</div>
+                    <div class="info-item">${currentLang === 'pt' ? 'Modelo:' : 'Work Model:'} ${jobInfo.workModel}</div>
+                    <div class="info-item">${currentLang === 'pt' ? 'Salário:' : 'Salary:'} ${jobInfo.salary}</div>
+                    <div class="info-item">${currentLang === 'pt' ? 'Experiência:' : 'Experience:'} ${jobInfo.experienceYears || 0} ${currentLang === 'pt' ? 'anos' : 'years'}</div>
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'CULTURA' : 'CULTURE'}</h3>
+                    ${jobInfo.culture.map(c => `<div class="info-item">${c}</div>`).join('') || `<div class="info-item">${currentLang === 'pt' ? 'Não identificada' : 'Not identified'}</div>`}
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'RED FLAGS' : 'RED FLAGS'}</h3>
+                    ${jobInfo.redFlags.map(f => `<div class="tag critical">${f}</div>`).join('') || `<div style="color: var(--success);">✓ ${currentLang === 'pt' ? 'Nenhum' : 'None'}</div>`}
+                </div>
+            `;
+
+            const finalProfile = jobInfo.recommendedProfile && DERIVED_PROFILES[jobInfo.recommendedProfile] 
+                ? DERIVED_PROFILES[jobInfo.recommendedProfile] 
+                : profile;
+
+            const profileDiv = document.getElementById('selectedProfile');
+            profileDiv.innerHTML = `
+                <h3>${finalProfile.name[currentLang]} 
+                    ${jobInfo.recommendedProfile ? '<span class="tag ai">🤖 RECOMENDADO PELA IA</span>' : ''}
+                </h3>
+                <p><strong>${currentLang === 'pt' ? 'Quando usar:' : 'When to use:'}</strong> ${finalProfile.when[currentLang]}</p>
+                <p><strong>${currentLang === 'pt' ? 'Descrição:' : 'Description:'}</strong> ${finalProfile.description[currentLang]}</p>
+                <p><strong>${currentLang === 'pt' ? 'Palavras-chave IA:' : 'AI Keywords:'}</strong> ${finalProfile.aiKeywords.join(", ")}</p>
+            `;
+
+            generateEnhancedDocuments(finalProfile, jobInfo);
+            
+            // Adicionar dashboard de aprendizado
+            addLearningDashboard(learningResult, jobInfo, profile, score);
+        }
+
+        function displayResults(profile, jobInfo, score) {
+            let verdict = "APLICAR COM AJUSTES";
+            let verdictClass = "ajustar";
+            let subtitle = currentLang === 'pt' ? "Compatibilidade boa. Ajuste CV e aplique." : "Good compatibility. Adjust CV and apply.";
+            
+            if (score >= 80) {
+                verdict = currentLang === 'pt' ? "✓ APLICAR AGORA" : "✓ APPLY NOW";
+                verdictClass = "aplicar";
+                subtitle = currentLang === 'pt' ? "Alta compatibilidade. Vá em frente!" : "High compatibility. Go ahead!";
+            } else if (score <= 50 || jobInfo.redFlags.length > 2) {
+                verdict = currentLang === 'pt' ? "✗ NÃO APLICAR" : "✗ DO NOT APPLY";
+                verdictClass = "rejeitar";
+                subtitle = currentLang === 'pt' ? "Muitos red flags ou requisitos irreais." : "Too many red flags or unrealistic requirements.";
+            }
+
+            document.getElementById('verdictPanel').className = `verdict-panel ${verdictClass}`;
+            document.getElementById('verdictTitle').textContent = verdict;
+            document.getElementById('verdictSubtitle').textContent = subtitle;
+            document.getElementById('scoreDisplay').textContent = `${score}%`;
+            document.getElementById('progressFill').style.width = `${score}%`;
+
+            document.getElementById('aiEnhancedSection').style.display = 'none';
+
+            const analysisDiv = document.getElementById('jobAnalysis');
+            analysisDiv.innerHTML = `
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'REQUISITOS TÉCNICOS' : 'TECHNICAL REQUIREMENTS'}</h3>
+                    ${jobInfo.techSkills.map(s => `<div class="tag">${s.toUpperCase()}</div>`).join('')}
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'INFORMAÇÕES CHAVE' : 'KEY INFORMATION'}</h3>
+                    <div class="info-item">${currentLang === 'pt' ? 'Senioridade:' : 'Seniority:'} ${jobInfo.seniority}</div>
+                    <div class="info-item">${currentLang === 'pt' ? 'Modelo:' : 'Work Model:'} ${jobInfo.workModel}</div>
+                    <div class="info-item">${currentLang === 'pt' ? 'Salário:' : 'Salary:'} ${jobInfo.salary}</div>
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'CULTURA' : 'CULTURE'}</h3>
+                    ${jobInfo.culture.map(c => `<div class="info-item">${c}</div>`).join('') || `<div class="info-item">${currentLang === 'pt' ? 'Não identificada' : 'Not identified'}</div>`}
+                </div>
+                <div class="info-box">
+                    <h3>${currentLang === 'pt' ? 'RED FLAGS' : 'RED FLAGS'}</h3>
+                    ${jobInfo.redFlags.map(f => `<div class="tag critical">${f}</div>`).join('') || `<div style="color: var(--success);">✓ ${currentLang === 'pt' ? 'Nenhum' : 'None'}</div>`}
+                </div>
+            `;
+
+            const profileDiv = document.getElementById('selectedProfile');
+            profileDiv.innerHTML = `
+                <h3>${profile.name[currentLang]}</h3>
+                <p><strong>${currentLang === 'pt' ? 'Quando usar:' : 'When to use:'}</strong> ${profile.when[currentLang]}</p>
+                <p><strong>${currentLang === 'pt' ? 'Descrição:' : 'Description:'}</strong> ${profile.description[currentLang]}</p>
+                <p><strong>${currentLang === 'pt' ? 'Ênfase:' : 'Emphasis:'}</strong> ${profile.emphasis.join(", ")}</p>
+            `;
+
+            generateDocuments(profile, jobInfo);
+        }
+
+        function addLearningDashboard(learningResult, jobInfo, profile, score) {
+            const jobText = document.getElementById('jobInput').value;
+            const dashboard = ATS_HACKER.generateOptimizationDashboard(jobText, profile, jobInfo);
+            const stats = learningSystem.getStatistics();
+            
+            const dashboardHTML = `
+            <div class="panel">
+                <div class="panel-title">
+                    📈 DASHBOARD DE APRENDIZADO CONTÍNUO 
+                    <span class="ai-badge learning-badge">🧠 APRENDENDO</span>
+                </div>
+                
+                <div class="learning-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalAnalyses}</div>
+                        <div class="stat-label">${currentLang === 'pt' ? 'ANÁLISES' : 'ANALYSES'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.averageScore}%</div>
+                        <div class="stat-label">${currentLang === 'pt' ? 'SCORE MÉDIO' : 'AVG SCORE'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.keywordCount}</div>
+                        <div class="stat-label">${currentLang === 'pt' ? 'KEYWORDS' : 'KEYWORDS'}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.bestPerformingType === 'Nenhum' ? '-' : stats.bestPerformingType}</div>
+                        <div class="stat-label">${currentLang === 'pt' ? 'MELHOR TIPO' : 'BEST TYPE'}</div>
+                    </div>
+                </div>
+                
+                <div class="section-grid">
+                    <div class="info-box">
+                        <h3>📊 SCORE ATS ESTIMADO</h3>
+                        <div class="match-score">${dashboard.atsScore}%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${dashboard.atsScore}%"></div>
+                        </div>
+                        <div class="ai-feature learning-feature" style="margin-top: 10px;">
+                            ${dashboard.atsScore >= 80 ? '✅ Otimizado para a maioria dos sistemas ATS' : 
+                             dashboard.atsScore >= 60 ? '⚠️ Pode melhorar com ajustes' : 
+                             '🔴 Necessita otimização urgente'}
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h3>🎯 KEYWORDS PRIORITÁRIAS</h3>
+                        ${dashboard.analysis.topKeywords.slice(0, 5).map((keyword, i) => `
+                            <div class="info-item">
+                                <strong>${i + 1}.</strong> ${keyword.toUpperCase()} 
+                                <span class="tag" style="float: right;">${dashboard.analysis.density[keyword]?.percentage || '0'}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                ${learningResult.smartSuggestions && learningResult.smartSuggestions.length > 0 ? `
+                <div style="margin-top: 20px;">
+                    <h3 style="color: var(--learning-color); margin-bottom: 15px;">🧠 SUGESTÕES INTELIGENTES</h3>
+                    
+                    ${learningResult.smartSuggestions.map(suggestion => {
+                        const priorityColors = {
+                            'trending': 'var(--learning-color)',
+                            'pattern': 'var(--ai-blue)'
+                        };
+                        return `
+                        <div class="smart-suggestion">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <strong>${suggestion.title}</strong>
+                                <span class="tag learning" style="background: ${priorityColors[suggestion.type] || 'var(--primary)'}20; color: ${priorityColors[suggestion.type] || 'var(--primary)'}">
+                                    ${suggestion.type === 'trending' ? '📈 EM ALTA' : '🎯 PATTERN'}
+                                </span>
+                            </div>
+                            <div style="margin-top: 10px; font-size: 0.9em;">${suggestion.description}</div>
+                            ${suggestion.keywords ? `
+                                <div style="margin-top: 10px;">
+                                    ${suggestion.keywords.map(k => `<span class="tag learning" style="margin: 2px;">${k}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            ${suggestion.patterns ? `
+                                <div style="margin-top: 10px;">
+                                    ${suggestion.patterns.map(p => `<span class="tag ai" style="margin: 2px;">${p.split('_')[0]}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                        `;
+                    }).join('')}
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                    <h4 style="color: var(--learning-color); margin-bottom: 10px;">💡 APRENDIZADO DO SISTEMA</h4>
+                    <div style="font-size: 0.9em;">
+                        <div class="info-item">✅ O sistema aprendeu com ${stats.totalAnalyses} análises anteriores</div>
+                        <div class="info-item">✅ Perfil mais usado: ${stats.mostUsedProfile}</div>
+                        <div class="info-item">✅ Tendência: ${learningResult.improvementTrend === 'improving' ? 'Melhorando' : learningResult.improvementTrend === 'declining' ? 'Declinando' : 'Estável'}</div>
+                        <div class="info-item">✅ ${learningResult.similarJobs?.length || 0} vagas similares encontradas</div>
+                    </div>
+                </div>
+            </div>
+            `;
+            
+            const resultsDiv = document.getElementById('results');
+            const firstPanel = resultsDiv.querySelector('.panel');
+            resultsDiv.insertBefore(createElementFromHTML(dashboardHTML), firstPanel);
+        }
+
+        function createElementFromHTML(htmlString) {
+            const div = document.createElement('div');
+            div.innerHTML = htmlString.trim();
+            return div.firstChild;
+        }
+
+        // ==================== GERAÇÃO DE DOCUMENTOS ====================
+        function generateEnhancedDocuments(profile, jobInfo) {
+            const jobText = document.getElementById('jobInput').value;
+            document.getElementById('cvOutput').textContent = ATS_HACKER.generateATSOptimizedCV(profile, jobInfo, jobText);
+            document.getElementById('cartaOutput').textContent = generateEnhancedCarta(profile, jobInfo);
+            document.getElementById('estrategiaOutput').textContent = generateEnhancedEstrategia(profile, jobInfo);
+            document.getElementById('linkedinOutput').textContent = generateLinkedinText(profile, jobInfo);
+        }
+
+        function generateDocuments(profile, jobInfo) {
+            document.getElementById('cvOutput').textContent = generateCV(profile, jobInfo);
+            document.getElementById('cartaOutput').textContent = generateCarta(profile, jobInfo);
+            document.getElementById('estrategiaOutput').textContent = generateEstrategia(profile, jobInfo);
+            document.getElementById('linkedinOutput').textContent = generateLinkedinText(profile, jobInfo);
+        }
+
+        function generateEnhancedCV(profile, jobInfo) {
+            const verb1 = getRandomVerb('impact');
+            const verb2 = getRandomVerb('technical');
+            
+            return currentLang === 'pt' ? 
+`MÁRCIO GEMELLI
+${profile.name.pt} | Desenvolvedor Júnior com IA Aplicada
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+RESUMO PROFISSIONAL (OTIMIZADO PARA ATS)
+${profile.emphasis.join(" • ")} especializado em ${jobInfo.requirements.slice(0,2).join(" e ")}. 
+Combino habilidades técnicas sólidas com visão de produto e pensamento estratégico, utilizando IA para otimizar processos de desenvolvimento.
+
+COMPETÊNCIAS TÉCNICAS DESTACADAS
+• Front-end: ${jobInfo.techSkills.filter(s => ['react', 'javascript', 'html', 'css'].includes(s)).map(s => s.toUpperCase()).join(" • ")}
+• Ferramentas: ${PROFILE.stack.tools.join(" • ")}
+• IA Aplicada: Prompt Engineering • Automação • Análise de Dados
+
+PROJETOS RELEVANTES (ALINHADOS À VAGA)
+
+1. SISTEMA ATS REVERSO COM IA
+   Stack: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}
+   • ${verb1} a precisão de análise de vagas em 40% com algoritmos de NLP
+   • ${verb2} arquitetura modular que se adapta a diferentes perfis de vaga
+   • Desenvolvi interface responsiva que processa 50+ vagas simultaneamente
+
+2. PLATAFORMA DE PRODUTIVIDADE COM IA
+   Stack: React, Python, APIs REST
+   • Desenvolvi sistema de automação que reduz tempo de tarefas repetitivas em 70%
+   • Implementei integração com APIs de IA para geração de conteúdo otimizado
+   • Otimizei performance com lazy loading e code splitting
+
+3. PROJETOS DE RESOLUÇÃO DE PROBLEMAS REAIS
+   Stack: JavaScript, Git, Figma
+   • Criei soluções funcionais para problemas identificados no mercado tech
+   • Validei protótipos com feedback de usuários reais
+   • Documentei processos para replicação e escalabilidade
+
+FORMAÇÃO E APRENDIZADO CONTÍNUO
+• Cursos Especializados em Desenvolvimento Web Moderno
+• Estudos Contínuos em IA Aplicada e Automação
+• Participação em Comunidades Tech e Hackathons
+
+IDIOMAS
+Português (Nativo) | Inglês (Avançado - Leitura Técnica)`
+                :
+`MÁRCIO GEMELLI
+${profile.name.en} | Junior Developer with Applied AI
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+PROFESSIONAL SUMMARY (ATS OPTIMIZED)
+${profile.emphasis.join(" • ")} specialized in ${jobInfo.requirements.slice(0,2).join(" and ")}. 
+I combine solid technical skills with product vision and strategic thinking, using AI to optimize development processes.
+
+HIGHLIGHTED TECHNICAL COMPETENCIES
+• Front-end: ${jobInfo.techSkills.filter(s => ['react', 'javascript', 'html', 'css'].includes(s)).map(s => s.toUpperCase()).join(" • ")}
+• Tools: ${PROFILE.stack.tools.join(" • ")}
+• Applied AI: Prompt Engineering • Automation • Data Analysis
+
+RELEVANT PROJECTS (POSITION-ALIGNED)
+
+1. REVERSE ATS SYSTEM WITH AI
+   Stack: ${jobInfo.techSkills.slice(0,3).join(", ").toUpperCase()}
+   • ${verb1} job analysis accuracy by 40% with NLP algorithms
+   • ${verb2} modular architecture that adapts to different job profiles
+   • Developed responsive interface processing 50+ jobs simultaneously
+
+2. AI-POWERED PRODUCTIVITY PLATFORM
+   Stack: React, Python, REST APIs
+   • Developed automation system reducing repetitive task time by 70%
+   • Implemented AI API integration for optimized content generation
+   • Optimized performance with lazy loading and code splitting
+
+3. REAL-WORLD PROBLEM SOLVING PROJECTS
+   Stack: JavaScript, Git, Figma
+   • Created functional solutions for identified tech market problems
+   • Validated prototypes with real user feedback
+   • Documented processes for replication and scalability
+
+EDUCATION & CONTINUOUS LEARNING
+• Specialized Courses in Modern Web Development
+• Continuous Studies in Applied AI and Automation
+• Participation in Tech Communities and Hackathons
+
+LANGUAGES
+Portuguese (Native) | English (Advanced - Technical Reading)`;
+        }
+
+        function generateEnhancedCarta(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`Prezado(a) Recrutador(a),
+
+Meu nome é Márcio Gemelli e estou entusiasmado com a oportunidade para a posição de ${jobInfo.seniority} que encontrei.
+
+Como ${profile.name.pt.toLowerCase()}, desenvolvi expertise em ${profile.emphasis.slice(0,3).join(", ")} - competências que observei serem essenciais para esta vaga.
+
+DESTAQUE DE COMPETÊNCIAS RELEVANTES:
+• ${profile.emphasis[0]}: Experiência prática em projetos como o Sistema ATS Reverso
+• ${profile.emphasis[1]}: Domínio comprovado através de protótipos funcionais
+• IA Aplicada: Uso estratégico de inteligência artificial para otimização de processos
+
+MEU PROJETO MAIS RELEVANTE:
+Desenvolvi um sistema de análise ATS que utiliza ${jobInfo.techSkills.slice(0,2).join(" e ")} para extrair requisitos de vagas e adaptar perfis automaticamente. Este projeto demonstra minha capacidade de:
+
+1. Entender necessidades complexas do mercado de recrutamento
+2. Implementar soluções técnicas escaláveis
+3. Utilizar IA de forma prática e eficiente
+
+POR QUE SOU A PESSOA CERTA:
+• Aprendizado Rápido: Domino novas tecnologias em tempo recorde
+• Visão de Produto: Entendo as necessidades do usuário final
+• Pensamento Estratégico: Conecto soluções técnicas a resultados de negócio
+
+Fiquei particularmente interessado nesta oportunidade porque ${jobInfo.culture[0] || "valorizo ambientes que incentivam aprendizado e crescimento"}.
+
+Estou disponível para ${jobInfo.workModel.toLowerCase()} e ansioso para discutir como minhas habilidades podem contribuir para o sucesso do time.
+
+Atenciosamente,
+Márcio Gemelli
+(11) 99999-9999 | marcio@email.com`
+                :
+`Dear Recruiter,
+
+My name is Márcio Gemelli and I'm excited about the ${jobInfo.seniority} position I found.
+
+As a ${profile.name.en.toLowerCase()}, I've developed expertise in ${profile.emphasis.slice(0,3).join(", ")} - skills I noticed are essential for this role.
+
+RELEVANT SKILLS HIGHLIGHT:
+• ${profile.emphasis[0]}: Practical experience in projects like the Reverse ATS System
+• ${profile.emphasis[1]}: Proven mastery through functional prototypes
+• Applied AI: Strategic use of artificial intelligence for process optimization
+
+MY MOST RELEVANT PROJECT:
+I developed an ATS analysis system that uses ${jobInfo.techSkills.slice(0,2).join(" and ")} to extract job requirements and adapt profiles automatically. This project demonstrates my ability to:
+
+1. Understand complex recruitment market needs
+2. Implement scalable technical solutions
+3. Use AI in practical and efficient ways
+
+WHY I'M THE RIGHT PERSON:
+• Fast Learning: Master new technologies in record time
+• Product Vision: Understand end-user needs
+• Strategic Thinking: Connect technical solutions to business outcomes
+
+I was particularly interested in this opportunity because ${jobInfo.culture[0] || "I value environments that encourage learning and growth"}.
+
+I'm available for ${jobInfo.workModel.toLowerCase()} and eager to discuss how my skills can contribute to the team's success.
+
+Best regards,
+Márcio Gemelli
++55 11 99999-9999 | marcio@email.com`;
+        }
+
+        function generateEnhancedEstrategia(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`ESTRATÉGIA DE CANDIDATURA AVANÇADA
+🏆 PERFIL SELECIONADO: ${profile.name.pt}
+🎯 SCORE DE COMPATIBILIDADE: ${calculateMatchScore(profile, jobInfo)}%
+
+ANÁLISE DA VAGA:
+• Senioridade: ${jobInfo.seniority.toUpperCase()}
+• Modelo: ${jobInfo.workModel}
+• Cultura: ${jobInfo.culture.join(", ") || "Não especificada"}
+
+PONTOS FORTES ESTRATÉGICOS:
+✅ ${profile.emphasis.slice(0,3).map(e => e.toUpperCase()).join(" | ")}
+
+GAPS IDENTIFICADOS E COMO ADDRESSAR:
+${jobInfo.techSkills.filter(s => !profile.emphasis.map(e => e.toLowerCase()).includes(s)).slice(0,3).map(s => `• ${s.toUpperCase()} → Demonstrar capacidade de aprendizado rápido e interesse`).join('\n') || '• Todos os requisitos principais cobertos'}
+
+ESTRATÉGIA DE ENTREVISTA:
+
+FASE 1: APRESENTAÇÃO (0-5 min)
+• Abrir com: "Sou desenvolvedor focado em resolver problemas reais com tecnologia"
+• Mencionar: Sistema ATS Reverso como exemplo de projeto relevante
+• Conectar: Minhas habilidades com as necessidades específicas da vaga
+
+FASE 2: PROJETOS A DESTACAR
+1. Sistema ATS Reverso
+   - Mostrar pensamento sistêmico
+   - Demonstrar uso prático de IA
+   - Evidenciar capacidade de aprendizado autônomo
+
+2. Projetos de Produtividade
+   - Demonstrar impacto mensurável
+   - Mostrar preocupação com eficiência
+   - Evidenciar pensamento estratégico
+
+FASE 3: PERGUNTAS ESTRATÉGICAS
+• "Qual o maior desafio técnico que a equipe enfrenta atualmente?"
+• "Como é estruturado o processo de mentoria para desenvolvedores júnior?"
+• "Quais são as tecnologias que a empresa planeja adotar nos próximos 6 meses?"
+
+FASE 4: RED FLAGS PARA OBSERVAR
+${jobInfo.redFlags.map(f => `🔴 ${f}`).join('\n') || '✅ Nenhum red flag crítico identificado'}
+
+FASE 5: FECHAMENTO
+• Reforçar: "Estou muito alinhado com a cultura e necessidades da empresa"
+• Oferecer: "Posso mostrar mais exemplos dos meus projetos"
+• Perguntar: "Quais são os próximos passos no processo?"
+
+PREPARAÇÃO TÉCNICA:
+• Revisar: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Praticar: Explicar Sistema ATS em 2 minutos
+• Preparar: 3 exemplos concretos de resolução de problemas
+
+DICAS FINAIS:
+💡 ${jobInfo.seniority === "júnior" ? "Como júnior, destaque POTENCIAL e CAPACIDADE DE APRENDIZADO" : "Demonstre EXPERIÊNCIA PRÁTICA e PENSAMENTO ESTRATÉGICO"}
+🎯 Use palavras da descrição da vaga durante toda a entrevista
+🚀 Mostre entusiasmo genuíno pela oportunidade e pela tecnologia`
+                :
+`ADVANCED APPLICATION STRATEGY
+🏆 SELECTED PROFILE: ${profile.name.en}
+🎯 COMPATIBILITY SCORE: ${calculateMatchScore(profile, jobInfo)}%
+
+JOB ANALYSIS:
+• Seniority: ${jobInfo.seniority.toUpperCase()}
+• Work Model: ${jobInfo.workModel}
+• Culture: ${jobInfo.culture.join(", ") || "Not specified"}
+
+STRATEGIC STRENGTHS:
+✅ ${profile.emphasis.slice(0,3).map(e => e.toUpperCase()).join(" | ")}
+
+IDENTIFIED GAPS AND HOW TO ADDRESS:
+${jobInfo.techSkills.filter(s => !profile.emphasis.map(e => e.toLowerCase()).includes(s)).slice(0,3).map(s => `• ${s.toUpperCase()} → Demonstrate fast learning capability and interest`).join('\n') || '• All main requirements covered'}
+
+INTERVIEW STRATEGY:
+
+PHASE 1: INTRODUCTION (0-5 min)
+• Open with: "I'm a developer focused on solving real problems with technology"
+• Mention: Reverse ATS System as a relevant project example
+• Connect: My skills with the specific needs of the position
+
+PHASE 2: PROJECTS TO HIGHLIGHT
+1. Reverse ATS System
+   - Show systemic thinking
+   - Demonstrate practical use of AI
+   - Evidence autonomous learning capability
+
+2. Productivity Projects
+   - Demonstrate measurable impact
+   - Show concern for efficiency
+   - Evidence strategic thinking
+
+PHASE 3: STRATEGIC QUESTIONS
+• "What's the biggest technical challenge the team currently faces?"
+• "How is the mentoring process structured for junior developers?"
+• "What technologies does the company plan to adopt in the next 6 months?"
+
+PHASE 4: RED FLAGS TO WATCH
+${jobInfo.redFlags.map(f => `🔴 ${f}`).join('\n') || '✅ No critical red flags identified'}
+
+PHASE 5: CLOSING
+• Reinforce: "I'm very aligned with the company's culture and needs"
+• Offer: "I can show more examples of my projects"
+• Ask: "What are the next steps in the process?"
+
+TECHNICAL PREPARATION:
+• Review: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Practice: Explain ATS System in 2 minutes
+• Prepare: 3 concrete examples of problem-solving
+
+FINAL TIPS:
+💡 ${jobInfo.seniority === "júnior" ? "As junior, highlight POTENTIAL and LEARNING CAPABILITY" : "Demonstrate PRACTICAL EXPERIENCE and STRATEGIC THINKING"}
+🎯 Use words from the job description throughout the interview
+🚀 Show genuine enthusiasm for the opportunity and technology`;
+        }
+
+        function generateLinkedinText(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`🎯 ATUALIZAÇÃO DE PERFIL LINKEDIN - ESTRATÉGIA PARA A VAGA
+
+TÍTULO DO PERFIL:
+Desenvolvedor ${profile.name.pt} | ${profile.emphasis[0]} | ${profile.emphasis[1]} | IA Aplicada
+
+SOBRE (RESUMO):
+Desenvolvedor júnior com foco em ${profile.emphasis.slice(0,2).join(" e ")}. Especialista em transformar problemas complexos em soluções técnicas práticas. Desenvolvi um sistema ATS reverso que analisa vagas e adapta perfis automaticamente, demonstrando capacidade de aprendizado rápido e pensamento estratégico.
+
+Principais Competências:
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.slice(0,3).join(" • ")}
+• IA Aplicada e Automação
+
+Destaques:
+🚀 Desenvolvi sistema que aumenta eficiência em processos de candidatura
+🎯 Especialista em resolver problemas reais do mercado tech
+📈 Foco contínuo em aprendizado e evolução técnica
+
+EXPERIÊNCIA:
+Desenvolvedor Independente | Projetos Próprios
+• Sistema ATS Reverso: ${jobInfo.techSkills.slice(0,2).join(", ")} | Otimização de processos com IA
+• Plataforma de Produtividade: Automação | APIs REST | Soluções escaláveis
+• Projetos de Prototipagem: Validação de ideias | Feedback de usuários
+
+HABILIDADES PARA DESTACAR:
+${profile.emphasis.map(e => `#${e.replace(/\s+/g, '')}`).join(" ")}
+${PROFILE.stack.tools.slice(0,3).map(t => `#${t.replace(/\s+/g, '')}`).join(" ")}
+#IA #Automação #DesenvolvimentoWeb #React #JavaScript
+
+PUBLICAÇÃO SUGERIDA:
+"Acabei de otimizar meu perfil para oportunidades em ${profile.emphasis.slice(0,2).join(" e ")}! 
+
+Como desenvolvedor júnior, tenho me concentrado em:
+• ${profile.emphasis[0]}
+• ${profile.emphasis[1]}
+• Aplicação prática de IA em desenvolvimento
+
+Meu projeto mais recente: um sistema ATS reverso que analisa vagas e sugere ajustes no perfil do candidato. Uma solução prática para um problema real do mercado.
+
+#OpenToWork em posições ${jobInfo.seniority} ${jobInfo.workModel.toLowerCase()}!
+
+Quem está contratando? 👇"`
+                :
+`🎯 LINKEDIN PROFILE UPDATE STRATEGY FOR THIS POSITION
+
+PROFILE TITLE:
+${profile.name.en} Developer | ${profile.emphasis[0]} | ${profile.emphasis[1]} | Applied AI
+
+ABOUT (SUMMARY):
+Junior developer focused on ${profile.emphasis.slice(0,2).join(" and ")}. Expert in transforming complex problems into practical technical solutions. Developed a reverse ATS system that analyzes jobs and adapts profiles automatically, demonstrating fast learning capability and strategic thinking.
+
+Key Competencies:
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.slice(0,3).join(" • ")}
+• Applied AI and Automation
+
+Highlights:
+🚀 Developed system increasing efficiency in application processes
+🎯 Expert in solving real tech market problems
+📈 Continuous focus on learning and technical evolution
+
+EXPERIENCE:
+Independent Developer | Personal Projects
+• Reverse ATS System: ${jobInfo.techSkills.slice(0,2).join(", ")} | Process optimization with AI
+• Productivity Platform: Automation | REST APIs | Scalable solutions
+• Prototyping Projects: Idea validation | User feedback
+
+SKILLS TO HIGHLIGHT:
+${profile.emphasis.map(e => `#${e.replace(/\s+/g, '')}`).join(" ")}
+${PROFILE.stack.tools.slice(0,3).map(t => `#${t.replace(/\s+/g, '')}`).join(" ")}
+#AI #Automation #WebDevelopment #React #JavaScript
+
+SUGGESTED POST:
+"Just optimized my profile for opportunities in ${profile.emphasis.slice(0,2).join(" and ")}!
+
+As a junior developer, I've been focusing on:
+• ${profile.emphasis[0]}
+• ${profile.emphasis[1]}
+• Practical application of AI in development
+
+My latest project: a reverse ATS system that analyzes jobs and suggests profile adjustments. A practical solution to a real market problem.
+
+#OpenToWork for ${jobInfo.seniority} ${jobInfo.workModel.toLowerCase()} positions!
+
+Who's hiring? 👇"`;
+        }
+
+        function generateCV(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`MÁRCIO GEMELLI
+${profile.name.pt}
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+RESUMO
+${profile.emphasis.join(", ")} com experiência em projetos práticos.
+
+HABILIDADES
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.join(", ")}
+
+PROJETOS
+Sistema ATS Reverso
+• Tecnologias: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Desenvolvimento de análise automatizada de vagas
+
+FORMAÇÃO
+Cursos em Desenvolvimento Web e Tecnologias Modernas
+
+IDIOMAS
+Português (Nativo) | Inglês (Técnico)`
+                :
+`MÁRCIO GEMELLI
+${profile.name.en}
+São Paulo, SP | GitHub: github.com/marciomaker | LinkedIn: linkedin.com/in/marciogemelli
+
+SUMMARY
+${profile.emphasis.join(", ")} with experience in practical projects.
+
+SKILLS
+• ${profile.emphasis.join(" • ")}
+• ${PROFILE.stack.tools.join(", ")}
+
+PROJECTS
+Reverse ATS System
+• Technologies: ${jobInfo.techSkills.slice(0,3).join(", ")}
+• Development of automated job analysis
+
+EDUCATION
+Courses in Web Development and Modern Technologies
+
+LANGUAGES
+Portuguese (Native) | English (Technical)`;
+        }
+
+        function generateCarta(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`Olá,
+
+Meu nome é Márcio Gemelli e estou interessado na vaga de ${jobInfo.seniority}.
+
+Sou desenvolvedor ${profile.name.pt.toLowerCase()} com experiência em ${profile.emphasis.slice(0,3).join(", ")}.
+
+Desenvolvi projetos utilizando ${jobInfo.techSkills.slice(0,2).join(" e ")}.
+
+Estou disponível para ${jobInfo.workModel.toLowerCase()}.
+
+Atenciosamente,
+Márcio Gemelli`
+                :
+`Hello,
+
+My name is Márcio Gemelli and I'm interested in the ${jobInfo.seniority} position.
+
+I'm a ${profile.name.en.toLowerCase()} developer with experience in ${profile.emphasis.slice(0,3).join(", ")}.
+
+I developed projects using ${jobInfo.techSkills.slice(0,2).join(" and ")}.
+
+I'm available for ${jobInfo.workModel.toLowerCase()}.
+
+Best regards,
+Márcio Gemelli`;
+        }
+
+        function generateEstrategia(profile, jobInfo) {
+            return currentLang === 'pt' ?
+`ESTRATÉGIA PARA VAGA
+
+PERFIL: ${profile.name.pt}
+
+PONTOS FORTES:
+${profile.emphasis.map(e => `• ${e}`).join('\n')}
+
+ESTRATÉGIA:
+• Destacar projeto ATS
+• Mostrar aprendizado rápido
+• Demonstrar fit cultural`
+                :
+`JOB STRATEGY
+
+PROFILE: ${profile.name.en}
+
+STRENGTHS:
+${profile.emphasis.map(e => `• ${e}`).join('\n')}
+
+STRATEGY:
+• Highlight ATS project
+• Show fast learning
+• Demonstrate cultural fit`;
+        }
+
+        // ==================== FUNÇÕES DE UI ====================
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        function copyContent(elementId) {
+            const content = document.getElementById(elementId).textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                showNotification(
+                    currentLang === 'pt' ? 'Copiado para a área de transferência!' : 'Copied to clipboard!',
+                    'success'
+                );
+            });
+        }
+
+        function exportAsTxt(elementId, filename) {
+            const content = document.getElementById(elementId).textContent;
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification(
+                currentLang === 'pt' ? 'Documento exportado com sucesso!' : 'Document exported successfully!',
+                'success'
+            );
+        }
+
+        function exportAsMarkdown(elementId, filename) {
+            const content = document.getElementById(elementId).textContent;
+            const blob = new Blob([content], { type: 'text/markdown' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${filename}_${new Date().toISOString().split('T')[0]}.md`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showNotification(
+                currentLang === 'pt' ? 'Markdown exportado com sucesso!' : 'Markdown exported successfully!',
+                'success'
+            );
+        }
+
+        function exportAsPDF(elementId, filename) {
+            alert(currentLang === 'pt' 
+                ? 'Exportação PDF requer biblioteca adicional. Use o botão "Exportar .TXT" ou copie e cole em um editor.'
+                : 'PDF export requires additional library. Use the "Export .TXT" button or copy and paste into an editor.');
+        }
+
+        function loadLastJob() {
+            const lastJob = localStorage.getItem('lastJob');
+            if (lastJob) {
+                document.getElementById('jobInput').value = lastJob;
+                showNotification(
+                    currentLang === 'pt' ? 'Última vaga carregada!' : 'Last job loaded!',
+                    'success'
+                );
+            }
+        }
+
+        function testAIAnalysis() {
+            const testJob = currentLang === 'pt' ?
+`Desenvolvedor Front-end React Júnior
+
+Procuramos desenvolvedor Front-end Júnior com React para nossa startup de tecnologia.
+
+Requisitos:
+- Conhecimento em React e hooks
+- HTML5, CSS3 e JavaScript ES6+
+- Git e GitHub
+- Consumo de APIs REST
+- Conhecimento básico em Figma
+
+Diferenciais:
+- Experiência com IA aplicada
+- Conhecimento em TypeScript
+- Experiência com testes automatizados
+
+Oferecemos:
+- Salário: R$ 3.500 - R$ 4.500
+- Modelo híbrido (3 dias remoto)
+- Plano de desenvolvimento profissional
+- Ambiente de startup dinâmico
+
+Procuramos alguém com pensamento analítico, capacidade de aprendizado rápido e visão de produto.`
+                :
+`Junior React Front-end Developer
+
+We're looking for a Junior Front-end Developer with React for our tech startup.
+
+Requirements:
+- Knowledge in React and hooks
+- HTML5, CSS3 and JavaScript ES6+
+- Git and GitHub
+- REST API consumption
+- Basic Figma knowledge
+
+Differentiators:
+- Experience with applied AI
+- TypeScript knowledge
+- Automated testing experience
+
+We offer:
+- Salary: $700 - $900
+- Hybrid model (3 days remote)
+- Professional development plan
+- Dynamic startup environment
+
+We're looking for someone with analytical thinking, fast learning capability and product vision.`;
+            
+            document.getElementById('jobInput').value = testJob;
+            showNotification(
+                currentLang === 'pt' ? 'Vaga de teste carregada! Clique em "ANALISAR COM IA"' : 'Test job loaded! Click "ANALYZE WITH AI"',
+                'warning'
+            );
+        }
+
+        function optimizeLinkedinProfile() {
+            alert(currentLang === 'pt' 
+                ? 'Funcionalidade de otimização completa do LinkedIn em desenvolvimento! Por enquanto, copie o texto gerado e ajuste manualmente.'
+                : 'Complete LinkedIn optimization feature in development! For now, copy the generated text and adjust manually.');
+        }
+
+        function showLearningDashboard() {
+            const stats = learningSystem.getStatistics();
+            const suggestions = learningSystem.generateSmartSuggestions();
+            
+            const dashboardHTML = `
+            <div class="panel" style="margin-bottom: 20px;">
+                <div class="panel-title">
+                    📊 PAINEL DE APRENDIZADO COMPLETO
+                    <span class="ai-badge learning-badge">🧠 ${stats.totalAnalyses} ANÁLISES</span>
+                </div>
+                
+                <div class="learning-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.totalAnalyses}</div>
+                        <div class="stat-label">TOTAL ANALISADO</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.averageScore}%</div>
+                        <div class="stat-label">SCORE MÉDIO</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.keywordCount}</div>
+                        <div class="stat-label">KEYWORDS</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">${stats.mostUsedProfile}</div>
+                        <div class="stat-label">PERFIL MAIS USADO</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h3 style="color: var(--learning-color); margin-bottom: 15px;">📈 TENDÊNCIAS APRENDIDAS</h3>
+                    
+                    ${Object.entries(learningSystem.learnedKeywords)
+                        .sort((a, b) => b[1].count - a[1].count)
+                        .slice(0, 10)
+                        .map(([keyword, data]) => `
+                        <div class="keyword-trend">
+                            <div class="trend-indicator ${data.trend === 'up' ? 'trend-up' : data.trend === 'down' ? 'trend-down' : 'trend-stable'}">
+                                ${data.trend === 'up' ? '↑' : data.trend === 'down' ? '↓' : '→'}
+                            </div>
+                            <div style="flex: 1;">
+                                <strong>${keyword.toUpperCase()}</strong>
+                                <div style="font-size: 0.8em; color: var(--gray);">
+                                    ${data.count} ocorrências | Score médio: ${Math.round(data.averageScore)}%
+                                </div>
+                            </div>
+                        </div>
+                        `).join('')}
+                </div>
+                
+                ${suggestions.length > 0 ? `
+                <div style="margin-top: 20px;">
+                    <h3 style="color: var(--primary); margin-bottom: 15px;">🎯 RECOMENDAÇÕES DO SISTEMA</h3>
+                    
+                    ${suggestions.map(suggestion => `
+                        <div class="smart-suggestion">
+                            <strong>${suggestion.title}</strong>
+                            <div style="margin-top: 10px; font-size: 0.9em;">${suggestion.description}</div>
+                            ${suggestion.keywords ? `
+                                <div style="margin-top: 10px;">
+                                    ${suggestion.keywords.map(k => `<span class="tag learning" style="margin: 2px;">${k}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                    <h4 style="color: var(--learning-color); margin-bottom: 10px;">💡 INSIGHTS DO APRENDIZADO</h4>
+                    <div style="font-size: 0.9em;">
+                        <div class="info-item">✅ O sistema aprende com cada análise realizada</div>
+                        <div class="info-item">✅ Recomendações melhoram com o tempo</div>
+                        <div class="info-item">✅ Identifica padrões de sucesso em diferentes tipos de vaga</div>
+                        <div class="info-item">✅ Evolui conforme as tendências do mercado</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <button class="btn btn-learning" onclick="exportLearningData()" style="width: auto;">
+                        📥 EXPORTAR DADOS DE APRENDIZADO
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearLearningData()" style="width: auto; margin-left: 10px;">
+                        🗑️ LIMPAR DADOS
+                    </button>
+                </div>
+            </div>
+            `;
+            
+            const results = document.getElementById('results');
+            results.style.display = 'block';
+            results.innerHTML = dashboardHTML;
+            results.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exportLearningData() {
+            const data = {
+                learningSystem: learningSystem,
+                exportDate: new Date().toISOString(),
+                version: 'ATS Hacker Pro 1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ats_learning_data_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification(
+                currentLang === 'pt' ? 'Dados de aprendizado exportados!' : 'Learning data exported!',
+                'success'
+            );
+        }
+
+        function clearLearningData() {
+            if (confirm(currentLang === 'pt' 
+                ? 'Tem certeza que deseja limpar todos os dados de aprendizado?\nEsta ação não pode ser desfeita.'
+                : 'Are you sure you want to clear all learning data?\nThis action cannot be undone.')) {
+                
+                learningSystem.jobHistory = [];
+                learningSystem.learnedKeywords = {};
+                learningSystem.jobPatterns = {};
+                learningSystem.successRates = {};
+                learningSystem.keywordEvolution = [];
+                learningSystem.save();
+                
+                showNotification(
+                    currentLang === 'pt' ? 'Dados de aprendizado limpos!' : 'Learning data cleared!',
+                    'success'
+                );
+                
+                showLearningDashboard();
+            }
+        }
+
+        // ==================== INICIALIZAÇÃO ====================
+        window.onload = initialize;
+    </script>
+</body>
+</html>
