@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATS Pessoal Hacker PRO - Márcio Maker</title>
     <style>
+        /* (MANTENHO O CSS INTEIRO PORQUE ESTÁ OK) */
         :root {
             --primary: #2563eb;
             --primary-dark: #1d4ed8;
@@ -1236,7 +1237,7 @@
 
         <div class="results" id="results">
             <!-- MÓDULO DE DECISÃO ESTRATÉGICA -->
-            <div class="decision-panel" id="strategicDecisionPanel">
+            <div class="decision-panel" id="strategicDecisionPanel" style="display: none;">
                 <div class="decision-icon" id="decisionIcon">🎯</div>
                 <div class="verdict-title" id="decisionVerdict">ANALISANDO DECISÃO...</div>
                 <div class="verdict-subtitle" id="decisionSubtitle">Calculando a melhor estratégia baseada em dados...</div>
@@ -2498,13 +2499,14 @@ ${missingKeywordsSection}
                 models: ["gpt-3.5-turbo", "gpt-4", "claude-3-haiku", "gemini-pro"],
                 headers: (apiKey) => ({
                     "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json",
                     "HTTP-Referer": window.location.origin,
                     "X-Title": "ATS Pessoal Hacker"
                 })
             },
             deepseek: {
                 name: "DeepSeek",
-                endpoint: "https://api.deepseek.com/chat/completions",
+                endpoint: "https://api.deepseek.com/v1/chat/completions",
                 freeCredits: "Totalmente gratuito",
                 models: ["deepseek-chat"],
                 headers: (apiKey) => ({
@@ -2646,7 +2648,15 @@ ${missingKeywordsSection}
             document.querySelectorAll('.api-provider').forEach(el => {
                 el.classList.remove('selected');
             });
-            event.target.closest('.api-provider').classList.add('selected');
+            
+            // Encontrar o elemento clicado
+            let target = event.target;
+            while (target && !target.classList.contains('api-provider')) {
+                target = target.parentElement;
+            }
+            if (target) {
+                target.classList.add('selected');
+            }
             
             const helpTexts = {
                 openrouter: `<strong>🎯 OpenRouter (Recomendado)</strong><br>
@@ -2720,7 +2730,12 @@ ${missingKeywordsSection}
                 selector.appendChild(div);
             });
             
-            document.querySelector('.profile-option').classList.add('selected');
+            // Selecionar o primeiro perfil
+            const firstOption = selector.querySelector('.profile-option');
+            if (firstOption) {
+                firstOption.classList.add('selected');
+                selectedProfileKey = Object.keys(DERIVED_PROFILES)[0];
+            }
         }
 
         function selectProfile(key) {
@@ -2802,11 +2817,12 @@ ${missingKeywordsSection}
                 console.error('AI Analysis Error:', error);
                 showNotification(
                     currentLang === 'pt' 
-                        ? `Erro na análise com IA. Usando análise local...` 
-                        : `AI Analysis Error. Using local analysis...`,
+                        ? `Erro na análise com IA: ${error.message}. Usando análise local...` 
+                        : `AI Analysis Error: ${error.message}. Using local analysis...`,
                     'error'
                 );
                 
+                // Fallback para análise local
                 analyzeJob();
             } finally {
                 loading.classList.remove('active');
@@ -2903,17 +2919,25 @@ Return ONLY valid JSON with this structure:
                 endpoint += `?key=${apiKey}`;
             }
 
+            const headers = provider.headers(apiKey);
+            
+            console.log('Enviando requisição para:', endpoint);
+            console.log('Headers:', headers);
+            console.log('Body:', requestBody);
+
             const response = await fetch(endpoint, {
                 method: 'POST',
-                headers: provider.headers(apiKey),
+                headers: headers,
                 body: JSON.stringify(requestBody)
             });
 
             if (!response.ok) {
-                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                const errorText = await response.text();
+                throw new Error(`API Error: ${response.status} ${response.statusText}. Details: ${errorText}`);
             }
 
             const data = await response.json();
+            console.log('Resposta da API:', data);
             
             let aiResponse;
             if (selectedApiProvider === 'gemini') {
@@ -2922,12 +2946,22 @@ Return ONLY valid JSON with this structure:
                 aiResponse = data.choices[0].message.content;
             }
 
+            console.log('Resposta do AI:', aiResponse);
+
+            // Extrair JSON da resposta
             const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
             if (!jsonMatch) {
-                throw new Error('Invalid AI response format');
+                console.error('Resposta não contém JSON válido:', aiResponse);
+                throw new Error('Invalid AI response format - no JSON found');
             }
 
-            return JSON.parse(jsonMatch[0]);
+            try {
+                return JSON.parse(jsonMatch[0]);
+            } catch (parseError) {
+                console.error('Erro ao parsear JSON:', parseError);
+                console.error('Texto que tentou parsear:', jsonMatch[0]);
+                throw new Error(`JSON parse error: ${parseError.message}`);
+            }
         }
 
         // ==================== ANÁLISE LOCAL ====================
@@ -3044,43 +3078,7 @@ Return ONLY valid JSON with this structure:
             // Mostrar decisão estratégica primeiro
             STRATEGIC_DECISION.displayDecision(decision);
             
-            let verdict = "APLICAR COM AJUSTES";
-            let verdictClass = "ajustar";
-            let subtitle = currentLang === 'pt' ? "Compatibilidade boa. Ajuste CV e aplique." : "Good compatibility. Adjust CV and apply.";
-            
-            if (score >= 80) {
-                verdict = currentLang === 'pt' ? "✓ APLICAR AGORA" : "✓ APPLY NOW";
-                verdictClass = "aplicar";
-                subtitle = currentLang === 'pt' ? "Alta compatibilidade. Vá em frente!" : "High compatibility. Go ahead!";
-            } else if (score <= 50 || jobInfo.redFlags.length > 2) {
-                verdict = currentLang === 'pt' ? "✗ NÃO APLICAR" : "✗ DO NOT APPLY";
-                verdictClass = "rejeitar";
-                subtitle = currentLang === 'pt' ? "Muitos red flags ou requisitos irreais." : "Too many red flags or unrealistic requirements.";
-            }
-
-            document.getElementById('verdictPanel').className = `verdict-panel ${verdictClass}`;
-            document.getElementById('verdictTitle').textContent = verdict;
-            document.getElementById('verdictSubtitle').textContent = subtitle;
-            document.getElementById('scoreDisplay').textContent = `${score}%`;
-            document.getElementById('progressFill').style.width = `${score}%`;
-
-            const aiSection = document.getElementById('aiEnhancedSection');
-            aiSection.style.display = 'block';
-            document.getElementById('aiInsights').innerHTML = `
-                <div style="margin-bottom: 10px;">
-                    <strong>🤖 Insight IA:</strong> ${jobInfo.aiInsights || 'Análise aprofundada por IA'}
-                </div>
-                <div style="margin-bottom: 10px;">
-                    <strong>📈 Tendência:</strong> ${jobInfo.marketTrend || 'Demanda estável no mercado'}
-                </div>
-                <div>
-                    <strong>🎯 Competição:</strong> 
-                    <span class="tag ${jobInfo.competitionLevel === 'baixo' || jobInfo.competitionLevel === 'low' ? 'success' : jobInfo.competitionLevel === 'alto' || jobInfo.competitionLevel === 'high' ? 'critical' : ''}">
-                        ${jobInfo.competitionLevel || 'médio'}
-                    </span>
-                </div>
-            `;
-
+            // Análise de job
             const analysisDiv = document.getElementById('jobAnalysis');
             analysisDiv.innerHTML = `
                 <div class="info-box">
@@ -3121,39 +3119,32 @@ Return ONLY valid JSON with this structure:
                 <p><strong>${currentLang === 'pt' ? 'Quando usar:' : 'When to use:'}</strong> ${finalProfile.when[currentLang]}</p>
                 <p><strong>${currentLang === 'pt' ? 'Descrição:' : 'Description:'}</strong> ${finalProfile.description[currentLang]}</p>
                 <p><strong>${currentLang === 'pt' ? 'Palavras-chave IA:' : 'AI Keywords:'}</strong> ${finalProfile.aiKeywords.join(", ")}</p>
+                <div class="ai-enhanced">
+                    <h4>🤖 INSIGHTS DA IA</h4>
+                    <div style="margin-top: 10px;">
+                        <strong>${currentLang === 'pt' ? 'Análise Profunda:' : 'Deep Analysis:'}</strong> ${jobInfo.aiInsights || 'Análise aprofundada por IA'}
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <strong>${currentLang === 'pt' ? 'Tendência:' : 'Trend:'}</strong> ${jobInfo.marketTrend || 'Demanda estável no mercado'}
+                    </div>
+                    <div style="margin-top: 5px;">
+                        <strong>${currentLang === 'pt' ? 'Competição:' : 'Competition:'}</strong> 
+                        <span class="tag ${jobInfo.competitionLevel === 'baixo' || jobInfo.competitionLevel === 'low' ? 'success' : jobInfo.competitionLevel === 'alto' || jobInfo.competitionLevel === 'high' ? 'critical' : ''}">
+                            ${jobInfo.competitionLevel || 'médio'}
+                        </span>
+                    </div>
+                </div>
             `;
 
             generateEnhancedDocuments(finalProfile, jobInfo);
             
             // Adicionar dashboard de aprendizado
-            addLearningDashboard(learningResult, jobInfo, profile, score);
+            addLearningDashboard(learningResult, jobInfo, finalProfile, score);
         }
 
         function displayResults(profile, jobInfo, score, decision) {
             // Mostrar decisão estratégica
             STRATEGIC_DECISION.displayDecision(decision);
-            
-            let verdict = "APLICAR COM AJUSTES";
-            let verdictClass = "ajustar";
-            let subtitle = currentLang === 'pt' ? "Compatibilidade boa. Ajuste CV e aplique." : "Good compatibility. Adjust CV and apply.";
-            
-            if (score >= 80) {
-                verdict = currentLang === 'pt' ? "✓ APLICAR AGORA" : "✓ APPLY NOW";
-                verdictClass = "aplicar";
-                subtitle = currentLang === 'pt' ? "Alta compatibilidade. Vá em frente!" : "High compatibility. Go ahead!";
-            } else if (score <= 50 || jobInfo.redFlags.length > 2) {
-                verdict = currentLang === 'pt' ? "✗ NÃO APLICAR" : "✗ DO NOT APPLY";
-                verdictClass = "rejeitar";
-                subtitle = currentLang === 'pt' ? "Muitos red flags ou requisitos irreais." : "Too many red flags or unrealistic requirements.";
-            }
-
-            document.getElementById('verdictPanel').className = `verdict-panel ${verdictClass}`;
-            document.getElementById('verdictTitle').textContent = verdict;
-            document.getElementById('verdictSubtitle').textContent = subtitle;
-            document.getElementById('scoreDisplay').textContent = `${score}%`;
-            document.getElementById('progressFill').style.width = `${score}%`;
-
-            document.getElementById('aiEnhancedSection').style.display = 'none';
 
             const analysisDiv = document.getElementById('jobAnalysis');
             analysisDiv.innerHTML = `
@@ -3292,8 +3283,7 @@ Return ONLY valid JSON with this structure:
             
             const resultsDiv = document.getElementById('results');
             const decisionPanel = resultsDiv.querySelector('.decision-panel');
-            const nextPanel = decisionPanel.nextElementSibling;
-            resultsDiv.insertBefore(createElementFromHTML(dashboardHTML), nextPanel);
+            resultsDiv.insertBefore(createElementFromHTML(dashboardHTML), decisionPanel.nextSibling);
         }
 
         function createElementFromHTML(htmlString) {
