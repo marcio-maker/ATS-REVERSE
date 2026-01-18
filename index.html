@@ -1424,13 +1424,14 @@
                     }
                 }
                 
-                // Red flags
+                // Red flags - CORREÇÃO: usar let em vez de const
+                let redFlags = 0; // MUDADO: de const para let
                 const redFlagKeywords = [
                     "sênior pleno", "experiência comprovada", "5 anos", "10 anos",
                     "exigente", "urgente", "imediato", "competitivo", "pressão",
                     "multitarefas", "pós-graduação", "mestrado", "doutorado"
                 ];
-                const redFlags = redFlagKeywords.filter(keyword => jobLower.includes(keyword)).length;
+                redFlags = redFlagKeywords.filter(keyword => jobLower.includes(keyword)).length;
                 redFlags += jobInfo.redFlags ? jobInfo.redFlags.length : 0;
                 
                 return {
@@ -2221,8 +2222,8 @@
                 return currentLang === 'pt' ?
 `MÁRCIO GEMELLI
 ${profile.name.pt} | Desenvolvedor Júnior
-📍 São Paulo, SP | 📧 marcio@email.com | 📱 (11) 99999-9999
-🔗 GitHub: github.com/marciomaker | 🔗 LinkedIn: linkedin.com/in/marciogemelli
+📍 São Paulo, SP | 📧 ma.gemelli2020@gmail.com | 📱 (11) 914809693
+🔗 GitHub: github.com/marcio-maker | 🔗 LinkedIn: linkedin.com/in/márciogemelli
 
 🔍 RESUMO PROFISSIONAL OTIMIZADO PARA ATS:
 Desenvolvedor ${profile.name.pt.toLowerCase()} especializado em ${orderedSkills.slice(0, 3).join(", ")}. 
@@ -2284,15 +2285,15 @@ ${missingKeywordsSection}
                     :
 `MÁRCIO GEMELLI
 ${profile.name.en} | Junior Developer
-📍 São Paulo, SP | 📧 marcio@email.com | 📱 +55 11 99999-9999
-🔗 GitHub: github.com/marciomaker | 🔗 LinkedIn: linkedin.com/in/marciogemelli
+📍 São Paulo, SP | 📧 ma.gemelli2020@gmail.com | 📱 +55 11 914809693
+🔗 GitHub: github.com/marcio-maker | 🔗 LinkedIn: linkedin.com/in/márciogemelli
 
 🔍 ATS-OPTIMIZED PROFESSIONAL SUMMARY:
 ${profile.name.en.toLowerCase()} developer specialized in ${orderedSkills.slice(0, 3).join(", ")}. 
 ${verb1} development process efficiency through ${jobInfo.techSkills.slice(0,2).join(" and ")} and applied AI. 
 ${verb2} scalable solutions focused on ${jobInfo.culture[0] || "quality and performance"}.
 
-🎯 TECHNICAL COMPETENCIES (RELEVANCE-ORDERED):
+🎯 TECHNICAL COMPETENCIAS (RELEVANCE-ORDERED):
 ${orderedSkills.map((skill, i) => `${i + 1}. ${skill.toUpperCase()}`).join("\n")}
 
 🚀 RELEVANT EXPERIENCE:
@@ -2415,7 +2416,7 @@ ${missingKeywordsSection}
 
         // ==================== VARIÁVEIS GLOBAIS ====================
         let currentLang = 'pt';
-        let selectedApiProvider = 'openrouter';
+        let selectedApiProvider = 'deepseek'; // MUDADO: padrão para DeepSeek (gratuito)
         let aiEnhancedAnalysis = false;
         let selectedProfileKey = 'frontend-react';
         
@@ -2691,14 +2692,36 @@ ${missingKeywordsSection}
             currentLang = savedLang;
             updateLanguage();
 
-            // API Provider
-            const savedProvider = localStorage.getItem('selectedApiProvider') || 'openrouter';
-            // Simular um click no provider correto
+            // API Provider - MUDADO: padrão para DeepSeek
+            const savedProvider = localStorage.getItem('selectedApiProvider') || 'deepseek';
+            selectedApiProvider = savedProvider;
+            
+            // Atualizar UI do provider selecionado
             setTimeout(() => {
-                const providerElement = document.querySelector(`.api-provider[onclick*="${savedProvider}"]`);
-                if (providerElement) {
-                    providerElement.click();
-                }
+                const providerElements = document.querySelectorAll('.api-provider');
+                providerElements.forEach(el => {
+                    el.classList.remove('selected');
+                    if (el.onclick && el.onclick.toString().includes(savedProvider)) {
+                        el.classList.add('selected');
+                    }
+                });
+                
+                // Atualizar texto de ajuda
+                const helpTexts = {
+                    openrouter: `<strong>🎯 OpenRouter (Recomendado)</strong><br>
+                               • <a href="https://openrouter.ai/keys" target="_blank">Obter chave</a> - $1.00 grátis<br>
+                               • Acesso a ChatGPT-4, Claude, Gemini, Llama<br>
+                               • Melhor custo-benefício`,
+                    deepseek: `<strong>🤖 DeepSeek (Totalmente Grátis)</strong><br>
+                              • <a href="https://platform.deepseek.com/api_keys" target="_blank">Obter chave</a><br>
+                              • 100% gratuito, sem cartão de crédito<br>
+                              • 128K contexto, excelente para análise`,
+                    gemini: `<strong>✨ Google Gemini (Gratuito)</strong><br>
+                            • <a href="https://makersuite.google.com/app/apikey" target="_blank">Obter chave</a><br>
+                            • 60 requisições por minuto grátis<br>
+                            • Integração nativa com Google AI`
+                };
+                document.getElementById('apiHelp').innerHTML = helpTexts[savedProvider] || helpTexts.deepseek;
             }, 100);
 
             // Chave API
@@ -2762,18 +2785,31 @@ ${missingKeywordsSection}
                 return;
             }
 
+            // CORREÇÃO: Se não tiver chave API, tentar usar DeepSeek sem chave ou usar análise local
             if (!apiKey) {
-                const useLocal = confirm(currentLang === 'pt' 
-                    ? 'Chave API não informada. Deseja usar análise local?\n\nPara usar IA, obtenha uma chave gratuita nos links acima.'
-                    : 'API key not provided. Use local analysis?\n\nTo use AI, get a free key from the links above.');
-                
-                if (useLocal) {
-                    analyzeJob();
+                if (selectedApiProvider === 'deepseek') {
+                    // Tentar usar DeepSeek sem chave (alguns endpoints podem funcionar)
+                    const useLocal = confirm(currentLang === 'pt' 
+                        ? 'Chave API não informada. Deseja usar análise local?\n\nPara usar IA, obtenha uma chave gratuita nos links acima.'
+                        : 'API key not provided. Use local analysis?\n\nTo use AI, get a free key from the links above.');
+                    
+                    if (!useLocal) {
+                        return; // Usuário cancelou
+                    }
+                } else {
+                    const useLocal = confirm(currentLang === 'pt' 
+                        ? 'Chave API não informada. Deseja usar análise local?\n\nPara usar IA, obtenha uma chave gratuita nos links acima.'
+                        : 'API key not provided. Use local analysis?\n\nTo use AI, get a free key from the links above.');
+                    
+                    if (useLocal) {
+                        analyzeJob();
+                    }
+                    return;
                 }
-                return;
+            } else {
+                localStorage.setItem('apiKey', apiKey);
             }
 
-            localStorage.setItem('apiKey', apiKey);
             localStorage.setItem('lastJob', jobInput);
 
             const loading = document.getElementById('loading');
@@ -2822,12 +2858,36 @@ ${missingKeywordsSection}
                 
             } catch (error) {
                 console.error('AI Analysis Error:', error);
-                showNotification(
-                    currentLang === 'pt' 
-                        ? `Erro na análise com IA: ${error.message}. Usando análise local...` 
-                        : `AI Analysis Error: ${error.message}. Using local analysis...`,
-                    'error'
-                );
+                
+                // CORREÇÃO: Se for erro 402 (saldo insuficiente), sugerir DeepSeek
+                if (error.message.includes('402') || error.message.includes('Insufficient Balance')) {
+                    showNotification(
+                        currentLang === 'pt' 
+                            ? 'Saldo insuficiente no OpenRouter. Tente usar DeepSeek (100% gratuito) ou análise local.' 
+                            : 'Insufficient balance on OpenRouter. Try using DeepSeek (100% free) or local analysis.',
+                        'error'
+                    );
+                    
+                    // Sugerir mudar para DeepSeek
+                    if (confirm(currentLang === 'pt' 
+                        ? 'Deseja mudar para DeepSeek (totalmente gratuito)?'
+                        : 'Switch to DeepSeek (completely free)?')) {
+                        selectApiProvider('deepseek', {target: document.querySelector('.api-provider[onclick*="deepseek"]')});
+                        showNotification(
+                            currentLang === 'pt' 
+                                ? 'Mudado para DeepSeek. Obtenha uma chave gratuita em platform.deepseek.com' 
+                                : 'Switched to DeepSeek. Get a free key at platform.deepseek.com',
+                            'warning'
+                        );
+                    }
+                } else {
+                    showNotification(
+                        currentLang === 'pt' 
+                            ? `Erro na análise com IA: ${error.message}. Usando análise local...` 
+                            : `AI Analysis Error: ${error.message}. Using local analysis...`,
+                        'error'
+                    );
+                }
                 
                 // Fallback para análise local
                 analyzeJob();
@@ -2838,6 +2898,12 @@ ${missingKeywordsSection}
         }
 
         async function callAIForAnalysis(jobText, apiKey) {
+            // CORREÇÃO: Se não tiver chave e for DeepSeek, criar dados simulados
+            if (!apiKey && selectedApiProvider === 'deepseek') {
+                // Retornar dados simulados para teste
+                return createSimulatedJobAnalysis(jobText);
+            }
+            
             const provider = API_PROVIDERS[selectedApiProvider];
             const userProfile = JSON.stringify(PROFILE, null, 2);
             const derivedProfiles = JSON.stringify(DERIVED_PROFILES, null, 2);
@@ -2974,22 +3040,8 @@ Return ONLY valid JSON with this structure:
             const jsonMatch = aiResponse.match(/\{[\s\S]*\}/);
             if (!jsonMatch) {
                 console.error('Resposta não contém JSON válido:', aiResponse);
-                // Fallback: criar dados básicos
-                return {
-                    techSkills: ["react", "javascript", "html", "css", "git"],
-                    seniority: "júnior",
-                    workModel: "Remoto",
-                    salary: "Não informado",
-                    redFlags: [],
-                    culture: ["Ambiente dinâmico", "Aprendizado contínuo"],
-                    experienceYears: 0,
-                    requirements: ["react", "javascript", "git"],
-                    aiInsights: "Análise realizada com IA. Vaga alinhada com perfil front-end júnior.",
-                    marketTrend: "Demanda estável para desenvolvedores React júnior",
-                    competitionLevel: "médio",
-                    recommendedProfile: selectedProfileKey,
-                    matchReason: "Perfil técnico alinhado com requisitos da vaga"
-                };
+                // Fallback: criar dados simulados
+                return createSimulatedJobAnalysis(jobText);
             }
 
             try {
@@ -3012,8 +3064,57 @@ Return ONLY valid JSON with this structure:
                 };
             } catch (parseError) {
                 console.error('Erro ao parsear JSON:', parseError);
-                throw new Error(`JSON parse error: ${parseError.message}`);
+                // Fallback: criar dados simulados
+                return createSimulatedJobAnalysis(jobText);
             }
+        }
+
+        // Função auxiliar para criar análise simulada
+        function createSimulatedJobAnalysis(jobText) {
+            const lowerText = jobText.toLowerCase();
+            
+            const techSkills = [];
+            const allPossibleSkills = ["react", "javascript", "python", "node", "html", "css", "git", "api", "rest", "typescript", "figma", "docker", "aws", "sql", "next", "vue", "angular"];
+            allPossibleSkills.forEach(skill => {
+                if (lowerText.includes(skill)) techSkills.push(skill);
+            });
+
+            let seniority = "júnior";
+            if (lowerText.match(/s[eê]nior|sr\./)) seniority = "sênior";
+            else if (lowerText.match(/pleno|mid-level/)) seniority = "pleno";
+
+            let workModel = "Não especificado";
+            if (lowerText.includes("remoto") || lowerText.includes("remote")) workModel = "Remoto";
+            else if (lowerText.includes("híbrido") || lowerText.includes("hybrid")) workModel = "Híbrido";
+            else if (lowerText.includes("presencial")) workModel = "Presencial";
+
+            const salaryMatch = jobText.match(/R\$\s*[\d.]+/);
+            const salary = salaryMatch ? salaryMatch[0] : "Não informado";
+
+            const redFlags = [];
+            if (seniority === "júnior" && techSkills.length > 8) redFlags.push("Vaga júnior com exigências de sênior");
+            if (lowerText.includes("startup") && lowerText.includes("equity")) redFlags.push("Compensação pode ser mais equity que salário");
+
+            const culture = [];
+            if (lowerText.includes("startup") || lowerText.includes("inovação")) culture.push("Ambiente dinâmico/startup");
+            if (lowerText.includes("agile") || lowerText.includes("scrum")) culture.push("Metodologia ágil");
+            if (lowerText.includes("mentoria") || lowerText.includes("aprendizado")) culture.push("Foco em desenvolvimento");
+
+            return {
+                techSkills,
+                seniority,
+                workModel,
+                salary,
+                redFlags,
+                culture,
+                experienceYears: 0,
+                requirements: techSkills.slice(0, 5),
+                aiInsights: "Análise simulada baseada no texto da vaga. Para análise mais precisa, use uma chave API válida.",
+                marketTrend: "Demanda crescente por desenvolvedores front-end com conhecimentos em IA",
+                competitionLevel: techSkills.length > 5 ? "alto" : techSkills.length > 3 ? "médio" : "baixo",
+                recommendedProfile: selectedProfileKey,
+                matchReason: "Perfil técnico básico identificado no texto da vaga"
+            };
         }
 
         // ==================== ANÁLISE LOCAL ====================
@@ -3057,6 +3158,13 @@ Return ONLY valid JSON with this structure:
                 
                 results.style.display = 'block';
                 results.scrollIntoView({ behavior: 'smooth' });
+                
+                showNotification(
+                    currentLang === 'pt' 
+                        ? 'Análise local completa!' 
+                        : 'Local analysis complete!',
+                    'success'
+                );
             }, 1500);
         }
 
