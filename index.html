@@ -1,4 +1,4 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -1823,7 +1823,7 @@ l<!DOCTYPE html>
                 
                 try {
                     this.setupEventListeners();
-                    this.carregarCVFusao();
+                    this.carregarExemploInicial();
                     this.atualizarStats();
                     this.loadInitialExample();
                     
@@ -2051,6 +2051,19 @@ l<!DOCTYPE html>
                 document.getElementById('analysis-results').classList.add('hidden');
                 
                 this.showNotification('Texto limpo!', 'info');
+            }
+            
+            carregarExemploInicial() {
+                // Carrega CV exemplo no localStorage se não existir
+                try {
+                    const cvSalvo = localStorage.getItem('cv_data');
+                    if (cvSalvo) {
+                        const cvData = JSON.parse(cvSalvo);
+                        this.preencherFormularioCV(cvData);
+                    }
+                } catch (e) {
+                    console.warn('Erro ao carregar CV salvo:', e);
+                }
             }
             
             loadInitialExample() {
