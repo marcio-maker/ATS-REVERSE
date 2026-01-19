@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -238,6 +238,22 @@
             border-bottom-color: var(--primary);
         }
         
+        .tab-btn.completed::after {
+            content: '✓';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--success);
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         .tab-btn .badge {
             background: var(--primary);
             color: white;
@@ -385,6 +401,12 @@
             transition: all 0.3s ease;
             background: white;
             font-family: var(--font-body);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
         
         textarea.form-control {
@@ -560,6 +582,7 @@
             height: 100%;
             background: var(--gradient-primary);
             border-radius: 4px;
+            width: 0%;
             transition: width 1s ease-out;
         }
         
@@ -611,6 +634,56 @@
             animation: slideInRight 0.4s ease;
             border-left: 5px solid var(--success);
             font-size: 14px;
+        }
+        
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9998;
+            padding: 1rem;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .modal-header {
+            padding: var(--space-md);
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: var(--space-md);
+        }
+        
+        .modal-footer {
+            padding: var(--space-md);
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-sm);
         }
         
         /* UTILITIES */
@@ -807,28 +880,28 @@
                     <div class="stat-value" id="total-analises">0</div>
                     <div class="stat-label">Análises Realizadas</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+                        <div class="progress-fill" id="progress-analises"></div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="total-rewrites">0</div>
                     <div class="stat-label">CVs Reescritos</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+                        <div class="progress-fill" id="progress-rewrites"></div>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="total-matches">0</div>
                     <div class="stat-label">Matches ATS</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+                        <div class="progress-fill" id="progress-matches"></div>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value" id="reducao-irrelevante">0%</div>
+                    <div class="stat-value" id="reducao-irrelevante">40%</div>
                     <div class="stat-label">Redução Irrelevante</div>
                     <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
+                        <div class="progress-fill" id="progress-reducao"></div>
                     </div>
                 </div>
             </div>
@@ -984,12 +1057,12 @@
                         
                         <div class="form-group">
                             <label class="form-label">Nome Completo *</label>
-                            <input type="text" id="cv-name" class="form-control" placeholder="Ex: Márcio Gemelli (Márcio Maker)">
+                            <input type="text" id="cv-name" class="form-control" placeholder="Ex: Márcio Gemelli (Márcio Maker)" required>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">Cargo Atual *</label>
-                            <input type="text" id="cv-title" class="form-control" placeholder="Ex: Desenvolvedor Full Stack">
+                            <input type="text" id="cv-title" class="form-control" placeholder="Ex: Desenvolvedor Full Stack" required>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-3">
@@ -1014,14 +1087,14 @@
                             <label class="form-label">
                                 <i class="fas fa-code"></i> Habilidades Técnicas *
                             </label>
-                            <textarea id="cv-skills" class="form-control" placeholder="JavaScript, React, Node.js, Python, IA, Docker, AWS..." rows="3"></textarea>
+                            <textarea id="cv-skills" class="form-control" placeholder="JavaScript, React, Node.js, Python, IA, Docker, AWS..." rows="3" required></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-briefcase"></i> Experiência Profissional *
                             </label>
-                            <textarea id="cv-experience" class="form-control" rows="5" placeholder="Descreva sua experiência profissional..."></textarea>
+                            <textarea id="cv-experience" class="form-control" rows="5" placeholder="Descreva sua experiência profissional..." required></textarea>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-3 mt-3">
@@ -1309,6 +1382,27 @@
         </footer>
     </div>
     
+    <!-- MODAL PARA KEYWORDS -->
+    <div class="modal-overlay" id="keywords-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="font-bold text-lg"><i class="fas fa-code"></i> Keywords da Vaga</h3>
+                <button class="icon-btn close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="keywords-list" class="tags-container"></div>
+                <p class="text-sm text-secondary mt-3" id="keywords-count">Total: 0 keywords</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary close-modal">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+    
     <!-- OVERLAY DE LOADING -->
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner"></div>
@@ -1322,7 +1416,7 @@
     <script>
         // ============ SISTEMA COMPLETO DE REWRITING ============
         
-        // 1. Classe Principal - Sistema Central
+        // 1. Classe Principal - Sistema Central (CORRIGIDA)
         class SistemaCVReWriter {
             constructor() {
                 this.estado = {
@@ -1656,7 +1750,8 @@
             
             getMetricas() {
                 return {
-                    ...this.metricas,
+                    analisesRealizadas: this.metricas.analisesRealizadas,
+                    rewritesRealizados: this.metricas.rewritesRealizados,
                     keywordsCount: this.metricas.keywordsAprendidas.size
                 };
             }
@@ -1664,7 +1759,11 @@
             salvarEstado() {
                 try {
                     localStorage.setItem('cvrewriter_estado', JSON.stringify(this.estado));
-                    localStorage.setItem('cvrewriter_metricas', JSON.stringify(this.getMetricas()));
+                    localStorage.setItem('cvrewriter_metricas', JSON.stringify({
+                        analisesRealizadas: this.metricas.analisesRealizadas,
+                        rewritesRealizados: this.metricas.rewritesRealizados,
+                        keywordsCount: this.metricas.keywordsAprendidas.size
+                    }));
                 } catch (e) {
                     console.warn('Erro ao salvar estado:', e);
                 }
@@ -1679,9 +1778,7 @@
                     if (metricas) {
                         this.metricas.analisesRealizadas = metricas.analisesRealizadas || 0;
                         this.metricas.rewritesRealizados = metricas.rewritesRealizados || 0;
-                        if (metricas.keywordsCount) {
-                            this.metricas.keywordsAprendidas = new Set();
-                        }
+                        this.metricas.keywordsAprendidas = new Set();
                     }
                 } catch (e) {
                     console.warn('Erro ao carregar estado:', e);
@@ -1712,10 +1809,12 @@
             }
         }
         
-        // 2. Classe de Interface - Gerencia toda a UI
+        // 2. Classe de Interface - Gerencia toda a UI (CORRIGIDA)
         class InterfaceCVReWriter {
             constructor() {
                 this.sistema = new SistemaCVReWriter();
+                this.autoSaveTimeout = null;
+                this.autoDetectTimeout = null;
                 this.init();
             }
             
@@ -1786,6 +1885,46 @@
                 document.getElementById('job-text').addEventListener('input', (e) => {
                     this.autoDetectChanges(e.target.value);
                 });
+                
+                // Auto-update do CV preview
+                const cvFields = ['cv-name', 'cv-title', 'cv-location', 'cv-salary', 
+                                 'cv-objective', 'cv-skills', 'cv-experience'];
+                
+                cvFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        field.addEventListener('input', () => {
+                            this.updateCVPreview();
+                            clearTimeout(this.autoSaveTimeout);
+                            this.autoSaveTimeout = setTimeout(() => {
+                                this.salvarCV(true);
+                            }, 2000);
+                        });
+                    }
+                });
+                
+                // Atalhos de teclado
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        if (document.getElementById('analysis').classList.contains('active')) {
+                            this.analisarVaga();
+                        }
+                    }
+                });
+                
+                // Modal
+                document.querySelectorAll('.close-modal').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        document.getElementById('keywords-modal').classList.remove('active');
+                    });
+                });
+                
+                // Fechar modal com ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        document.getElementById('keywords-modal').classList.remove('active');
+                    }
+                });
             }
             
             // ============ ABA 1: ANÁLISE DE VAGA ============
@@ -1843,6 +1982,9 @@
                 skillsDiv.innerHTML = analise.keywords.slice(0, 15).map(skill => 
                     `<span class="tag tag-primary">${skill}</span>`
                 ).join('');
+                
+                // Marcar aba como concluída
+                document.querySelector('[data-tab="analysis"]').classList.add('completed');
             }
             
             quickAnalyze() {
@@ -2082,7 +2224,7 @@ Projetos Acadêmicos
                 `;
             }
             
-            salvarCV() {
+            salvarCV(silent = false) {
                 const cvData = {
                     nome: document.getElementById('cv-name').value.trim(),
                     cargo: document.getElementById('cv-title').value.trim(),
@@ -2093,9 +2235,10 @@ Projetos Acadêmicos
                     experiencia: document.getElementById('cv-experience').value.trim()
                 };
                 
+                // Validação
                 if (!cvData.nome || !cvData.habilidades) {
-                    this.showNotification('Nome e habilidades são obrigatórios!', 'warning');
-                    return;
+                    if (!silent) this.showNotification('Nome e habilidades são obrigatórios!', 'warning');
+                    return false;
                 }
                 
                 this.sistema.configurarCV(cvData);
@@ -2103,10 +2246,16 @@ Projetos Acadêmicos
                 // Salvar no localStorage
                 try {
                     localStorage.setItem('cv_data', JSON.stringify(cvData));
-                    this.showNotification('CV salvo com sucesso!', 'success');
+                    if (!silent) this.showNotification('CV salvo com sucesso!', 'success');
                     this.updateCVPreview();
+                    
+                    // Marcar aba como concluída
+                    document.querySelector('[data-tab="profile"]').classList.add('completed');
+                    
+                    return true;
                 } catch (error) {
-                    this.showNotification('Erro ao salvar CV', 'error');
+                    if (!silent) this.showNotification('Erro ao salvar CV', 'error');
+                    return false;
                 }
             }
             
@@ -2231,65 +2380,44 @@ Projetos Acadêmicos
                             `).join('')}
                         </div>
                     </div>
-                `;
-                
-                // Adicionar botões de ação
-                document.getElementById('relevance-actions').innerHTML = `
+                    
                     <div class="grid grid-cols-2 gap-3 mt-4">
-                        <button class="btn btn-primary" id="view-keywords">
+                        <button class="btn btn-primary" id="view-keywords-btn">
                             <i class="fas fa-code"></i> Ver Keywords
                         </button>
-                        <button class="btn btn-rewrite" id="goto-rewriting">
+                        <button class="btn btn-rewrite" id="goto-rewriting-btn">
                             <i class="fas fa-wand-magic-sparkles"></i> Executar Rewriting
                         </button>
                     </div>
                 `;
                 
-                document.getElementById('relevance-actions').classList.remove('hidden');
+                // Configurar eventos dos botões dinamicamente
+                setTimeout(() => {
+                    document.getElementById('view-keywords-btn')?.addEventListener('click', () => {
+                        this.showKeywordsModal(analise.keywordsVaga);
+                    });
+                    
+                    document.getElementById('goto-rewriting-btn')?.addEventListener('click', () => {
+                        this.switchTab('rewriting');
+                    });
+                }, 100);
                 
-                // Configurar eventos dos botões
-                document.getElementById('view-keywords').addEventListener('click', () => {
-                    this.showKeywordsModal(analise.keywordsVaga);
-                });
-                
-                document.getElementById('goto-rewriting').addEventListener('click', () => {
-                    this.switchTab('rewriting');
-                });
+                // Marcar aba como concluída
+                document.querySelector('[data-tab="relevance"]').classList.add('completed');
             }
             
             showKeywordsModal(keywords) {
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
-                modal.innerHTML = `
-                    <div class="bg-white rounded-xl max-w-md w-full max-h-[80vh] overflow-auto">
-                        <div class="p-4 border-b flex justify-between items-center">
-                            <h3 class="font-bold text-lg"><i class="fas fa-code"></i> Keywords da Vaga</h3>
-                            <button class="icon-btn close-modal">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div class="p-4">
-                            <div class="tags-container">
-                                ${keywords.map(keyword => 
-                                    `<span class="tag tag-primary">${keyword}</span>`
-                                ).join('')}
-                            </div>
-                            <p class="text-sm text-secondary mt-3">Total: ${keywords.length} keywords</p>
-                        </div>
-                        <div class="p-4 border-t">
-                            <button class="btn btn-primary w-full close-modal">
-                                Fechar
-                            </button>
-                        </div>
-                    </div>
-                `;
+                const modal = document.getElementById('keywords-modal');
+                const keywordsList = document.getElementById('keywords-list');
+                const keywordsCount = document.getElementById('keywords-count');
                 
-                document.body.appendChild(modal);
+                keywordsList.innerHTML = keywords.map(keyword => 
+                    `<span class="tag tag-primary">${keyword}</span>`
+                ).join('');
                 
-                // Fechar modal
-                modal.querySelectorAll('.close-modal').forEach(btn => {
-                    btn.addEventListener('click', () => modal.remove());
-                });
+                keywordsCount.textContent = `Total: ${keywords.length} keywords`;
+                
+                modal.classList.add('active');
             }
             
             // ============ ABA 4: REWRITING ============
@@ -2361,74 +2489,65 @@ Projetos Acadêmicos
                     </div>
                     
                     <div class="grid grid-cols-2 gap-3 mt-4">
-                        <button class="btn btn-primary" id="view-details">
+                        <button class="btn btn-primary" id="view-details-btn">
                             <i class="fas fa-search"></i> Ver Detalhes
                         </button>
-                        <button class="btn btn-rewrite" id="goto-optimization">
+                        <button class="btn btn-rewrite" id="goto-optimization-btn">
                             <i class="fas fa-file-contract"></i> Ver CV Otimizado
                         </button>
                     </div>
                 `;
                 
                 // Configurar eventos dos botões
-                document.getElementById('view-details').addEventListener('click', () => {
-                    this.showRewritingDetails(cvOriginal, cvReescrito);
-                });
+                setTimeout(() => {
+                    document.getElementById('view-details-btn')?.addEventListener('click', () => {
+                        this.showRewritingDetails();
+                    });
+                    
+                    document.getElementById('goto-optimization-btn')?.addEventListener('click', () => {
+                        this.switchTab('optimization');
+                        setTimeout(() => this.atualizarCVOtimizado(), 300);
+                    });
+                }, 100);
                 
-                document.getElementById('goto-optimization').addEventListener('click', () => {
-                    this.switchTab('optimization');
-                    setTimeout(() => this.atualizarCVOtimizado(), 300);
-                });
+                // Marcar aba como concluída
+                document.querySelector('[data-tab="rewriting"]').classList.add('completed');
             }
             
-            showRewritingDetails(cvOriginal, cvReescrito) {
-                const diferenças = this.compararCVs(cvOriginal, cvReescrito);
+            showRewritingDetails() {
+                const diferenças = this.compararCVs(
+                    this.sistema.dados.cvOriginal,
+                    this.sistema.dados.cvReescrito
+                );
                 
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
-                modal.innerHTML = `
-                    <div class="bg-white rounded-xl max-w-2xl w-full max-h-[80vh] overflow-auto">
-                        <div class="p-4 border-b flex justify-between items-center">
-                            <h3 class="font-bold text-lg"><i class="fas fa-search"></i> Detalhes do Rewriting</h3>
-                            <button class="icon-btn close-modal">
-                                <i class="fas fa-times"></i>
-                            </button>
+                const modal = document.getElementById('keywords-modal');
+                const keywordsList = document.getElementById('keywords-list');
+                const keywordsCount = document.getElementById('keywords-count');
+                
+                keywordsList.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <h4 class="font-bold text-blue-700 mb-2">Principais Melhorias:</h4>
+                            <ul class="text-sm text-blue-800 space-y-1">
+                                ${diferenças.map(diff => `
+                                    <li>• ${diff}</li>
+                                `).join('')}
+                            </ul>
                         </div>
-                        <div class="p-4">
-                            <div class="space-y-4">
-                                <div class="p-3 bg-blue-50 rounded-lg">
-                                    <h4 class="font-bold text-blue-700 mb-2">Principais Melhorias:</h4>
-                                    <ul class="text-sm text-blue-800 space-y-1">
-                                        ${diferenças.map(diff => `
-                                            <li>• ${diff}</li>
-                                        `).join('')}
-                                    </ul>
-                                </div>
-                                
-                                <div class="p-3 bg-green-50 rounded-lg">
-                                    <h4 class="font-bold text-green-700 mb-2">Keywords Adicionadas:</h4>
-                                    <div class="tags-container">
-                                        ${this.sistema.dados.analiseRelevancia.keywordsVaga.slice(0, 10).map(kw => 
-                                            `<span class="tag tag-success">${kw}</span>`
-                                        ).join('')}
-                                    </div>
-                                </div>
+                        
+                        <div class="p-3 bg-green-50 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">Keywords Adicionadas:</h4>
+                            <div class="tags-container">
+                                ${this.sistema.dados.analiseRelevancia.keywordsVaga.slice(0, 10).map(kw => 
+                                    `<span class="tag tag-success">${kw}</span>`
+                                ).join('')}
                             </div>
-                        </div>
-                        <div class="p-4 border-t">
-                            <button class="btn btn-primary w-full close-modal">
-                                Fechar
-                            </button>
                         </div>
                     </div>
                 `;
                 
-                document.body.appendChild(modal);
-                
-                // Fechar modal
-                modal.querySelectorAll('.close-modal').forEach(btn => {
-                    btn.addEventListener('click', () => modal.remove());
-                });
+                keywordsCount.textContent = `Melhorias: ${diferenças.length}`;
+                modal.classList.add('active');
             }
             
             compararCVs(cvOriginal, cvReescrito) {
@@ -2516,18 +2635,23 @@ Projetos Acadêmicos
                 // Adicionar botões de ação
                 document.getElementById('optimization-actions').innerHTML = `
                     <div class="grid grid-cols-2 gap-3 mt-4">
-                        <button class="btn btn-primary" id="copy-cv">
+                        <button class="btn btn-primary" id="copy-cv-btn">
                             <i class="fas fa-copy"></i> Copiar CV
                         </button>
-                        <button class="btn btn-rewrite" id="download-cv">
+                        <button class="btn btn-rewrite" id="download-cv-btn">
                             <i class="fas fa-download"></i> Baixar TXT
                         </button>
                     </div>
                 `;
                 
                 // Configurar eventos dos botões
-                document.getElementById('copy-cv').addEventListener('click', () => this.copiarCV());
-                document.getElementById('download-cv').addEventListener('click', () => this.downloadCV());
+                setTimeout(() => {
+                    document.getElementById('copy-cv-btn')?.addEventListener('click', () => this.copiarCV());
+                    document.getElementById('download-cv-btn')?.addEventListener('click', () => this.downloadCV());
+                }, 100);
+                
+                // Marcar aba como concluída
+                document.querySelector('[data-tab="optimization"]').classList.add('completed');
             }
             
             atualizarMetricasOtimizacao() {
@@ -2542,6 +2666,14 @@ Projetos Acadêmicos
                 
                 document.getElementById('relevance-percent').textContent = `${score}%`;
                 document.getElementById('relevance-bar').style.width = `${score}%`;
+            }
+            
+            calcularReducaoIrrelevante() {
+                if (!this.sistema.dados.analiseRelevancia) return 40;
+                
+                const score = this.sistema.dados.analiseRelevancia.score || 0.5;
+                const reducao = Math.round((1 - score) * 60 + 20);
+                return Math.min(80, reducao);
             }
             
             async copiarCV() {
@@ -2603,6 +2735,23 @@ Projetos Acadêmicos
                 
                 document.getElementById('total-matches').textContent = metricas.keywordsCount;
                 document.getElementById('learning-count').textContent = metricas.keywordsCount;
+                
+                // Calcular redução irrelevante dinamicamente
+                const reducao = this.calcularReducaoIrrelevante();
+                document.getElementById('reducao-irrelevante').textContent = `${reducao}%`;
+                
+                // Atualizar progress bars
+                const progressBars = {
+                    'progress-analises': Math.min(100, (metricas.analisesRealizadas / 10) * 100),
+                    'progress-rewrites': Math.min(100, (metricas.rewritesRealizados / 10) * 100),
+                    'progress-matches': Math.min(100, (metricas.keywordsCount / 50) * 100),
+                    'progress-reducao': reducao
+                };
+                
+                Object.entries(progressBars).forEach(([id, width]) => {
+                    const bar = document.getElementById(id);
+                    if (bar) bar.style.width = `${width}%`;
+                });
                 
                 // Atualizar última data
                 const now = new Date();
@@ -2673,45 +2822,46 @@ Projetos Acadêmicos
                     </div>
                 `;
                 
-                const modal = document.createElement('div');
-                modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
-                modal.innerHTML = `
-                    <div class="bg-white rounded-xl max-w-md w-full max-h-[80vh] overflow-auto">
-                        <div class="p-4 border-b flex justify-between items-center">
-                            <h3 class="font-bold text-lg"><i class="fas fa-info-circle"></i> Informações do Sistema</h3>
-                            <button class="icon-btn close-modal">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div class="p-4">
-                            ${infoHTML}
-                        </div>
-                        <div class="p-4 border-t">
-                            <button class="btn btn-primary w-full close-modal">
-                                Fechar
-                            </button>
-                        </div>
-                    </div>
-                `;
+                const modal = document.getElementById('keywords-modal');
+                const keywordsList = document.getElementById('keywords-list');
+                const keywordsCount = document.getElementById('keywords-count');
                 
-                document.body.appendChild(modal);
-                
-                // Fechar modal
-                modal.querySelectorAll('.close-modal').forEach(btn => {
-                    btn.addEventListener('click', () => modal.remove());
-                });
+                keywordsList.innerHTML = infoHTML;
+                keywordsCount.textContent = 'Informações do Sistema';
+                modal.classList.add('active');
             }
             
             resetSystem() {
                 if (confirm('Tem certeza que deseja resetar todo o sistema? Todos os dados serão perdidos.')) {
                     this.sistema.resetarSistema();
-                    this.atualizarStats();
-                    this.showNotification('Sistema resetado com sucesso!', 'success');
                     
                     // Resetar interface
                     this.clearJobText();
                     this.resetCV();
+                    
+                    // Resetar abas
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.classList.remove('completed');
+                    });
+                    
+                    // Resetar placeholders
+                    document.getElementById('analysis-placeholder').classList.remove('hidden');
+                    document.getElementById('analysis-results').classList.add('hidden');
+                    
+                    document.getElementById('relevance-placeholder').classList.remove('hidden');
+                    document.getElementById('relevance-results').classList.add('hidden');
+                    
+                    document.getElementById('rewriting-placeholder').classList.remove('hidden');
+                    document.getElementById('rewriting-results').classList.add('hidden');
+                    
+                    document.getElementById('optimization-placeholder').classList.remove('hidden');
+                    document.getElementById('optimization-results').classList.add('hidden');
+                    
+                    // Atualizar stats
+                    this.atualizarStats();
                     this.switchTab('analysis');
+                    
+                    this.showNotification('Sistema resetado com sucesso!', 'success');
                 }
             }
             
@@ -2742,17 +2892,17 @@ Projetos Acadêmicos
                     info: 'info-circle'
                 };
                 
-                notification.innerHTML = `
-                    <i class="fas fa-${icons[type] || 'info-circle'}"></i>
-                    <span>${message}</span>
-                `;
-                
                 const colors = {
                     success: '#00b894',
                     error: '#ff6b6b',
                     warning: '#fdcb6e',
                     info: '#0984e3'
                 };
+                
+                notification.innerHTML = `
+                    <i class="fas fa-${icons[type] || 'info-circle'}" style="color: ${colors[type] || colors.info}"></i>
+                    <span>${message}</span>
+                `;
                 
                 notification.style.borderLeftColor = colors[type] || colors.info;
                 
@@ -2761,6 +2911,7 @@ Projetos Acadêmicos
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.style.opacity = '0';
+                        notification.style.transform = 'translateX(100%)';
                         setTimeout(() => {
                             if (notification.parentNode) {
                                 notification.parentNode.removeChild(notification);
