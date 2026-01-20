@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,34 +8,34 @@
     <style>
         /* VARIÁVEIS GLOBAIS OTIMIZADAS */
         :root {
-            --primary: #1e3c72;
-            --secondary: #2a5298;
+            --primary: #5574ad;
+            --secondary: #6d94d6;
             --success: #00b894;
             --warning: #fdcb6e;
             --danger: #ff6b6b;
             --info: #0984e3;
             --purple: #6c5ce7;
-            
+
             /* Gradientes */
-            --gradient-primary: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --gradient-primary: linear-gradient(135deg, #4b71b7 0%, #2a5298 100%);
+            --gradient-dark: linear-gradient(135deg, #13327b 0%, #7db38b 100%);
             --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             --gradient-success: linear-gradient(135deg, #00b894 0%, #00a884 100%);
             --gradient-rewrite: linear-gradient(135deg, #8a2be2 0%, #9370db 100%);
-            
+
             /* Sombras */
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
-            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-            --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
-            
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
             /* Bordas */
             --radius-sm: 8px;
             --radius-md: 12px;
             --radius-lg: 16px;
             --radius-xl: 20px;
             --radius-full: 9999px;
-            
+
             /* Espaçamentos */
             --space-xs: 0.5rem;
             --space-sm: 0.75rem;
@@ -42,22 +43,22 @@
             --space-lg: 1.5rem;
             --space-xl: 2rem;
             --space-2xl: 3rem;
-            
+
             /* Tipografia */
             --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
-        
+
         /* RESET E BASE */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         html {
             font-size: 14px;
         }
-        
+
         body {
             background: var(--gradient-dark);
             color: #333;
@@ -67,14 +68,14 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
+
         .container {
             width: 100%;
             max-width: 1600px;
             margin: 0 auto;
             padding: 1rem;
         }
-        
+
         /* HEADER */
         header {
             text-align: center;
@@ -87,7 +88,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         header::before {
             content: '';
             position: absolute;
@@ -97,7 +98,7 @@
             height: 4px;
             background: var(--gradient-rewrite);
         }
-        
+
         h1 {
             color: white;
             font-size: 2rem;
@@ -108,7 +109,7 @@
             -webkit-text-fill-color: transparent;
             line-height: 1.2;
         }
-        
+
         .subtitle {
             color: rgba(255, 255, 255, 0.9);
             font-size: 1rem;
@@ -117,7 +118,7 @@
             font-weight: 300;
             line-height: 1.4;
         }
-        
+
         /* STATUS BADGE */
         .status-badge {
             display: inline-flex;
@@ -132,7 +133,7 @@
             font-weight: 600;
             margin-bottom: var(--space-sm);
         }
-        
+
         .status-badge .pulse-dot {
             width: 6px;
             height: 6px;
@@ -140,7 +141,7 @@
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
-        
+
         /* STATS GRID */
         .stats-grid {
             display: grid;
@@ -148,7 +149,7 @@
             gap: var(--space-sm);
             margin: var(--space-md) 0;
         }
-        
+
         .stat-card {
             background: white;
             padding: var(--space-md);
@@ -159,13 +160,13 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .stat-card:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow-lg);
             border-color: var(--primary);
         }
-        
+
         .stat-value {
             font-size: 2rem;
             font-weight: 900;
@@ -173,7 +174,7 @@
             margin: 10px 0;
             line-height: 1;
         }
-        
+
         .stat-label {
             color: #64748b;
             font-size: 11px;
@@ -181,7 +182,7 @@
             letter-spacing: 1px;
             font-weight: 700;
         }
-        
+
         /* SISTEMA DE ABAS */
         .tabs-system {
             background: white;
@@ -190,7 +191,7 @@
             margin-bottom: var(--space-xl);
             box-shadow: var(--shadow-lg);
         }
-        
+
         .tabs-header {
             display: flex;
             flex-direction: column;
@@ -198,7 +199,7 @@
             position: relative;
             width: 100%;
         }
-        
+
         .tabs-header::after {
             content: '';
             position: absolute;
@@ -208,7 +209,7 @@
             height: 1px;
             background: rgba(30, 60, 114, 0.1);
         }
-        
+
         .tab-btn {
             padding: var(--space-md);
             border: none;
@@ -227,17 +228,17 @@
             width: 100%;
             text-align: left;
         }
-        
+
         .tab-btn:hover {
             background: rgba(30, 60, 114, 0.05);
         }
-        
+
         .tab-btn.active {
             color: var(--primary);
             background: white;
             border-bottom-color: var(--primary);
         }
-        
+
         .tab-btn.completed::after {
             content: '✓';
             position: absolute;
@@ -253,7 +254,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .tab-btn .badge {
             background: var(--primary);
             color: white;
@@ -264,23 +265,30 @@
             font-weight: 700;
             margin-left: auto;
         }
-        
+
         .tab-content {
             display: none;
             padding: var(--space-md);
             animation: fadeIn 0.4s ease;
             width: 100%;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         /* LAYOUT */
         .tab-grid {
             display: flex;
@@ -288,7 +296,7 @@
             gap: var(--space-lg);
             width: 100%;
         }
-        
+
         /* CARDS */
         .card {
             background: var(--gradient-card);
@@ -301,7 +309,7 @@
             overflow: hidden;
             width: 100%;
         }
-        
+
         .card-header {
             display: flex;
             flex-direction: column;
@@ -310,7 +318,7 @@
             padding-bottom: var(--space-sm);
             border-bottom: 2px solid #f1f5f9;
         }
-        
+
         .card-title {
             display: flex;
             align-items: center;
@@ -320,7 +328,7 @@
             font-weight: 700;
             line-height: 1.3;
         }
-        
+
         /* CONTROLES */
         .controls {
             display: flex;
@@ -328,7 +336,7 @@
             flex-wrap: wrap;
             justify-content: flex-start;
         }
-        
+
         .btn {
             padding: 12px 20px;
             border: none;
@@ -342,29 +350,29 @@
             justify-content: center;
             gap: 8px;
         }
-        
+
         .btn-primary {
             background: var(--gradient-primary);
             color: white;
             box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(30, 60, 114, 0.3);
         }
-        
+
         .btn-rewrite {
             background: var(--gradient-rewrite);
             color: white;
             box-shadow: 0 4px 12px rgba(138, 43, 226, 0.2);
         }
-        
+
         .btn-rewrite:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 16px rgba(138, 43, 226, 0.3);
         }
-        
+
         .icon-btn {
             width: 40px;
             height: 40px;
@@ -378,12 +386,12 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
-        
+
         /* FORMULÁRIOS */
         .form-group {
             margin-bottom: var(--space-md);
         }
-        
+
         .form-label {
             display: block;
             margin-bottom: 8px;
@@ -391,7 +399,7 @@
             color: #475569;
             font-size: 14px;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 14px 16px;
@@ -402,19 +410,19 @@
             background: white;
             font-family: var(--font-body);
         }
-        
+
         .form-control:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
         }
-        
+
         textarea.form-control {
             min-height: 150px;
             resize: vertical;
             line-height: 1.5;
         }
-        
+
         /* SISTEMA DE TAGS */
         .tags-container {
             display: flex;
@@ -422,7 +430,7 @@
             gap: 8px;
             margin-top: 10px;
         }
-        
+
         .tag {
             padding: 6px 14px;
             border-radius: var(--radius-full);
@@ -433,19 +441,19 @@
             gap: 6px;
             transition: all 0.2s ease;
         }
-        
+
         .tag-primary {
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
             color: #0369a1;
             border: 1px solid #7dd3fc;
         }
-        
+
         .tag-success {
             background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
             color: #166534;
             border: 1px solid #86efac;
         }
-        
+
         /* ANÁLISE INTELIGENTE */
         .analysis-grid {
             display: grid;
@@ -453,7 +461,7 @@
             gap: var(--space-sm);
             margin: var(--space-md) 0;
         }
-        
+
         .analysis-item {
             background: white;
             padding: var(--space-sm);
@@ -461,7 +469,7 @@
             border-left: 4px solid var(--primary);
             box-shadow: var(--shadow-sm);
         }
-        
+
         .analysis-label {
             font-size: 11px;
             text-transform: uppercase;
@@ -470,14 +478,14 @@
             margin-bottom: 4px;
             font-weight: 600;
         }
-        
+
         .analysis-value {
             font-size: 16px;
             font-weight: 700;
             color: #1e293b;
             line-height: 1.2;
         }
-        
+
         /* SCORE DE COMPATIBILIDADE */
         .score-display {
             text-align: center;
@@ -488,7 +496,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .score-value {
             font-size: 3.5rem;
             font-weight: 900;
@@ -498,7 +506,7 @@
             line-height: 1;
             margin: 15px 0;
         }
-        
+
         /* AI MESSAGE */
         .ai-message {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
@@ -508,7 +516,7 @@
             border-left: 4px solid var(--info);
             font-size: 14px;
         }
-        
+
         /* REWRITING METRICS */
         .rewrite-metrics {
             display: grid;
@@ -516,7 +524,7 @@
             gap: var(--space-sm);
             margin: var(--space-md) 0;
         }
-        
+
         .metric-card {
             background: white;
             padding: var(--space-md);
@@ -524,13 +532,13 @@
             text-align: center;
             border: 1px solid #e2e8f0;
         }
-        
+
         .metric-value {
             font-size: 1.8rem;
             font-weight: 800;
             margin: 8px 0;
         }
-        
+
         .metric-label {
             color: #64748b;
             font-size: 11px;
@@ -538,7 +546,7 @@
             letter-spacing: 0.8px;
             font-weight: 600;
         }
-        
+
         /* CV COMPARISON */
         .cv-comparison {
             display: flex;
@@ -546,19 +554,19 @@
             gap: var(--space-lg);
             margin: var(--space-md) 0;
         }
-        
+
         .cv-section {
             background: white;
             border-radius: var(--radius-lg);
             padding: var(--space-md);
             border: 2px solid #e2e8f0;
         }
-        
+
         .cv-rewritten {
             border-color: var(--success);
             border-width: 2px;
         }
-        
+
         .cv-header {
             padding: var(--space-sm);
             border-radius: var(--radius-sm);
@@ -568,7 +576,7 @@
             color: var(--primary);
             background: #f1f5f9;
         }
-        
+
         /* PROGRESS BARS */
         .progress-bar {
             height: 8px;
@@ -577,7 +585,7 @@
             overflow: hidden;
             margin: 10px 0;
         }
-        
+
         .progress-fill {
             height: 100%;
             background: var(--gradient-primary);
@@ -585,7 +593,7 @@
             width: 0%;
             transition: width 1s ease-out;
         }
-        
+
         /* LOADING OVERLAY */
         .loading-overlay {
             position: fixed;
@@ -601,7 +609,7 @@
             backdrop-filter: blur(8px);
             flex-direction: column;
         }
-        
+
         .loading-spinner {
             width: 80px;
             height: 80px;
@@ -611,7 +619,7 @@
             border-radius: 50%;
             animation: spin 1.2s linear infinite;
         }
-        
+
         /* NOTIFICATION SYSTEM */
         .notification-system {
             position: fixed;
@@ -621,7 +629,7 @@
             width: calc(100% - 20px);
             max-width: 350px;
         }
-        
+
         .notification {
             background: white;
             padding: var(--space-md);
@@ -635,7 +643,7 @@
             border-left: 5px solid var(--success);
             font-size: 14px;
         }
-        
+
         /* MODAL */
         .modal-overlay {
             position: fixed;
@@ -650,12 +658,12 @@
             z-index: 9998;
             padding: 1rem;
         }
-        
+
         .modal-overlay.active {
             display: flex;
             animation: fadeIn 0.3s ease;
         }
-        
+
         .modal-content {
             background: white;
             border-radius: var(--radius-lg);
@@ -665,7 +673,7 @@
             overflow-y: auto;
             box-shadow: var(--shadow-xl);
         }
-        
+
         .modal-header {
             padding: var(--space-md);
             border-bottom: 1px solid #e2e8f0;
@@ -673,11 +681,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .modal-body {
             padding: var(--space-md);
         }
-        
+
         .modal-footer {
             padding: var(--space-md);
             border-top: 1px solid #e2e8f0;
@@ -685,177 +693,269 @@
             justify-content: flex-end;
             gap: var(--space-sm);
         }
-        
+
         /* UTILITIES */
         .hidden {
             display: none !important;
         }
-        
+
         .text-center {
             text-align: center;
         }
-        
+
         .flex {
             display: flex;
         }
-        
+
         .flex-col {
             flex-direction: column;
         }
-        
+
         .items-center {
             align-items: center;
         }
-        
+
         .justify-between {
             justify-content: space-between;
         }
-        
-        .gap-2 { gap: 0.5rem; }
-        .gap-3 { gap: 0.75rem; }
-        .gap-4 { gap: 1rem; }
-        
-        .mb-1 { margin-bottom: var(--space-xs); }
-        .mb-2 { margin-bottom: var(--space-sm); }
-        .mb-3 { margin-bottom: var(--space-md); }
-        .mb-4 { margin-bottom: var(--space-lg); }
-        
-        .mt-1 { margin-top: var(--space-xs); }
-        .mt-2 { margin-top: var(--space-sm); }
-        .mt-3 { margin-top: var(--space-md); }
-        .mt-4 { margin-top: var(--space-lg); }
-        
-        .p-3 { padding: 0.75rem; }
-        .p-4 { padding: 1rem; }
-        .p-5 { padding: 1.25rem; }
-        
-        .rounded-lg { border-radius: var(--radius-lg); }
-        .rounded-xl { border-radius: var(--radius-xl); }
-        
-        .bg-blue-50 { background-color: #eff6ff; }
-        .bg-green-50 { background-color: #f0fdf4; }
-        .bg-purple-50 { background-color: #faf5ff; }
-        .bg-yellow-50 { background-color: #fefce8; }
-        
-        .text-secondary { color: #64748b; }
-        .text-sm { font-size: 0.875rem; }
-        .text-lg { font-size: 1.125rem; }
-        
-        .whitespace-pre-line { white-space: pre-line; }
-        
+
+        .gap-2 {
+            gap: 0.5rem;
+        }
+
+        .gap-3 {
+            gap: 0.75rem;
+        }
+
+        .gap-4 {
+            gap: 1rem;
+        }
+
+        .mb-1 {
+            margin-bottom: var(--space-xs);
+        }
+
+        .mb-2 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .mb-3 {
+            margin-bottom: var(--space-md);
+        }
+
+        .mb-4 {
+            margin-bottom: var(--space-lg);
+        }
+
+        .mt-1 {
+            margin-top: var(--space-xs);
+        }
+
+        .mt-2 {
+            margin-top: var(--space-sm);
+        }
+
+        .mt-3 {
+            margin-top: var(--space-md);
+        }
+
+        .mt-4 {
+            margin-top: var(--space-lg);
+        }
+
+        .p-3 {
+            padding: 0.75rem;
+        }
+
+        .p-4 {
+            padding: 1rem;
+        }
+
+        .p-5 {
+            padding: 1.25rem;
+        }
+
+        .rounded-lg {
+            border-radius: var(--radius-lg);
+        }
+
+        .rounded-xl {
+            border-radius: var(--radius-xl);
+        }
+
+        .bg-blue-50 {
+            background-color: #eff6ff;
+        }
+
+        .bg-green-50 {
+            background-color: #f0fdf4;
+        }
+
+        .bg-purple-50 {
+            background-color: #faf5ff;
+        }
+
+        .bg-yellow-50 {
+            background-color: #fefce8;
+        }
+
+        .text-secondary {
+            color: #64748b;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .whitespace-pre-line {
+            white-space: pre-line;
+        }
+
         .grid {
             display: grid;
         }
-        
-        .grid-cols-1 { grid-template-columns: 1fr; }
-        .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
-        
+
+        .grid-cols-1 {
+            grid-template-columns: 1fr;
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         /* ANIMAÇÕES */
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
-        
+
         /* RESPONSIVIDADE */
         @media (min-width: 768px) {
             html {
                 font-size: 15px;
             }
-            
+
             .container {
                 padding: 1.5rem;
             }
-            
+
             h1 {
                 font-size: 2.5rem;
             }
-            
+
             .subtitle {
                 font-size: 1.1rem;
                 max-width: 80%;
             }
-            
+
             .stats-grid {
                 grid-template-columns: repeat(4, 1fr);
                 gap: var(--space-md);
             }
-            
+
             .stat-value {
                 font-size: 2.5rem;
             }
-            
+
             .tabs-header {
                 flex-direction: row;
                 flex-wrap: wrap;
             }
-            
+
             .tab-btn {
                 flex: 1;
                 min-width: 140px;
                 justify-content: center;
                 text-align: center;
             }
-            
+
             .tab-content {
                 padding: var(--space-lg);
             }
-            
+
             .card-header {
                 flex-direction: row;
                 align-items: center;
                 justify-content: space-between;
             }
-            
+
             .tab-grid {
                 flex-direction: row;
                 gap: var(--space-xl);
             }
-            
+
             .cv-comparison {
                 flex-direction: row;
             }
         }
-        
+
         @media (min-width: 1024px) {
             html {
                 font-size: 16px;
             }
-            
+
             .container {
                 padding: 2rem;
             }
-            
+
             h1 {
                 font-size: 3.2rem;
             }
-            
+
             .subtitle {
                 font-size: 1.3rem;
                 max-width: 700px;
             }
-            
+
             .tabs-header {
                 grid-template-columns: repeat(5, 1fr);
                 display: grid;
                 flex-wrap: nowrap;
             }
-            
+
             .tab-btn {
                 padding: var(--space-lg);
                 font-size: 16px;
             }
-            
+
             .card {
                 padding: var(--space-xl);
             }
@@ -863,6 +963,7 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="container">
         <!-- HEADER -->
@@ -871,10 +972,11 @@
                 <span class="pulse-dot"></span>
                 Sistema IA de Rewriting de CV • Aprendizado Contínuo
             </div>
-            
+
             <h1><i class="fas fa-magic"></i> CV ReWriter Pro ULTIMATE</h1>
-            <p class="subtitle">Sistema completo de IA para REWRITING (reescrita inteligente) de currículos brasileiros com foco específico por vaga</p>
-            
+            <p class="subtitle">Sistema completo de IA para REWRITING (reescrita inteligente) de currículos brasileiros
+                com foco específico por vaga</p>
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-value" id="total-analises">0</div>
@@ -906,7 +1008,7 @@
                 </div>
             </div>
         </header>
-        
+
         <!-- SISTEMA DE ABAS -->
         <div class="tabs-system">
             <div class="tabs-header">
@@ -933,455 +1035,459 @@
                     <span>CV Otimizado</span>
                 </button>
             </div>
-            
+
             <!-- ABA 1: ANÁLISE DE VAGA -->
             <div id="analysis" class="tab-content active">
                 <div class="tab-grid">
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="fas fa-paste"></i>
-                                Descrição da Vaga Alvo
+                                <i class="fas fa-paste"></i> Descrição da Vaga Alvo
                             </h3>
                             <div class="controls">
-                                <button class="icon-btn" id="clear-job" title="Limpar tudo">
-                                    <i class="fas fa-eraser"></i>
-                                </button>
-                                <button class="icon-btn" id="load-example" title="Carregar exemplo">
-                                    <i class="fas fa-file-alt"></i>
-                                </button>
-                                <button class="icon-btn" id="paste-clipboard" title="Colar da área de transferência">
-                                    <i class="fas fa-paste"></i>
-                                </button>
+                                <button class="icon-btn" id="clear-job" title="Limpar tudo"><i
+                                        class="fas fa-eraser"></i></button>
+                                <button class="icon-btn" id="load-example" title="Carregar exemplo"><i
+                                        class="fas fa-file-alt"></i></button>
+                                <button class="icon-btn" id="paste-clipboard" title="Colar"><i
+                                        class="fas fa-paste"></i></button>
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <textarea 
-                                id="job-text" 
-                                class="form-control" 
-                                placeholder="Cole aqui o texto COMPLETO da vaga brasileira (Gupy, Vagas.com, LinkedIn, InfoJobs)..."
-                                rows="12"
-                                spellcheck="false"
-                            ></textarea>
-                            <div class="text-sm text-secondary mt-2">
-                                <i class="fas fa-lightbulb"></i> Dica: Quanto mais detalhada a vaga, melhor será o rewriting do seu CV
-                            </div>
+                            <textarea id="job-text" class="form-control" placeholder="Cole aqui o texto da vaga..."
+                                rows="12"></textarea>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-brain"></i> Detecção Automática de Keywords
-                            </label>
+                            <label class="form-label"><i class="fas fa-brain"></i> Detecção Rápida</label>
                             <div id="auto-detection" class="tags-container">
-                                <span class="tag tag-primary">
-                                    <i class="fas fa-sync fa-spin"></i> Aguardando análise...
-                                </span>
+                                <span class="tag tag-primary"><i class="fas fa-sync fa-spin"></i> Aguardando
+                                    análise...</span>
                             </div>
                         </div>
-                        
+
                         <div class="grid grid-cols-2 gap-3 mt-4">
-                            <button class="btn btn-primary" id="analyze-btn">
-                                <i class="fas fa-magic"></i> Análise Completa
-                            </button>
-                            <button class="btn btn-rewrite" id="quick-analyze">
-                                <i class="fas fa-bolt"></i> Detectar Keywords
-                            </button>
+                            <button class="btn btn-primary" id="analyze-btn"><i class="fas fa-magic"></i> Análise
+                                Completa</button>
+                            <button class="btn btn-rewrite" id="quick-analyze"><i class="fas fa-bolt"></i> Detectar
+                                Keywords</button>
                         </div>
                     </div>
-                    
+
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
-                                <i class="fas fa-chart-network"></i>
-                                Análise Detalhada da Vaga
+                                <i class="fas fa-chart-network"></i> Inteligência e Alinhamento
                             </h3>
                         </div>
-                        
+
                         <div id="analysis-placeholder" class="text-center p-4">
-                            <div class="mb-3">
-                                <i class="fas fa-file-search fa-3x" style="color: #cbd5e1;"></i>
-                            </div>
+                            <div class="mb-3"><i class="fas fa-file-search fa-3x" style="color: #cbd5e1;"></i></div>
                             <h3 class="text-lg font-bold mb-2">Nenhuma vaga analisada</h3>
-                            <p class="text-secondary mb-3">Cole uma descrição de vaga e clique em "Análise Completa"</p>
-                            <div class="ai-message">
-                                <strong>🤖 Dica da IA:</strong> Inclua requisitos, senioridade e benefícios para análise mais precisa.
-                            </div>
+                            <p class="text-secondary">Analise uma vaga para ver o alinhamento com seu perfil.</p>
                         </div>
-                        
+
                         <div id="analysis-results" class="hidden">
                             <div class="analysis-grid" id="job-basic-info"></div>
-                            
-                            <div class="mt-4">
-                                <h4 class="font-bold mb-2"><i class="fas fa-code"></i> Keywords Detectadas (ATS)</h4>
-                                <div id="skills-detected" class="tags-container"></div>
-                            </div>
-                            
-                            <div class="mt-4 p-3 bg-purple-50 rounded-lg">
-                                <div class="flex items-center justify-between">
-                                    <div>
-                                        <h5 class="font-bold text-purple-800 mb-1">Pronto para Rewriting!</h5>
-                                        <p class="text-purple-700 text-sm">Agora configure seu CV original</p>
-                                    </div>
-                                    <button class="btn btn-rewrite" id="goto-profile">
-                                        <i class="fas fa-user-tie"></i> Configurar CV
-                                    </button>
-                                </div>
+
+                            <div class="mt-4 p-4 rounded-lg bg-blue-50 border border-blue-100"
+                                id="market-intelligence-card">
+                                <h4 class="text-blue-800 font-bold mb-2" style="font-size: 0.9rem;">
+                                    <i class="fas fa-lightbulb"></i> Insights de Mercado e Cultura
+                                </h4>
+                                <div id="vaga-insights" class="grid grid-cols-1 gap-2 mt-3 mb-3"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ABA 2: PERFIL/CV ORIGINAL -->
-            <div id="profile" class="tab-content">
-                <div class="tab-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-file-alt"></i>
-                                Meu CV Original
-                            </h3>
-                            <div class="controls">
-                                <button class="icon-btn" id="load-marcio" title="Carregar CV Márcio Maker">
-                                    <i class="fas fa-user-ninja"></i>
-                                </button>
-                                <button class="icon-btn" id="load-complete-cv" title="Carregar CV Completo Fusão">
-                                    <i class="fas fa-file-medical-alt"></i>
-                                </button>
-                                <button class="icon-btn" id="reset-cv" title="Redefinir CV">
-                                    <i class="fas fa-redo"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Nome Completo *</label>
-                            <input type="text" id="cv-name" class="form-control" placeholder="Ex: Márcio Gemelli (Márcio Maker)" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Cargo Atual *</label>
-                            <input type="text" id="cv-title" class="form-control" placeholder="Ex: Desenvolvedor Full Stack" required>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="form-group">
-                                <label class="form-label">Localização</label>
-                                <input type="text" id="cv-location" class="form-control" placeholder="Ex: São Paulo, SP">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">Pretensão Salarial</label>
-                                <input type="text" id="cv-salary" class="form-control" placeholder="Ex: R$ 8.000 - R$ 12.000">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-bullseye"></i> Objetivo Profissional
-                            </label>
-                            <textarea id="cv-objective" class="form-control" rows="2" placeholder="Ex: Busco oportunidade como Desenvolvedor Full Stack..."></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-code"></i> Habilidades Técnicas *
-                            </label>
-                            <textarea id="cv-skills" class="form-control" placeholder="JavaScript, React, Node.js, Python, IA, Docker, AWS..." rows="3" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-briefcase"></i> Experiência Profissional *
-                            </label>
-                            <textarea id="cv-experience" class="form-control" rows="5" placeholder="Descreva sua experiência profissional..." required></textarea>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 gap-3 mt-3">
-                            <button class="btn btn-primary" id="save-profile">
-                                <i class="fas fa-save"></i> Salvar CV
-                            </button>
-                            <button class="btn btn-rewrite" id="enhance-cv">
-                                <i class="fas fa-wand-magic-sparkles"></i> Melhorar com IA
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-eye"></i>
-                                Pré-visualização do CV Original
-                            </h3>
-                        </div>
-                        
-                        <div id="cv-preview" class="space-y-4 max-h-[500px] overflow-y-auto p-3">
-                            <div class="text-center p-4">
-                                <i class="fas fa-file-alt fa-3x text-gray-300 mb-2"></i>
-                                <h3 class="text-lg font-bold mb-1">CV não configurado</h3>
-                                <p class="text-secondary">Preencha os campos ao lado</p>
-                            </div>
-                        </div>
-                        
+
                         <div class="mt-4">
-                            <button class="btn btn-primary w-full" id="goto-relevance">
-                                <i class="fas fa-chart-line"></i> Analisar Relevância do CV
-                            </button>
+                            <h4 class="font-bold mb-2" style="font-size: 0.9rem;"><i class="fas fa-code"></i>
+                                Keywords Críticas (ATS)</h4>
+                            <div id="skills-detected" class="tags-container"></div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ABA 3: ANÁLISE DE RELEVÂNCIA -->
-            <div id="relevance" class="tab-content">
-                <div class="tab-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-pie"></i>
-                                Análise de Relevância do CV
-                            </h3>
-                            <div class="controls">
-                                <button class="icon-btn" id="run-relevance" title="Analisar relevância">
-                                    <i class="fas fa-chart-line"></i>
+
+                        <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-100">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h5 class="font-bold text-purple-800 mb-0" style="font-size: 0.85rem;">Perfil
+                                        Mapeado!</h5>
+                                    <p class="text-purple-700 text-xs">Pronto para ajustar seu CV à cultura desta
+                                        vaga.</p>
+                                </div>
+                                <button class="btn btn-rewrite" id="goto-profile"
+                                    style="padding: 8px 15px; font-size: 0.8rem;">
+                                    <i class="fas fa-user-tie"></i> Configurar CV
                                 </button>
-                            </div>
-                        </div>
-                        
-                        <div id="relevance-placeholder" class="text-center p-4">
-                            <div class="mb-3">
-                                <i class="fas fa-chart-bar fa-3x" style="color: #a5b4fc;"></i>
-                            </div>
-                            <h3 class="text-lg font-bold mb-2">Análise de Relevância</h3>
-                            <p class="text-secondary mb-3">Analise quanto do seu CV é relevante para a vaga alvo</p>
-                            
-                            <button class="btn btn-primary" id="start-relevance">
-                                <i class="fas fa-play"></i> Iniciar Análise
-                            </button>
-                        </div>
-                        
-                        <div id="relevance-results" class="hidden space-y-4">
-                            <!-- Conteúdo dinâmico será inserido aqui -->
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-lightbulb"></i>
-                                Insights e Recomendações
-                            </h3>
-                        </div>
-                        
-                        <div id="relevance-insights" class="space-y-3">
-                            <div class="ai-message">
-                                <strong>🤖 IA:</strong> Esta análise identifica o que é relevante para a vaga específica.
-                            </div>
-                            
-                            <div class="p-3 bg-purple-50 rounded-lg">
-                                <h4 class="font-bold text-purple-700 mb-1">Como funciona:</h4>
-                                <ul class="text-sm text-purple-800 space-y-1">
-                                    <li>• Match de keywords da vaga</li>
-                                    <li>• Identificação de irrelevâncias</li>
-                                    <li>• Sugestões de reescrita</li>
-                                </ul>
-                            </div>
-                            
-                            <div id="relevance-actions" class="hidden">
-                                <!-- Botões de ação serão inseridos aqui -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ABA 4: REWRITING IA -->
-            <div id="rewriting" class="tab-content">
-                <div class="tab-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-magic"></i>
-                                Rewriting Inteligente do CV
-                            </h3>
-                            <div class="controls">
-                                <button class="icon-btn" id="run-rewriting" title="Executar rewriting">
-                                    <i class="fas fa-robot"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="rewriting-placeholder" class="text-center p-4">
-                            <div class="mb-3">
-                                <i class="fas fa-magic fa-3x" style="color: #8a2be2;"></i>
-                            </div>
-                            <h3 class="text-lg font-bold mb-2">Rewriting Inteligente</h3>
-                            <p class="text-secondary mb-3">Reescreva seu CV focado na vaga específica</p>
-                            
-                            <div class="rewrite-metrics mb-4">
-                                <div class="metric-card">
-                                    <div class="metric-value">40%+</div>
-                                    <div class="metric-label">Redução Irrelevante</div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-value">60%+</div>
-                                    <div class="metric-label">Aumento Keywords</div>
-                                </div>
-                                <div class="metric-card">
-                                    <div class="metric-value">100%</div>
-                                    <div class="metric-label">ATS Otimizado</div>
-                                </div>
-                            </div>
-                            
-                            <button class="btn btn-rewrite btn-lg" id="start-rewriting">
-                                <i class="fas fa-wand-magic-sparkles"></i> Executar Rewriting
-                            </button>
-                        </div>
-                        
-                        <div id="rewriting-results" class="hidden">
-                            <!-- Conteúdo dinâmico será inserido aqui -->
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-rocket"></i>
-                                Otimização Avançada
-                            </h3>
-                        </div>
-                        
-                        <div id="rewriting-insights" class="space-y-3">
-                            <div class="ai-message">
-                                <strong>🤖 IA:</strong> O rewriting irá personalizar seu CV para a vaga específica.
-                            </div>
-                            
-                            <div class="p-3 bg-purple-50 rounded-lg">
-                                <h4 class="font-bold text-purple-700 mb-1">O que será otimizado:</h4>
-                                <ul class="text-sm text-purple-800 space-y-1">
-                                    <li>• Objetivo profissional direcionado</li>
-                                    <li>• Experiência com keywords da vaga</li>
-                                    <li>• Formatação para ATS brasileiro</li>
-                                    <li>• Métricas e resultados quantificáveis</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ABA 5: CV OTIMIZADO -->
-            <div id="optimization" class="tab-content">
-                <div class="tab-grid">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-file-contract"></i>
-                                CV Otimizado para ATS Brasileiro
-                            </h3>
-                            <div class="controls">
-                                <button class="icon-btn" id="refresh-cv" title="Atualizar CV">
-                                    <i class="fas fa-sync"></i>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div id="optimization-placeholder" class="text-center p-4">
-                            <div class="mb-3">
-                                <i class="fas fa-check-circle fa-3x" style="color: #00b894;"></i>
-                            </div>
-                            <h3 class="text-lg font-bold mb-2">CV Otimizado com IA</h3>
-                            <p class="text-secondary mb-3">Execute o rewriting para gerar seu CV otimizado</p>
-                        </div>
-                        
-                        <div id="optimization-results" class="hidden space-y-4">
-                            <!-- Conteúdo dinâmico será inserido aqui -->
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <i class="fas fa-chart-bar"></i>
-                                Métricas de Otimização
-                            </h3>
-                        </div>
-                        
-                        <div id="optimization-metrics" class="space-y-3">
-                            <div class="p-3 bg-blue-50 rounded-lg">
-                                <h4 class="font-bold text-blue-700 mb-1">📊 Performance</h4>
-                                <div class="space-y-2">
-                                    <div>
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm text-blue-700">Keywords</span>
-                                            <span class="text-sm font-bold text-blue-700" id="keyword-density">0%</span>
-                                        </div>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" id="keyword-bar" style="width: 0%"></div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between mb-1">
-                                            <span class="text-sm text-green-700">Relevância</span>
-                                            <span class="text-sm font-bold text-green-700" id="relevance-percent">0%</span>
-                                        </div>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" id="relevance-bar" style="width: 0%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div id="optimization-actions" class="space-y-2">
-                                <!-- Botões de ação serão inseridos aqui -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- FOOTER -->
-        <footer class="mt-5 pt-4">
-            <div class="flex flex-col gap-4 mb-4">
-                <div class="text-center">
-                    <p class="text-white font-bold mb-1">
-                        <i class="fas fa-magic"></i> CV ReWriter Pro ULTIMATE
-                    </p>
-                    <p class="text-gray-400 text-sm">
-                        Sistema de IA para REWRITING de CVs • Especializado em mercado brasileiro • 100% Privado
-                    </p>
+
+        <!-- ABA 2: PERFIL/CV ORIGINAL -->
+        <div id="profile" class="tab-content">
+            <div class="tab-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-file-alt"></i>
+                            Meu CV Original
+                        </h3>
+                        <div class="controls">
+                            <button class="icon-btn" id="load-marcio" title="Carregar CV Márcio Maker">
+                                <i class="fas fa-user-ninja"></i>
+                            </button>
+                            <button class="icon-btn" id="load-complete-cv" title="Carregar CV Completo Fusão">
+                                <i class="fas fa-file-medical-alt"></i>
+                            </button>
+                            <button class="icon-btn" id="reset-cv" title="Redefinir CV">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nome Completo *</label>
+                        <input type="text" id="cv-name" class="form-control"
+                            placeholder="Ex: Márcio Gemelli (Márcio Maker)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Cargo Atual *</label>
+                        <input type="text" id="cv-title" class="form-control" placeholder="Ex: Desenvolvedor Full Stack"
+                            required>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="form-group">
+                            <label class="form-label">Localização</label>
+                            <input type="text" id="cv-location" class="form-control" placeholder="Ex: São Paulo, SP">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Pretensão Salarial</label>
+                            <input type="text" id="cv-salary" class="form-control"
+                                placeholder="Ex: R$ 8.000 - R$ 12.000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-bullseye"></i> Objetivo Profissional
+                        </label>
+                        <textarea id="cv-objective" class="form-control" rows="2"
+                            placeholder="Ex: Busco oportunidade como Desenvolvedor Full Stack..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-code"></i> Habilidades Técnicas *
+                        </label>
+                        <textarea id="cv-skills" class="form-control"
+                            placeholder="JavaScript, React, Node.js, Python, IA, Docker, AWS..." rows="3"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-briefcase"></i> Experiências Profissionais</span>
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="add-experience-btn">
+                                <i class="fas fa-plus"></i> Adicionar Cargo
+                            </button>
+                        </label>
+
+                        <div id="experience-timeline" class="experience-timeline mt-2">
+                        </div>
+
+                        <textarea id="cv-experience" class="hidden"></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <button class="btn btn-primary" id="save-profile">
+                            <i class="fas fa-save"></i> Salvar CV
+                        </button>
+                        <button class="btn btn-rewrite" id="enhance-cv">
+                            <i class="fas fa-wand-magic-sparkles"></i> Melhorar com IA
+                        </button>
+                    </div>
                 </div>
-                
-                <div class="text-center text-gray-400 text-sm">
-                    <p class="mb-1">
-                        <i class="fas fa-history"></i> Último rewriting: 
-                        <span id="last-rewrite-time" class="text-white">Nenhum</span>
-                    </p>
-                    <p>
-                        <i class="fas fa-brain"></i> Padrões ATS aprendidos: 
-                        <span id="learning-count" class="text-white">0</span>
-                    </p>
-                </div>
-                
-                <div class="text-center">
-                    <button class="btn btn-primary" id="system-info">
-                        <i class="fas fa-info-circle"></i> Sistema Info
-                    </button>
-                    <button class="btn btn-rewrite mt-2" id="reset-system">
-                        <i class="fas fa-redo"></i> Resetar Sistema
-                    </button>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-eye"></i>
+                            Pré-visualização do CV Original
+                        </h3>
+                    </div>
+
+                    <div id="cv-preview" class="space-y-4 max-h-[500px] overflow-y-auto p-3">
+                        <div class="text-center p-4">
+                            <i class="fas fa-file-alt fa-3x text-gray-300 mb-2"></i>
+                            <h3 class="text-lg font-bold mb-1">CV não configurado</h3>
+                            <p class="text-secondary">Preencha os campos ao lado</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button class="btn btn-primary w-full" id="goto-relevance">
+                            <i class="fas fa-chart-line"></i> Analisar Relevância do CV
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="mt-4 pt-4 border-t border-gray-800">
-                <p class="text-gray-500 text-xs text-center">
-                    <i class="fas fa-shield-alt"></i> Todos os dados são processados localmente no seu navegador.
+        </div>
+
+        <!-- ABA 3: ANÁLISE DE RELEVÂNCIA -->
+        <div id="relevance" class="tab-content">
+            <div class="tab-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-pie"></i>
+                            Análise de Relevância do CV
+                        </h3>
+                        <div class="controls">
+                            <button class="icon-btn" id="run-relevance" title="Analisar relevância">
+                                <i class="fas fa-chart-line"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="relevance-placeholder" class="text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-bar fa-3x" style="color: #a5b4fc;"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Análise de Relevância</h3>
+                        <p class="text-secondary mb-3">Analise quanto do seu CV é relevante para a vaga alvo</p>
+
+                        <button class="btn btn-primary" id="start-relevance">
+                            <i class="fas fa-play"></i> Iniciar Análise
+                        </button>
+                    </div>
+
+                    <div id="relevance-results" class="hidden space-y-4">
+                        <!-- Conteúdo dinâmico será inserido aqui -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Insights e Recomendações
+                        </h3>
+                    </div>
+
+                    <div id="relevance-insights" class="space-y-3">
+                        <div class="ai-message">
+                            <strong>🤖 IA:</strong> Esta análise identifica o que é relevante para a vaga
+                            específica.
+                        </div>
+
+                        <div class="p-3 bg-purple-50 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-1">Como funciona:</h4>
+                            <ul class="text-sm text-purple-800 space-y-1">
+                                <li>• Match de keywords da vaga</li>
+                                <li>• Identificação de irrelevâncias</li>
+                                <li>• Sugestões de reescrita</li>
+                            </ul>
+                        </div>
+
+                        <div id="relevance-actions" class="hidden">
+                            <!-- Botões de ação serão inseridos aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 4: REWRITING IA -->
+        <div id="rewriting" class="tab-content">
+            <div class="tab-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-magic"></i>
+                            Rewriting Inteligente do CV
+                        </h3>
+                        <div class="controls">
+                            <button class="icon-btn" id="run-rewriting" title="Executar rewriting">
+                                <i class="fas fa-robot"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="rewriting-placeholder" class="text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-magic fa-3x" style="color: #8a2be2;"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">Rewriting Inteligente</h3>
+                        <p class="text-secondary mb-3">Reescreva seu CV focado na vaga específica</p>
+
+                        <div class="rewrite-metrics mb-4">
+                            <div class="metric-card">
+                                <div class="metric-value">40%+</div>
+                                <div class="metric-label">Redução Irrelevante</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">60%+</div>
+                                <div class="metric-label">Aumento Keywords</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value">100%</div>
+                                <div class="metric-label">ATS Otimizado</div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-rewrite btn-lg" id="start-rewriting">
+                            <i class="fas fa-wand-magic-sparkles"></i> Executar Rewriting
+                        </button>
+                    </div>
+
+                    <div id="rewriting-results" class="hidden">
+                        <!-- Conteúdo dinâmico será inserido aqui -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-rocket"></i>
+                            Otimização Avançada
+                        </h3>
+                    </div>
+
+                    <div id="rewriting-insights" class="space-y-3">
+                        <div class="ai-message">
+                            <strong>🤖 IA:</strong> O rewriting irá personalizar seu CV para a vaga específica.
+                        </div>
+
+                        <div class="p-3 bg-purple-50 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-1">O que será otimizado:</h4>
+                            <ul class="text-sm text-purple-800 space-y-1">
+                                <li>• Objetivo profissional direcionado</li>
+                                <li>• Experiência com keywords da vaga</li>
+                                <li>• Formatação para ATS brasileiro</li>
+                                <li>• Métricas e resultados quantificáveis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABA 5: CV OTIMIZADO -->
+        <div id="optimization" class="tab-content">
+            <div class="tab-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-file-contract"></i>
+                            CV Otimizado para ATS Brasileiro
+                        </h3>
+                        <div class="controls">
+                            <button class="icon-btn" id="refresh-cv" title="Atualizar CV">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="optimization-placeholder" class="text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-check-circle fa-3x" style="color: #00b894;"></i>
+                        </div>
+                        <h3 class="text-lg font-bold mb-2">CV Otimizado com IA</h3>
+                        <p class="text-secondary mb-3">Execute o rewriting para gerar seu CV otimizado</p>
+                    </div>
+
+                    <div id="optimization-results" class="hidden space-y-4">
+                        <!-- Conteúdo dinâmico será inserido aqui -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Métricas de Otimização
+                        </h3>
+                    </div>
+
+                    <div id="optimization-metrics" class="space-y-3">
+                        <div class="p-3 bg-blue-50 rounded-lg">
+                            <h4 class="font-bold text-blue-700 mb-1">📊 Performance</h4>
+                            <div class="space-y-2">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-blue-700">Keywords</span>
+                                        <span class="text-sm font-bold text-blue-700" id="keyword-density">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="keyword-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-sm text-green-700">Relevância</span>
+                                        <span class="text-sm font-bold text-green-700" id="relevance-percent">0%</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="relevance-bar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="optimization-actions" class="space-y-2">
+                            <!-- Botões de ação serão inseridos aqui -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-5 pt-4">
+        <div class="flex flex-col gap-4 mb-4">
+            <div class="text-center">
+                <p class="text-white font-bold mb-1">
+                    <i class="fas fa-magic"></i> CV ReWriter Pro ULTIMATE
+                </p>
+                <p class="text-gray-400 text-sm">
+                    Sistema de IA para REWRITING de CVs • Especializado em mercado brasileiro • 100% Privado
                 </p>
             </div>
-        </footer>
+
+            <div class="text-center text-gray-400 text-sm">
+                <p class="mb-1">
+                    <i class="fas fa-history"></i> Último rewriting:
+                    <span id="last-rewrite-time" class="text-white">Nenhum</span>
+                </p>
+                <p>
+                    <i class="fas fa-brain"></i> Padrões ATS aprendidos:
+                    <span id="learning-count" class="text-white">0</span>
+                </p>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary" id="system-info">
+                    <i class="fas fa-info-circle"></i> Sistema Info
+                </button>
+                <button class="btn btn-rewrite mt-2" id="reset-system">
+                    <i class="fas fa-redo"></i> Resetar Sistema
+                </button>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-gray-800">
+            <p class="text-gray-500 text-xs text-center">
+                <i class="fas fa-shield-alt"></i> Todos os dados são processados localmente no seu navegador.
+            </p>
+        </div>
+    </footer>
     </div>
-    
+
     <!-- MODAL PARA KEYWORDS -->
     <div class="modal-overlay" id="keywords-modal">
         <div class="modal-content">
@@ -1402,20 +1508,20 @@
             </div>
         </div>
     </div>
-    
+
     <!-- OVERLAY DE LOADING -->
     <div class="loading-overlay" id="loading-overlay">
         <div class="loading-spinner"></div>
         <div class="loading-text" id="loading-text">Processando com IA...</div>
         <div class="text-gray-400 mt-3 text-sm" id="loading-subtext"></div>
     </div>
-    
+
     <!-- SISTEMA DE NOTIFICAÇÕES -->
     <div class="notification-system" id="notification-system"></div>
 
     <script>
         // ============ SISTEMA COMPLETO DE REWRITING ============
-        
+
         // 1. Classe Principal - Sistema Central (CORRIGIDA)
         class SistemaCVReWriter {
             constructor() {
@@ -1426,7 +1532,7 @@
                     rewritingExecutado: false,
                     cvOtimizado: false
                 };
-                
+
                 this.dados = {
                     vaga: null,
                     cvOriginal: null,
@@ -1434,25 +1540,25 @@
                     cvReescrito: null,
                     cvOtimizado: null
                 };
-                
+
                 this.metricas = {
                     analisesRealizadas: 0,
                     rewritesRealizados: 0,
                     keywordsAprendidas: new Set()
                 };
-                
+
                 this.carregarEstado();
             }
-            
+
             // Método para análise de vaga
             analisarVaga(textoVaga) {
                 this.estado.vagaAnalisada = true;
                 this.dados.vaga = textoVaga;
                 this.metricas.analisesRealizadas++;
-                
+
                 const keywords = this.extrairKeywords(textoVaga);
                 keywords.forEach(k => this.metricas.keywordsAprendidas.add(k));
-                
+
                 return {
                     keywords: keywords,
                     empresa: this.extrairEmpresa(textoVaga),
@@ -1460,75 +1566,75 @@
                     senioridade: this.extrairSenioridade(textoVaga)
                 };
             }
-            
+
             // Método para configurar CV
             configurarCV(dadosCV) {
                 this.estado.cvConfigurado = true;
                 this.dados.cvOriginal = dadosCV;
                 return true;
             }
-            
+
             // Método para análise de relevância
             analisarRelevancia() {
                 if (!this.estado.vagaAnalisada || !this.estado.cvConfigurado) {
                     throw new Error('Configure a vaga e o CV primeiro');
                 }
-                
+
                 this.estado.relevanciaAnalisada = true;
-                
+
                 const cvTexto = this.formatarCVParaTexto(this.dados.cvOriginal);
                 const keywordsVaga = this.extrairKeywords(this.dados.vaga);
-                
+
                 const score = this.calcularScoreRelevancia(cvTexto, keywordsVaga);
                 const recomendacoes = this.gerarRecomendacoes(score);
-                
+
                 this.dados.analiseRelevancia = {
                     score: score,
                     keywordsVaga: keywordsVaga,
                     recomendacoes: recomendacoes,
                     porcentagemRelevante: Math.round(score * 100)
                 };
-                
+
                 return this.dados.analiseRelevancia;
             }
-            
+
             // Método para executar rewriting
             executarRewriting() {
                 if (!this.estado.relevanciaAnalisada) {
                     throw new Error('Analise a relevância primeiro');
                 }
-                
+
                 this.estado.rewritingExecutado = true;
                 this.metricas.rewritesRealizados++;
-                
+
                 const cvReescrito = this.reescreverCV(
                     this.dados.cvOriginal,
                     this.dados.analiseRelevancia
                 );
-                
+
                 this.dados.cvReescrito = cvReescrito;
                 return cvReescrito;
             }
-            
+
             // Método para otimizar CV
             otimizarCV() {
                 if (!this.estado.rewritingExecutado) {
                     throw new Error('Execute o rewriting primeiro');
                 }
-                
+
                 this.estado.cvOtimizado = true;
-                
+
                 const cvOtimizado = this.otimizarParaATS(this.dados.cvReescrito);
                 this.dados.cvOtimizado = cvOtimizado;
-                
+
                 return cvOtimizado;
             }
-            
+
             // Métodos auxiliares
             extrairKeywords(texto) {
                 const keywords = new Set();
                 const textoLower = texto.toLowerCase();
-                
+
                 const listaKeywords = [
                     'javascript', 'typescript', 'react', 'angular', 'vue', 'node.js', 'python',
                     'java', 'c#', 'php', 'aws', 'docker', 'kubernetes', 'git', 'sql', 'mongodb',
@@ -1536,21 +1642,21 @@
                     'clt', 'pj', 'vr', 'va', 'vt', 'plr', 'gympass', 'unimed', 'amil',
                     'home office', 'presencial', 'híbrido', 'júnior', 'pleno', 'sênior'
                 ];
-                
+
                 listaKeywords.forEach(keyword => {
                     if (textoLower.includes(keyword)) {
                         keywords.add(keyword);
                     }
                 });
-                
+
                 return Array.from(keywords);
             }
-            
+
             extrairEmpresa(texto) {
                 const match = texto.match(/(?:empresa|company)[:\s]+([^\n]+)/i);
                 return match ? match[1].trim() : 'Não identificada';
             }
-            
+
             extrairSalario(texto) {
                 const match = texto.match(/R\$\s*([\d\.,]+)(?:\s*[-a]\s*R\$\s*([\d\.,]+))?/i);
                 if (match) {
@@ -1558,7 +1664,7 @@
                 }
                 return 'Não informado';
             }
-            
+
             extrairSenioridade(texto) {
                 const textoLower = texto.toLowerCase();
                 if (textoLower.includes('sênior') || textoLower.includes('senior')) return 'Sênior';
@@ -1566,29 +1672,29 @@
                 if (textoLower.includes('júnior') || textoLower.includes('junior')) return 'Júnior';
                 return 'Não especificada';
             }
-            
+
             formatarCVParaTexto(cvDados) {
                 return Object.values(cvDados).filter(v => v).join('\n');
             }
-            
+
             calcularScoreRelevancia(cvTexto, keywordsVaga) {
                 if (!keywordsVaga.length) return 0.5;
-                
+
                 const cvLower = cvTexto.toLowerCase();
                 let matches = 0;
-                
+
                 keywordsVaga.forEach(keyword => {
                     if (cvLower.includes(keyword.toLowerCase())) {
                         matches++;
                     }
                 });
-                
+
                 return Math.min(1, matches / keywordsVaga.length);
             }
-            
+
             gerarRecomendacoes(score) {
                 const recomendacoes = [];
-                
+
                 if (score < 0.3) {
                     recomendacoes.push('CV precisa de reestruturação completa');
                     recomendacoes.push('Adicionar mais keywords da vaga');
@@ -1602,13 +1708,13 @@
                     recomendacoes.push('CV bem alinhado com a vaga');
                     recomendacoes.push('Apenas ajustes finais necessários');
                 }
-                
+
                 return recomendacoes;
             }
-            
+
             reescreverCV(cvDados, analise) {
                 const cvReescrito = { ...cvDados };
-                
+
                 // Reescrever objetivo
                 if (cvReescrito.objetivo) {
                     cvReescrito.objetivo = this.reescreverObjetivo(
@@ -1616,7 +1722,7 @@
                         analise.keywordsVaga
                     );
                 }
-                
+
                 // Reescrever experiência
                 if (cvReescrito.experiencia) {
                     cvReescrito.experiencia = this.reescreverExperiencia(
@@ -1624,7 +1730,7 @@
                         analise.keywordsVaga
                     );
                 }
-                
+
                 // Reordenar habilidades
                 if (cvReescrito.habilidades) {
                     cvReescrito.habilidades = this.reordenarHabilidades(
@@ -1632,122 +1738,115 @@
                         analise.keywordsVaga
                     );
                 }
-                
+
                 return cvReescrito;
             }
-            
+
             reescreverObjetivo(objetivo, keywords) {
-                let novoObjetivo = objetivo;
-                
-                keywords.slice(0, 3).forEach(keyword => {
-                    if (!novoObjetivo.toLowerCase().includes(keyword)) {
-                        novoObjetivo += ` com experiência em ${keyword}`;
-                    }
-                });
-                
-                return novoObjetivo;
+                // Filtra para pegar apenas a primeira keyword real (evita usar benefícios)
+                const principal = keywords.find(k => k.length > 2 && !['vr', 'va', 'pj'].includes(k.toLowerCase())) || "soluções digitais";
+
+                return `Desenvolvedor com foco em ${principal}, especializado em ${objetivo}. Comprometido com a inovação e a entrega de projetos globais de alto impacto.`;
             }
-            
+
             reescreverExperiencia(experiencia, keywords) {
-                const linhas = experiencia.split('\n');
-                const novasLinhas = [];
-                
-                linhas.forEach(linha => {
-                    let novaLinha = linha;
-                    
-                    // Adicionar keywords se não existirem
-                    keywords.forEach(keyword => {
-                        if (!novaLinha.toLowerCase().includes(keyword)) {
-                            // Chance de 30% de adicionar keyword
-                            if (Math.random() < 0.3 && novaLinha.length < 200) {
-                                novaLinha += ` utilizando ${keyword}`;
-                            }
-                        }
-                    });
-                    
-                    // Adicionar métricas se não existirem
-                    if (!/(\d+%|\d+\+|\d+\.\d+)/.test(novaLinha)) {
-                        if (Math.random() < 0.4) {
-                            const metricas = ['resultando em 25% de aumento', 'melhorando em 30%', 'reduzindo em 40%'];
-                            const metrica = metricas[Math.floor(Math.random() * metricas.length)];
-                            novaLinha += `, ${metrica}`;
-                        }
-                    }
-                    
-                    novasLinhas.push(novaLinha);
-                });
-                
-                return novasLinhas.join('\n');
+                // 1. Pega as suas frases originais
+                const linhasOriginais = experiencia.split('\n').filter(l => l.trim().length > 5);
+
+                // 2. Filtra keywords para usar apenas termos técnicos reais
+                const termosTecnicos = keywords.filter(k =>
+                    !['home office', 'pj', 'remoto', 'vr', 'va', 'amil', 'híbrido'].includes(k.toLowerCase())
+                );
+
+                // 3. Mapeia cada linha sua para uma versão melhorada, sem apagar o que você fez
+                return linhasOriginais.map((linhaOriginal, i) => {
+                    const cleanLine = linhaOriginal.replace(/^[•\-\*]\s*/, '').trim(); // Limpa bullets existentes
+                    const kw = termosTecnicos[i % termosTecnicos.length] || "tecnologias full-stack";
+
+                    // Formatos variados para evitar repetição
+                    const formatos = [
+                        `• ${cleanLine}, utilizando ${kw} para otimizar a performance e escalabilidade.`,
+                        `• Atuação em ${cleanLine} com foco em soluções baseadas em ${kw}.`,
+                        `• Foco em ${cleanLine}, integrando melhores práticas de ${kw} e design pattern.`,
+                        `• Liderança técnica em ${cleanLine}, aplicando ${kw} para garantir entregas de alta qualidade.`
+                    ];
+
+                    // Se a linha já for muito grande, apenas coloca o bullet. 
+                    // Se for curta, usa um dos formatos acima.
+                    return cleanLine.length > 50
+                        ? `• ${cleanLine}`
+                        : formatos[i % formatos.length];
+                }).join('\n');
             }
-            
+
             reordenarHabilidades(habilidades, keywords) {
                 const habilidadesArray = habilidades.split(/[,;\n]/).map(h => h.trim()).filter(h => h);
                 const habilidadesRelevantes = [];
                 const outrasHabilidades = [];
-                
+
                 habilidadesArray.forEach(habilidade => {
                     const habLower = habilidade.toLowerCase();
-                    const isRelevante = keywords.some(keyword => 
+                    const isRelevante = keywords.some(keyword =>
                         habLower.includes(keyword.toLowerCase())
                     );
-                    
+
                     if (isRelevante) {
                         habilidadesRelevantes.push(habilidade);
                     } else {
                         outrasHabilidades.push(habilidade);
                     }
                 });
-                
+
                 return [...habilidadesRelevantes, ...outrasHabilidades].join(', ');
             }
-            
+
             otimizarParaATS(cvDados) {
                 const linhas = [];
-                
+
                 // Cabeçalho
                 linhas.push('CV OTIMIZADO PARA ATS - GERADO POR CV REWRITER PRO');
                 linhas.push('='.repeat(50));
                 linhas.push('');
-                
+
                 // Dados pessoais
                 if (cvDados.nome) linhas.push(cvDados.nome.toUpperCase());
                 if (cvDados.cargo) linhas.push(cvDados.cargo);
                 linhas.push('');
-                
+
                 // Objetivo
                 if (cvDados.objetivo) {
                     linhas.push('OBJETIVO PROFISSIONAL');
                     linhas.push(cvDados.objetivo);
                     linhas.push('');
                 }
-                
+
                 // Experiência
                 if (cvDados.experiencia) {
                     linhas.push('EXPERIÊNCIA PROFISSIONAL');
                     linhas.push(cvDados.experiencia);
                     linhas.push('');
                 }
-                
+
                 // Habilidades
                 if (cvDados.habilidades) {
                     linhas.push('HABILIDADES TÉCNICAS');
                     linhas.push(cvDados.habilidades);
                     linhas.push('');
                 }
-                
+
                 // Informações adicionais
                 if (cvDados.localizacao) linhas.push(`Localização: ${cvDados.localizacao}`);
                 if (cvDados.salario) linhas.push(`Pretensão Salarial: ${cvDados.salario}`);
                 linhas.push('');
                 linhas.push(`CV otimizado em: ${new Date().toLocaleDateString('pt-BR')}`);
-                
+
                 return linhas.join('\n');
             }
-            
+
             getStatus() {
                 return this.estado;
             }
-            
+
             getMetricas() {
                 return {
                     analisesRealizadas: this.metricas.analisesRealizadas,
@@ -1755,7 +1854,7 @@
                     keywordsCount: this.metricas.keywordsAprendidas.size
                 };
             }
-            
+
             salvarEstado() {
                 try {
                     localStorage.setItem('cvrewriter_estado', JSON.stringify(this.estado));
@@ -1768,12 +1867,12 @@
                     console.warn('Erro ao salvar estado:', e);
                 }
             }
-            
+
             carregarEstado() {
                 try {
                     const estado = JSON.parse(localStorage.getItem('cvrewriter_estado'));
                     const metricas = JSON.parse(localStorage.getItem('cvrewriter_metricas'));
-                    
+
                     if (estado) this.estado = estado;
                     if (metricas) {
                         this.metricas.analisesRealizadas = metricas.analisesRealizadas || 0;
@@ -1784,7 +1883,7 @@
                     console.warn('Erro ao carregar estado:', e);
                 }
             }
-            
+
             resetarSistema() {
                 this.estado = {
                     vagaAnalisada: false,
@@ -1793,7 +1892,7 @@
                     rewritingExecutado: false,
                     cvOtimizado: false
                 };
-                
+
                 this.dados = {
                     vaga: null,
                     cvOriginal: null,
@@ -1801,14 +1900,14 @@
                     cvReescrito: null,
                     cvOtimizado: null
                 };
-                
+
                 localStorage.removeItem('cvrewriter_estado');
                 localStorage.removeItem('cvrewriter_metricas');
-                
+
                 return true;
             }
         }
-        
+
         // 2. Classe de Interface - Gerencia toda a UI (CORRIGIDA)
         class InterfaceCVReWriter {
             constructor() {
@@ -1817,28 +1916,28 @@
                 this.autoDetectTimeout = null;
                 this.init();
             }
-            
+
             async init() {
                 this.showLoading('Inicializando sistema...');
-                
+
                 try {
                     this.setupEventListeners();
-                    this.carregarExemploInicial();
+                    this.carregarCVFusao();
                     this.atualizarStats();
                     this.loadInitialExample();
-                    
+
                     setTimeout(() => {
                         this.hideLoading();
                         this.showNotification('Sistema pronto! 🚀', 'success');
                     }, 800);
-                    
+
                 } catch (error) {
                     console.error('Erro na inicialização:', error);
                     this.showNotification('Erro na inicialização', 'error');
                     this.hideLoading();
                 }
             }
-            
+
             setupEventListeners() {
                 // Sistema de abas
                 document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1846,7 +1945,7 @@
                         this.switchTab(e.currentTarget.dataset.tab);
                     });
                 });
-                
+
                 // ABA 1: Análise de Vaga
                 document.getElementById('analyze-btn').addEventListener('click', () => this.analisarVaga());
                 document.getElementById('quick-analyze').addEventListener('click', () => this.quickAnalyze());
@@ -1854,7 +1953,7 @@
                 document.getElementById('load-example').addEventListener('click', () => this.loadExampleJob());
                 document.getElementById('paste-clipboard').addEventListener('click', () => this.pasteFromClipboard());
                 document.getElementById('goto-profile').addEventListener('click', () => this.switchTab('profile'));
-                
+
                 // ABA 2: CV Original
                 document.getElementById('save-profile').addEventListener('click', () => this.salvarCV());
                 document.getElementById('load-marcio').addEventListener('click', () => this.carregarCVMaker());
@@ -1865,31 +1964,31 @@
                     this.switchTab('relevance');
                     setTimeout(() => this.analisarRelevancia(), 300);
                 });
-                
+
                 // ABA 3: Análise de Relevância
                 document.getElementById('start-relevance').addEventListener('click', () => this.analisarRelevancia());
                 document.getElementById('run-relevance').addEventListener('click', () => this.analisarRelevancia());
-                
+
                 // ABA 4: Rewriting
                 document.getElementById('start-rewriting').addEventListener('click', () => this.executarRewriting());
                 document.getElementById('run-rewriting').addEventListener('click', () => this.executarRewriting());
-                
+
                 // ABA 5: Otimização
                 document.getElementById('refresh-cv').addEventListener('click', () => this.atualizarCVOtimizado());
-                
+
                 // Sistema
                 document.getElementById('system-info').addEventListener('click', () => this.showSystemInfo());
                 document.getElementById('reset-system').addEventListener('click', () => this.resetSystem());
-                
+
                 // Auto-detecção
                 document.getElementById('job-text').addEventListener('input', (e) => {
                     this.autoDetectChanges(e.target.value);
                 });
-                
+
                 // Auto-update do CV preview
-                const cvFields = ['cv-name', 'cv-title', 'cv-location', 'cv-salary', 
-                                 'cv-objective', 'cv-skills', 'cv-experience'];
-                
+                const cvFields = ['cv-name', 'cv-title', 'cv-location', 'cv-salary',
+                    'cv-objective', 'cv-skills', 'cv-experience'];
+
                 cvFields.forEach(fieldId => {
                     const field = document.getElementById(fieldId);
                     if (field) {
@@ -1902,7 +2001,7 @@
                         });
                     }
                 });
-                
+
                 // Atalhos de teclado
                 document.addEventListener('keydown', (e) => {
                     if (e.ctrlKey && e.key === 'Enter') {
@@ -1911,14 +2010,14 @@
                         }
                     }
                 });
-                
+
                 // Modal
                 document.querySelectorAll('.close-modal').forEach(btn => {
                     btn.addEventListener('click', () => {
                         document.getElementById('keywords-modal').classList.remove('active');
                     });
                 });
-                
+
                 // Fechar modal com ESC
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'Escape') {
@@ -1926,26 +2025,26 @@
                     }
                 });
             }
-            
+
             // ============ ABA 1: ANÁLISE DE VAGA ============
             async analisarVaga() {
                 const jobText = document.getElementById('job-text').value.trim();
-                
+
                 if (!jobText || jobText.length < 20) {
                     this.showNotification('Cole uma descrição de vaga mais completa.', 'warning');
                     return;
                 }
-                
+
                 this.showLoading('Analisando vaga...');
-                
+
                 try {
                     const analise = this.sistema.analisarVaga(jobText);
-                    
+
                     this.displayAnalysisResults(analise);
                     this.atualizarStats();
-                    
+
                     this.showNotification(`Vaga analisada! ${analise.keywords.length} keywords detectadas.`, 'success');
-                    
+
                 } catch (error) {
                     console.error('Erro na análise:', error);
                     this.showNotification('Erro na análise da vaga', 'error');
@@ -1953,64 +2052,88 @@
                     this.hideLoading();
                 }
             }
-            
+
             displayAnalysisResults(analise) {
                 document.getElementById('analysis-placeholder').classList.add('hidden');
                 document.getElementById('analysis-results').classList.remove('hidden');
-                
+
+                // 1. Informações Básicas
                 const basicInfoDiv = document.getElementById('job-basic-info');
                 basicInfoDiv.innerHTML = `
-                    <div class="analysis-item">
-                        <div class="analysis-label">Empresa</div>
-                        <div class="analysis-value">${analise.empresa}</div>
+                <div class="analysis-item">
+                    <div class="analysis-label">Empresa</div>
+                    <div class="analysis-value">${analise.empresa}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">Salário</div>
+                    <div class="analysis-value">${analise.salario}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">Senioridade</div>
+                    <div class="analysis-value">${analise.senioridade}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">Keywords</div>
+                    <div class="analysis-value">${analise.keywords.length}</div>
+                </div>
+            `;
+
+                // 2. NOVO: Injeção de Insights de Mercado e Cultura
+                const insightsContainer = document.getElementById('vaga-insights');
+                if (insightsContainer) {
+                    // Lógica simples para definir o tom dos insights
+                    const ehSenior = analise.senioridade.toLowerCase().includes('sênior') || analise.senioridade.toLowerCase().includes('sr');
+
+                    insightsContainer.innerHTML = `
+                    <div class="p-2 bg-white rounded border border-blue-100 mb-2">
+                        <strong class="text-blue-700"><i class="fas fa-coins"></i> Alinhamento Financeiro:</strong> 
+                        O range de ${analise.salario} indica um orçamento ${analise.salario.includes('15') || analise.salario.includes('18') ? 'premium' : 'competitivo'} para o nível ${analise.senioridade}.
                     </div>
-                    <div class="analysis-item">
-                        <div class="analysis-label">Salário</div>
-                        <div class="analysis-value">${analise.salario}</div>
+                    <div class="p-2 bg-white rounded border border-blue-100 mb-2">
+                        <strong class="text-blue-700"><i class="fas fa-bullseye"></i> Foco Estratégico:</strong> 
+                        A IA sugere enfatizar ${ehSenior ? 'liderança, arquitetura e impacto no negócio' : 'domínio técnico, agilidade e execução'}.
                     </div>
-                    <div class="analysis-item">
-                        <div class="analysis-label">Senioridade</div>
-                        <div class="analysis-value">${analise.senioridade}</div>
-                    </div>
-                    <div class="analysis-item">
-                        <div class="analysis-label">Keywords</div>
-                        <div class="analysis-value">${analise.keywords.length}</div>
+                    <div class="p-2 bg-white rounded border border-blue-100">
+                        <strong class="text-blue-700"><i class="fas fa-users"></i> Cultura e Perfil:</strong> 
+                        Vaga focada em ambientes de ${ehSenior ? 'alta autonomia e tomada de decisão' : 'colaboração e rápido aprendizado'}.
                     </div>
                 `;
-                
+                }
+
+                // 3. Keywords Detectadas
                 const skillsDiv = document.getElementById('skills-detected');
-                skillsDiv.innerHTML = analise.keywords.slice(0, 15).map(skill => 
+                skillsDiv.innerHTML = analise.keywords.slice(0, 15).map(skill =>
                     `<span class="tag tag-primary">${skill}</span>`
                 ).join('');
-                
+
                 // Marcar aba como concluída
                 document.querySelector('[data-tab="analysis"]').classList.add('completed');
             }
-            
+
             quickAnalyze() {
                 const jobText = document.getElementById('job-text').value.trim();
-                
+
                 if (!jobText) {
                     this.showNotification('Cole uma vaga primeiro!', 'warning');
                     return;
                 }
-                
+
                 this.showLoading('Detectando keywords...');
-                
+
                 setTimeout(() => {
                     try {
                         const keywords = this.sistema.extrairKeywords(jobText).slice(0, 8);
                         const detectionDiv = document.getElementById('auto-detection');
-                        
+
                         if (keywords.length > 0) {
-                            detectionDiv.innerHTML = keywords.map(k => 
+                            detectionDiv.innerHTML = keywords.map(k =>
                                 `<span class="tag tag-primary">${k}</span>`
                             ).join('');
                             this.showNotification(`${keywords.length} keywords detectadas!`, 'info');
                         } else {
                             detectionDiv.innerHTML = '<span class="tag tag-primary">Nenhuma keyword detectada</span>';
                         }
-                        
+
                     } catch (error) {
                         this.showNotification('Erro na detecção', 'error');
                     } finally {
@@ -2018,18 +2141,18 @@
                     }
                 }, 600);
             }
-            
+
             autoDetectChanges(text) {
                 if (text.length < 30) return;
-                
+
                 clearTimeout(this.autoDetectTimeout);
                 this.autoDetectTimeout = setTimeout(() => {
                     try {
                         const keywords = this.sistema.extrairKeywords(text).slice(0, 5);
                         const detectionDiv = document.getElementById('auto-detection');
-                        
+
                         if (keywords.length > 0) {
-                            detectionDiv.innerHTML = keywords.map(k => 
+                            detectionDiv.innerHTML = keywords.map(k =>
                                 `<span class="tag tag-primary">${k}</span>`
                             ).join('');
                         }
@@ -2038,7 +2161,7 @@
                     }
                 }, 1000);
             }
-            
+
             clearJobText() {
                 document.getElementById('job-text').value = '';
                 document.getElementById('auto-detection').innerHTML = `
@@ -2046,26 +2169,13 @@
                         <i class="fas fa-sync fa-spin"></i> Aguardando texto...
                     </span>
                 `;
-                
+
                 document.getElementById('analysis-placeholder').classList.remove('hidden');
                 document.getElementById('analysis-results').classList.add('hidden');
-                
+
                 this.showNotification('Texto limpo!', 'info');
             }
-            
-            carregarExemploInicial() {
-                // Carrega CV exemplo no localStorage se não existir
-                try {
-                    const cvSalvo = localStorage.getItem('cv_data');
-                    if (cvSalvo) {
-                        const cvData = JSON.parse(cvSalvo);
-                        this.preencherFormularioCV(cvData);
-                    }
-                } catch (e) {
-                    console.warn('Erro ao carregar CV salvo:', e);
-                }
-            }
-            
+
             loadInitialExample() {
                 const exampleJob = `Desenvolvedor Full Stack Pleno
 
@@ -2104,7 +2214,7 @@ BENEFÍCIOS:
                 document.getElementById('job-text').value = exampleJob;
                 setTimeout(() => this.autoDetectChanges(exampleJob), 100);
             }
-            
+
             loadExampleJob() {
                 const exampleJob = `Analista de Dados Sênior
 Empresa: DataCorp Analytics
@@ -2116,7 +2226,7 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
                 setTimeout(() => this.autoDetectChanges(exampleJob), 100);
                 this.showNotification('Exemplo carregado!', 'info');
             }
-            
+
             async pasteFromClipboard() {
                 try {
                     const text = await navigator.clipboard.readText();
@@ -2129,7 +2239,7 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
                     this.showNotification('Erro ao colar do clipboard', 'error');
                 }
             }
-            
+
             // ============ ABA 2: CV ORIGINAL ============
             carregarCVFusao() {
                 const cvFusao = {
@@ -2158,12 +2268,12 @@ PROJETOS RELEVANTES:
 • TaskFlow: App de produtividade com Flask e React
 • Nebula: Visualizador 3D de galáxias com Three.js`
                 };
-                
+
                 this.preencherFormularioCV(cvFusao);
                 this.sistema.configurarCV(cvFusao);
                 this.showNotification('CV fusão completo carregado!', 'success');
             }
-            
+
             carregarCVMaker() {
                 const cvMaker = {
                     nome: 'Márcio Gemelli',
@@ -2183,12 +2293,12 @@ Projetos Acadêmicos
 • Aplicativo de tarefas com React Native
 • API de análise de dados com Python`
                 };
-                
+
                 this.preencherFormularioCV(cvMaker);
                 this.sistema.configurarCV(cvMaker);
                 this.showNotification('CV Márcio Maker carregado!', 'success');
             }
-            
+
             preencherFormularioCV(cvDados) {
                 document.getElementById('cv-name').value = cvDados.nome || '';
                 document.getElementById('cv-title').value = cvDados.cargo || '';
@@ -2197,16 +2307,16 @@ Projetos Acadêmicos
                 document.getElementById('cv-objective').value = cvDados.objetivo || '';
                 document.getElementById('cv-skills').value = cvDados.habilidades || '';
                 document.getElementById('cv-experience').value = cvDados.experiencia || '';
-                
+
                 this.updateCVPreview();
             }
-            
+
             updateCVPreview() {
                 const nome = document.getElementById('cv-name').value || 'Nome não informado';
                 const cargo = document.getElementById('cv-title').value || 'Cargo não informado';
                 const habilidades = document.getElementById('cv-skills').value || '';
                 const experiencia = document.getElementById('cv-experience').value || '';
-                
+
                 document.getElementById('cv-preview').innerHTML = `
                     <div class="space-y-4">
                         <div class="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg">
@@ -2218,9 +2328,9 @@ Projetos Acadêmicos
                             <div>
                                 <h4 class="font-bold mb-2">Habilidades</h4>
                                 <div class="tags-container">
-                                    ${habilidades.split(',').slice(0, 10).map(skill => 
-                                        `<span class="tag tag-primary">${skill.trim()}</span>`
-                                    ).join('')}
+                                    ${habilidades.split(',').slice(0, 10).map(skill =>
+                    `<span class="tag tag-primary">${skill.trim()}</span>`
+                ).join('')}
                                 </div>
                             </div>
                         ` : ''}
@@ -2236,7 +2346,7 @@ Projetos Acadêmicos
                     </div>
                 `;
             }
-            
+
             salvarCV(silent = false) {
                 const cvData = {
                     nome: document.getElementById('cv-name').value.trim(),
@@ -2247,37 +2357,37 @@ Projetos Acadêmicos
                     habilidades: document.getElementById('cv-skills').value.trim(),
                     experiencia: document.getElementById('cv-experience').value.trim()
                 };
-                
+
                 // Validação
                 if (!cvData.nome || !cvData.habilidades) {
                     if (!silent) this.showNotification('Nome e habilidades são obrigatórios!', 'warning');
                     return false;
                 }
-                
+
                 this.sistema.configurarCV(cvData);
-                
+
                 // Salvar no localStorage
                 try {
                     localStorage.setItem('cv_data', JSON.stringify(cvData));
                     if (!silent) this.showNotification('CV salvo com sucesso!', 'success');
                     this.updateCVPreview();
-                    
+
                     // Marcar aba como concluída
                     document.querySelector('[data-tab="profile"]').classList.add('completed');
-                    
+
                     return true;
                 } catch (error) {
                     if (!silent) this.showNotification('Erro ao salvar CV', 'error');
                     return false;
                 }
             }
-            
+
             enhanceCV() {
                 const experiencia = document.getElementById('cv-experience').value;
                 if (!experiencia) return;
-                
+
                 this.showLoading('Melhorando experiência...');
-                
+
                 setTimeout(() => {
                     const linhas = experiencia.split('\n');
                     const linhasMelhoradas = linhas.map(linha => {
@@ -2293,13 +2403,13 @@ Projetos Acadêmicos
                         }
                         return linha;
                     });
-                    
+
                     document.getElementById('cv-experience').value = linhasMelhoradas.join('\n');
                     this.showNotification('CV melhorado com métricas!', 'success');
                     this.hideLoading();
                 }, 800);
             }
-            
+
             resetCV() {
                 if (confirm('Redefinir formulário de CV?')) {
                     document.getElementById('cv-name').value = '';
@@ -2309,38 +2419,38 @@ Projetos Acadêmicos
                     document.getElementById('cv-objective').value = '';
                     document.getElementById('cv-skills').value = '';
                     document.getElementById('cv-experience').value = '';
-                    
+
                     this.updateCVPreview();
                     this.showNotification('CV redefinido!', 'info');
                 }
             }
-            
+
             // ============ ABA 3: ANÁLISE DE RELEVÂNCIA ============
             async analisarRelevancia() {
                 const status = this.sistema.getStatus();
-                
+
                 if (!status.vagaAnalisada) {
                     this.showNotification('Analise uma vaga primeiro!', 'warning');
                     this.switchTab('analysis');
                     return;
                 }
-                
+
                 if (!status.cvConfigurado) {
                     this.showNotification('Configure seu CV primeiro!', 'warning');
                     this.switchTab('profile');
                     return;
                 }
-                
+
                 this.showLoading('Analisando relevância...');
-                
+
                 try {
                     const analise = this.sistema.analisarRelevancia();
-                    
+
                     this.displayRelevanceResults(analise);
                     this.atualizarStats();
-                    
+
                     this.showNotification('Análise de relevância concluída!', 'success');
-                    
+
                 } catch (error) {
                     console.error('Erro na análise:', error);
                     this.showNotification('Erro na análise de relevância', 'error');
@@ -2348,22 +2458,22 @@ Projetos Acadêmicos
                     this.hideLoading();
                 }
             }
-            
+
             displayRelevanceResults(analise) {
                 document.getElementById('relevance-placeholder').classList.add('hidden');
                 document.getElementById('relevance-results').classList.remove('hidden');
-                
+
                 const scorePorcentagem = analise.porcentagemRelevante;
-                
+
                 document.getElementById('relevance-results').innerHTML = `
                     <div class="score-display">
                         <div class="score-label">Relevância do CV para a Vaga</div>
                         <div class="score-value">${scorePorcentagem}%</div>
                         <div class="text-sm text-secondary mt-2">
-                            ${scorePorcentagem >= 80 ? 'Excelente alinhamento!' : 
-                              scorePorcentagem >= 60 ? 'Bom alinhamento' : 
-                              scorePorcentagem >= 40 ? 'Alinhamento moderado' : 
-                              'Baixo alinhamento'}
+                            ${scorePorcentagem >= 80 ? 'Excelente alinhamento!' :
+                        scorePorcentagem >= 60 ? 'Bom alinhamento' :
+                            scorePorcentagem >= 40 ? 'Alinhamento moderado' :
+                                'Baixo alinhamento'}
                         </div>
                     </div>
                     
@@ -2388,7 +2498,7 @@ Projetos Acadêmicos
                             ${analise.recomendacoes.map((rec, i) => `
                                 <div class="flex items-start gap-2">
                                     <i class="fas fa-magic text-purple-500 mt-1"></i>
-                                    <span class="text-sm">${i+1}. ${rec}</span>
+                                    <span class="text-sm">${i + 1}. ${rec}</span>
                                 </div>
                             `).join('')}
                         </div>
@@ -2403,56 +2513,56 @@ Projetos Acadêmicos
                         </button>
                     </div>
                 `;
-                
+
                 // Configurar eventos dos botões dinamicamente
                 setTimeout(() => {
                     document.getElementById('view-keywords-btn')?.addEventListener('click', () => {
                         this.showKeywordsModal(analise.keywordsVaga);
                     });
-                    
+
                     document.getElementById('goto-rewriting-btn')?.addEventListener('click', () => {
                         this.switchTab('rewriting');
                     });
                 }, 100);
-                
+
                 // Marcar aba como concluída
                 document.querySelector('[data-tab="relevance"]').classList.add('completed');
             }
-            
+
             showKeywordsModal(keywords) {
                 const modal = document.getElementById('keywords-modal');
                 const keywordsList = document.getElementById('keywords-list');
                 const keywordsCount = document.getElementById('keywords-count');
-                
-                keywordsList.innerHTML = keywords.map(keyword => 
+
+                keywordsList.innerHTML = keywords.map(keyword =>
                     `<span class="tag tag-primary">${keyword}</span>`
                 ).join('');
-                
+
                 keywordsCount.textContent = `Total: ${keywords.length} keywords`;
-                
+
                 modal.classList.add('active');
             }
-            
+
             // ============ ABA 4: REWRITING ============
             async executarRewriting() {
                 const status = this.sistema.getStatus();
-                
+
                 if (!status.relevanciaAnalisada) {
                     this.showNotification('Analise a relevância primeiro!', 'warning');
                     this.switchTab('relevance');
                     return;
                 }
-                
+
                 this.showLoading('Executando rewriting inteligente...');
-                
+
                 try {
                     const cvReescrito = this.sistema.executarRewriting();
-                    
+
                     this.displayRewritingResults(cvReescrito);
                     this.atualizarStats();
-                    
+
                     this.showNotification('Rewriting concluído com sucesso!', 'success');
-                    
+
                 } catch (error) {
                     console.error('Erro no rewriting:', error);
                     this.showNotification('Erro no rewriting do CV', 'error');
@@ -2460,15 +2570,15 @@ Projetos Acadêmicos
                     this.hideLoading();
                 }
             }
-            
+
             displayRewritingResults(cvReescrito) {
                 document.getElementById('rewriting-placeholder').classList.add('hidden');
                 document.getElementById('rewriting-results').classList.remove('hidden');
-                
+
                 const cvOriginal = this.sistema.dados.cvOriginal;
                 const cvOriginalTexto = this.sistema.formatarCVParaTexto(cvOriginal);
                 const cvReescritoTexo = this.sistema.formatarCVParaTexto(cvReescrito);
-                
+
                 document.getElementById('rewriting-results').innerHTML = `
                     <div class="cv-comparison">
                         <div class="cv-section cv-original">
@@ -2510,33 +2620,33 @@ Projetos Acadêmicos
                         </button>
                     </div>
                 `;
-                
+
                 // Configurar eventos dos botões
                 setTimeout(() => {
                     document.getElementById('view-details-btn')?.addEventListener('click', () => {
                         this.showRewritingDetails();
                     });
-                    
+
                     document.getElementById('goto-optimization-btn')?.addEventListener('click', () => {
                         this.switchTab('optimization');
                         setTimeout(() => this.atualizarCVOtimizado(), 300);
                     });
                 }, 100);
-                
+
                 // Marcar aba como concluída
                 document.querySelector('[data-tab="rewriting"]').classList.add('completed');
             }
-            
+
             showRewritingDetails() {
                 const diferenças = this.compararCVs(
                     this.sistema.dados.cvOriginal,
                     this.sistema.dados.cvReescrito
                 );
-                
+
                 const modal = document.getElementById('keywords-modal');
                 const keywordsList = document.getElementById('keywords-list');
                 const keywordsCount = document.getElementById('keywords-count');
-                
+
                 keywordsList.innerHTML = `
                     <div class="space-y-3">
                         <div class="p-3 bg-blue-50 rounded-lg">
@@ -2551,64 +2661,64 @@ Projetos Acadêmicos
                         <div class="p-3 bg-green-50 rounded-lg">
                             <h4 class="font-bold text-green-700 mb-2">Keywords Adicionadas:</h4>
                             <div class="tags-container">
-                                ${this.sistema.dados.analiseRelevancia.keywordsVaga.slice(0, 10).map(kw => 
-                                    `<span class="tag tag-success">${kw}</span>`
-                                ).join('')}
+                                ${this.sistema.dados.analiseRelevancia.keywordsVaga.slice(0, 10).map(kw =>
+                    `<span class="tag tag-success">${kw}</span>`
+                ).join('')}
                             </div>
                         </div>
                     </div>
                 `;
-                
+
                 keywordsCount.textContent = `Melhorias: ${diferenças.length}`;
                 modal.classList.add('active');
             }
-            
+
             compararCVs(cvOriginal, cvReescrito) {
                 const diferenças = [];
-                
+
                 // Comparar objetivo
                 if (cvOriginal.objetivo !== cvReescrito.objetivo) {
                     diferenças.push('Objetivo profissional direcionado para a vaga');
                 }
-                
+
                 // Comparar habilidades
                 const habOriginal = cvOriginal.habilidades.split(',').map(h => h.trim());
                 const habReescrito = cvReescrito.habilidades.split(',').map(h => h.trim());
                 const novasHabilidades = habReescrito.filter(h => !habOriginal.includes(h));
-                
+
                 if (novasHabilidades.length > 0) {
                     diferenças.push(`${novasHabilidades.length} novas habilidades adicionadas`);
                 }
-                
+
                 // Comparar experiência
                 if (cvOriginal.experiencia !== cvReescrito.experiencia) {
                     diferenças.push('Experiência reformulada com métricas e keywords');
                 }
-                
+
                 return diferenças;
             }
-            
+
             // ============ ABA 5: CV OTIMIZADO ============
             async atualizarCVOtimizado() {
                 const status = this.sistema.getStatus();
-                
+
                 if (!status.rewritingExecutado) {
                     document.getElementById('optimization-placeholder').classList.remove('hidden');
                     document.getElementById('optimization-results').classList.add('hidden');
                     this.showNotification('Execute o rewriting primeiro!', 'warning');
                     return;
                 }
-                
+
                 this.showLoading('Otimizando CV para ATS...');
-                
+
                 try {
                     const cvOtimizado = this.sistema.otimizarCV();
-                    
+
                     this.displayOptimizationResults(cvOtimizado);
                     this.atualizarMetricasOtimizacao();
-                    
+
                     this.showNotification('CV otimizado com sucesso!', 'success');
-                    
+
                 } catch (error) {
                     console.error('Erro na otimização:', error);
                     this.showNotification('Erro ao otimizar CV', 'error');
@@ -2616,11 +2726,11 @@ Projetos Acadêmicos
                     this.hideLoading();
                 }
             }
-            
+
             displayOptimizationResults(cvOtimizado) {
                 document.getElementById('optimization-placeholder').classList.add('hidden');
                 document.getElementById('optimization-results').classList.remove('hidden');
-                
+
                 document.getElementById('optimization-results').innerHTML = `
                     <div class="space-y-4">
                         <div class="p-3 bg-blue-50 rounded-lg">
@@ -2644,7 +2754,7 @@ Projetos Acadêmicos
                         </div>
                     </div>
                 `;
-                
+
                 // Adicionar botões de ação
                 document.getElementById('optimization-actions').innerHTML = `
                     <div class="grid grid-cols-2 gap-3 mt-4">
@@ -2656,39 +2766,39 @@ Projetos Acadêmicos
                         </button>
                     </div>
                 `;
-                
+
                 // Configurar eventos dos botões
                 setTimeout(() => {
                     document.getElementById('copy-cv-btn')?.addEventListener('click', () => this.copiarCV());
                     document.getElementById('download-cv-btn')?.addEventListener('click', () => this.downloadCV());
                 }, 100);
-                
+
                 // Marcar aba como concluída
                 document.querySelector('[data-tab="optimization"]').classList.add('completed');
             }
-            
+
             atualizarMetricasOtimizacao() {
                 const analise = this.sistema.dados.analiseRelevancia;
                 if (!analise) return;
-                
+
                 const score = analise.porcentagemRelevante || 50;
                 const keywordIncrease = Math.min(100, score + 20);
-                
+
                 document.getElementById('keyword-density').textContent = `${keywordIncrease}%`;
                 document.getElementById('keyword-bar').style.width = `${keywordIncrease}%`;
-                
+
                 document.getElementById('relevance-percent').textContent = `${score}%`;
                 document.getElementById('relevance-bar').style.width = `${score}%`;
             }
-            
+
             calcularReducaoIrrelevante() {
                 if (!this.sistema.dados.analiseRelevancia) return 40;
-                
+
                 const score = this.sistema.dados.analiseRelevancia.score || 0.5;
                 const reducao = Math.round((1 - score) * 60 + 20);
                 return Math.min(80, reducao);
             }
-            
+
             async copiarCV() {
                 try {
                     const cvTexto = this.sistema.dados.cvOtimizado;
@@ -2698,61 +2808,61 @@ Projetos Acadêmicos
                     this.showNotification('Erro ao copiar. Tente manualmente.', 'error');
                 }
             }
-            
+
             downloadCV() {
                 const cvTexto = this.sistema.dados.cvOtimizado;
                 const data = new Date();
                 const timestamp = data.toISOString().split('T')[0];
-                
+
                 const blob = new Blob([cvTexto], { type: 'text/plain' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
-                
+
                 a.href = url;
                 a.download = `CV_Otimizado_${timestamp}.txt`;
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-                
+
                 this.showNotification('CV baixado com sucesso!', 'success');
             }
-            
+
             // ============ FUNÇÕES UTILITÁRIAS ============
             switchTab(tabName) {
                 // Remover classe active de todas as abas
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     btn.classList.remove('active');
                 });
-                
+
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.remove('active');
                 });
-                
+
                 // Adicionar classe active à aba selecionada
                 const tabBtn = document.querySelector(`[data-tab="${tabName}"]`);
                 const tabContent = document.getElementById(tabName);
-                
+
                 if (tabBtn) tabBtn.classList.add('active');
                 if (tabContent) tabContent.classList.add('active');
             }
-            
+
             atualizarStats() {
                 const metricas = this.sistema.getMetricas();
-                
+
                 document.getElementById('total-analises').textContent = metricas.analisesRealizadas;
                 document.getElementById('analysis-badge').textContent = metricas.analisesRealizadas;
-                
+
                 document.getElementById('total-rewrites').textContent = metricas.rewritesRealizados;
                 document.getElementById('rewriting-badge').textContent = metricas.rewritesRealizados;
-                
+
                 document.getElementById('total-matches').textContent = metricas.keywordsCount;
                 document.getElementById('learning-count').textContent = metricas.keywordsCount;
-                
+
                 // Calcular redução irrelevante dinamicamente
                 const reducao = this.calcularReducaoIrrelevante();
                 document.getElementById('reducao-irrelevante').textContent = `${reducao}%`;
-                
+
                 // Atualizar progress bars
                 const progressBars = {
                     'progress-analises': Math.min(100, (metricas.analisesRealizadas / 10) * 100),
@@ -2760,25 +2870,25 @@ Projetos Acadêmicos
                     'progress-matches': Math.min(100, (metricas.keywordsCount / 50) * 100),
                     'progress-reducao': reducao
                 };
-                
+
                 Object.entries(progressBars).forEach(([id, width]) => {
                     const bar = document.getElementById(id);
                     if (bar) bar.style.width = `${width}%`;
                 });
-                
+
                 // Atualizar última data
                 const now = new Date();
-                document.getElementById('last-rewrite-time').textContent = 
+                document.getElementById('last-rewrite-time').textContent =
                     now.toLocaleDateString('pt-BR') + ' ' + now.toLocaleTimeString('pt-BR').substring(0, 5);
-                
+
                 // Salvar estado
                 this.sistema.salvarEstado();
             }
-            
+
             showSystemInfo() {
                 const status = this.sistema.getStatus();
                 const metricas = this.sistema.getMetricas();
-                
+
                 const infoHTML = `
                     <div class="space-y-4">
                         <div class="p-3 bg-purple-50 rounded-lg">
@@ -2834,93 +2944,93 @@ Projetos Acadêmicos
                         </div>
                     </div>
                 `;
-                
+
                 const modal = document.getElementById('keywords-modal');
                 const keywordsList = document.getElementById('keywords-list');
                 const keywordsCount = document.getElementById('keywords-count');
-                
+
                 keywordsList.innerHTML = infoHTML;
                 keywordsCount.textContent = 'Informações do Sistema';
                 modal.classList.add('active');
             }
-            
+
             resetSystem() {
                 if (confirm('Tem certeza que deseja resetar todo o sistema? Todos os dados serão perdidos.')) {
                     this.sistema.resetarSistema();
-                    
+
                     // Resetar interface
                     this.clearJobText();
                     this.resetCV();
-                    
+
                     // Resetar abas
                     document.querySelectorAll('.tab-btn').forEach(btn => {
                         btn.classList.remove('completed');
                     });
-                    
+
                     // Resetar placeholders
                     document.getElementById('analysis-placeholder').classList.remove('hidden');
                     document.getElementById('analysis-results').classList.add('hidden');
-                    
+
                     document.getElementById('relevance-placeholder').classList.remove('hidden');
                     document.getElementById('relevance-results').classList.add('hidden');
-                    
+
                     document.getElementById('rewriting-placeholder').classList.remove('hidden');
                     document.getElementById('rewriting-results').classList.add('hidden');
-                    
+
                     document.getElementById('optimization-placeholder').classList.remove('hidden');
                     document.getElementById('optimization-results').classList.add('hidden');
-                    
+
                     // Atualizar stats
                     this.atualizarStats();
                     this.switchTab('analysis');
-                    
+
                     this.showNotification('Sistema resetado com sucesso!', 'success');
                 }
             }
-            
+
             showLoading(text = 'Processando...', subtext = '') {
                 document.getElementById('loading-text').textContent = text;
                 document.getElementById('loading-subtext').textContent = subtext;
                 document.getElementById('loading-overlay').style.display = 'flex';
             }
-            
+
             hideLoading() {
                 document.getElementById('loading-overlay').style.display = 'none';
             }
-            
+
             showNotification(message, type = 'info') {
                 const notificationSystem = document.getElementById('notification-system');
-                
+
                 if (notificationSystem.children.length >= 3) {
                     notificationSystem.removeChild(notificationSystem.firstChild);
                 }
-                
+
                 const notification = document.createElement('div');
                 notification.className = 'notification';
-                
+
                 const icons = {
                     success: 'check-circle',
                     error: 'exclamation-circle',
                     warning: 'exclamation-triangle',
                     info: 'info-circle'
                 };
-                
+
                 const colors = {
                     success: '#00b894',
                     error: '#ff6b6b',
                     warning: '#fdcb6e',
                     info: '#0984e3'
                 };
-                
+
                 notification.innerHTML = `
                     <i class="fas fa-${icons[type] || 'info-circle'}" style="color: ${colors[type] || colors.info}"></i>
                     <span>${message}</span>
                 `;
-                
+
                 notification.style.borderLeftColor = colors[type] || colors.info;
-                
+
                 notificationSystem.appendChild(notification);
-                
+
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.style.opacity = '0';
@@ -2934,11 +3044,12 @@ Projetos Acadêmicos
                 }, 4000);
             }
         }
-        
+
         // ============ INICIALIZAÇÃO ============
         document.addEventListener('DOMContentLoaded', () => {
             window.cvReWriter = new InterfaceCVReWriter();
         });
     </script>
 </body>
+
 </html>
