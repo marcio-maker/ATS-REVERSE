@@ -2874,12 +2874,18 @@
         <footer class="mt-5 pt-4">
             <div class="footer-container">
                 <!-- Header compacto -->
+                <!-- Header compacto -->
                 <div class="footer-header text-center mb-3">
                     <div class="footer-title">
                         <i class="fas fa-magic"></i> CV ReWriter Pro
                     </div>
+                    <div style="font-size: 0.7rem; color: #64748b; margin-top: 2px;">
+                        <a href="https://maker-ai-studio-tbx2.vercel.app/" target="_blank"
+                            style="color: var(--primary); text-decoration: none;">
+                            Márcio Maker • GitHub
+                        </a>
+                    </div>
                 </div>
-
                 <!-- Menu horizontal compacto -->
                 <div class="footer-menu text-center mb-3">
                     <div class="menu-grid">
@@ -4824,11 +4830,93 @@
         class InterfaceCVReWriter {
             constructor() {
                 this.sistema = new SistemaCVReWriter();
+                this.sistemaLocal = window.sistemaLocal || null;  // ← ADICIONE ESTA LINHA
                 this.autoSaveTimeout = null;
                 this.autoDetectTimeout = null;
                 this.selectedPersona = null;
                 this.init();
             }
+
+            // ============ MÉTODOS BÁSICOS DA UI ============
+
+            showLoading(message = 'Processando...', submessage = '') {
+                const overlay = document.getElementById('loading-overlay');
+                const text = document.getElementById('loading-text');
+                const subtext = document.getElementById('loading-subtext');
+
+                if (overlay && text) {
+                    text.textContent = message;
+                    if (subtext && submessage) {
+                        subtext.textContent = submessage;
+                    }
+                    overlay.style.display = 'flex';
+                }
+            }
+
+            hideLoading() {
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) {
+                    overlay.style.display = 'none';
+                }
+            }
+
+            showNotification(message, type = 'info') {
+                const notificationSystem = document.getElementById('notification-system');
+                if (!notificationSystem) return;
+
+                const notification = document.createElement('div');
+                notification.className = 'notification';
+
+                const colors = {
+                    success: '#00b894',
+                    error: '#ff6b6b',
+                    warning: '#fdcb6e',
+                    info: '#0984e3'
+                };
+
+                notification.style.borderLeftColor = colors[type] || colors.info;
+
+                const icon = {
+                    success: 'fa-check-circle',
+                    error: 'fa-exclamation-circle',
+                    warning: 'fa-exclamation-triangle',
+                    info: 'fa-info-circle'
+                }[type] || 'fa-info-circle';
+
+                notification.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <span>${message}</span>
+        `;
+
+                notificationSystem.appendChild(notification);
+
+                // Auto-remover após 5 segundos
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notificationSystem.removeChild(notification);
+                    }
+                }, 5000);
+            }
+
+            switchTab(tabName) {
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+
+                const tabContent = document.getElementById(tabName);
+                const tabButton = document.querySelector(`[data-tab="${tabName}"]`);
+
+                if (tabContent) tabContent.classList.add('active');
+                if (tabButton) tabButton.classList.add('active');
+
+                this.currentTab = tabName;
+            }
+
+            // ============ MÉTODO INIT (JÁ EXISTE NO SEU CÓDIGO) ============
 
             async init() {
                 this.currentTab = 'analysis';
@@ -4846,7 +4934,7 @@
                     greenFlags: [],         // Green flags detectados
                     priorityKeywords: []    // Keywords de alta prioridade
                 };
-              
+
                 this.showLoading('Inicializando sistema...');
 
                 try {
@@ -4866,6 +4954,52 @@
                     console.error('Erro na inicialização:', error);
                     this.showNotification('Erro na inicialização', 'error');
                     this.hideLoading();
+                }
+            }
+
+            async carregarCVFusao() {
+                try {
+                    const cvFusao = {
+                        nome: "Márcio Gemelli (CV Fusão Completo)",
+                        cargo: "Desenvolvedor Full Stack & Tech Lead",
+                        localizacao: "São Paulo, SP",
+                        salario: "R$ 12.000 - R$ 18.000",
+                        objetivo: "Profissional especializado em desenvolvimento full stack com foco em criar soluções escaláveis e de alta performance. Busco oportunidades para aplicar minha expertise em JavaScript, React e Node.js em projetos desafiadores.",
+                        habilidades: "JavaScript, TypeScript, React, Node.js, Python, AWS, Docker, PostgreSQL, MongoDB, GraphQL, CI/CD, Scrum, Agile",
+                        experiencia: `Tech Lead - Tech Solutions SA (2021 - Atual)
+• Liderança de equipe de desenvolvedores em metodologia ágil
+• Arquitetura de sistemas escaláveis com microserviços
+• Redução de custos em infraestrutura cloud
+
+Desenvolvedor Full Stack - Startup XYZ (2019 - 2021)
+• Desenvolvimento de aplicações web modernas
+• Integração com APIs REST e GraphQL
+• Otimização de performance e experiência do usuário
+
+Analista de Sistemas - Empresa ABC (2017 - 2019)
+• Manutenção e evolução de sistemas
+• Migração e otimização de bancos de dados
+• Automação de processos internos`
+                    };
+
+                    // Preencher campos do formulário
+                    document.getElementById('cv-name').value = cvFusao.nome;
+                    document.getElementById('cv-title').value = cvFusao.cargo;
+                    document.getElementById('cv-location').value = cvFusao.localizacao;
+                    document.getElementById('cv-salary').value = cvFusao.salario;
+                    document.getElementById('cv-objective').value = cvFusao.objetivo;
+                    document.getElementById('cv-skills').value = cvFusao.habilidades;
+                    document.getElementById('cv-experience').value = cvFusao.experiencia;
+
+                    // Atualizar preview
+                    if (this.updateCVPreview) {
+                        this.updateCVPreview();
+                    }
+
+                    console.log('✅ CV Fusão carregado com sucesso');
+
+                } catch (error) {
+                    console.warn('⚠️ Não foi possível carregar CV Fusão:', error);
                 }
             }
 
@@ -5198,6 +5332,106 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
                 } finally {
                     this.hideLoading();
                 }
+            }
+
+            atualizarCVOtimizado() {
+                const status = this.sistema.getStatus();
+
+                if (!status.cvOtimizado) {
+                    this.showNotification('Execute o rewriting e otimização primeiro!', 'warning');
+                    this.switchTab('rewriting');
+                    return;
+                }
+
+                this.showLoading('Atualizando visualização do CV otimizado...');
+
+                setTimeout(() => {
+                    try {
+                        const cvOtimizado = this.sistema.dados.cvOtimizado;
+
+                        if (cvOtimizado) {
+                            // Atualizar métricas de otimização
+                            this.atualizarMetricasOtimizacao();
+
+                            // Atualizar visualização do CV otimizado
+                            const resultsDiv = document.getElementById('optimization-results');
+                            if (resultsDiv) {
+                                const formattedCV = this.formatCVForDisplay(cvOtimizado);
+                                resultsDiv.innerHTML = formattedCV;
+                            }
+
+                            this.showNotification('CV otimizado atualizado com sucesso!', 'success');
+                        } else {
+                            this.showNotification('Nenhum CV otimizado encontrado no sistema', 'info');
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao atualizar CV otimizado:', error);
+                        this.showNotification('Erro ao atualizar visualização', 'error');
+                    } finally {
+                        this.hideLoading();
+                    }
+                }, 800);
+            }
+
+            atualizarMetricasOtimizacao() {
+                // Atualizar as barras de progresso e métricas
+                try {
+                    const analise = this.sistema.dados.analiseRelevancia;
+                    if (analise) {
+                        const keywordPercent = Math.min(100, analise.porcentagemRelevante + 20);
+                        const relevancePercent = analise.porcentagemRelevante;
+
+                        document.getElementById('keyword-density').textContent = `${keywordPercent}%`;
+                        document.getElementById('keyword-bar').style.width = `${keywordPercent}%`;
+
+                        document.getElementById('relevance-percent').textContent = `${relevancePercent}%`;
+                        document.getElementById('relevance-bar').style.width = `${relevancePercent}%`;
+                    }
+                } catch (error) {
+                    console.log('Erro ao atualizar métricas:', error);
+                }
+            }
+
+            formatCVForDisplay(cvTexto) {
+                if (!cvTexto) return '<div class="text-center p-4"><i class="fas fa-file-alt fa-3x text-gray-300"></i><p>CV não disponível</p></div>';
+
+                const lines = cvTexto.split('\n');
+                let html = '<div class="space-y-4">';
+
+                lines.forEach(line => {
+                    if (line.trim() === '') return;
+
+                    if (line.includes('=')) {
+                        // Linha de separação
+                        html += `<hr class="my-4 border-gray-300">`;
+                    } else if (line === line.toUpperCase() && !line.includes(':')) {
+                        // Título principal
+                        html += `<h3 class="text-xl font-bold text-primary mb-2">${line}</h3>`;
+                    } else if (line.includes(':')) {
+                        // Campo com label
+                        const [label, ...valueParts] = line.split(':');
+                        const value = valueParts.join(':').trim();
+                        html += `
+                <div class="mb-2">
+                    <strong class="text-gray-700">${label}:</strong>
+                    <span class="text-gray-900">${value}</span>
+                </div>
+            `;
+                    } else if (line.startsWith('•')) {
+                        // Item de lista
+                        html += `<div class="ml-4 flex items-start">
+                <i class="fas fa-circle text-xs text-primary mt-1 mr-2"></i>
+                <span>${line.substring(1).trim()}</span>
+            </div>`;
+                    } else {
+                        // Texto normal
+                        html += `<p class="text-gray-800">${line}</p>`;
+                    }
+                });
+
+                html += '</div>';
+                return html;
             }
 
             autoDetectChangesHibrida(text) {
@@ -5589,47 +5823,7 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
                 };
             }
 
-                        async analisarVaga() {
-                const jobText = document.getElementById('job-text').value.trim();
 
-                if (!jobText || jobText.length < 20) {
-                    this.showNotification('Cole uma descrição de vaga mais completa.', 'warning');
-                    return;
-                }
-
-                this.showLoading('Analisando vaga com IA avançada...');
-
-                try {
-                    const analise = this.sistema.analisarVaga(jobText);
-                    
-                    // ============ ANÁLISE ATS ASSUME CONTROLE ============
-                    // Extrai informações estratégicas para controle das outras IAs
-                    const atsIntelligence = {
-                        keywords: analise.keywords,
-                        score: Math.min(100, Math.floor(80 + Math.random() * 20)), // Score 80-100
-                        culturalTone: this.detectCulturalTone(jobText),
-                        requirements: this.extractKeyRequirements(jobText),
-                        redFlags: this.detectRedFlags(jobText),
-                        greenFlags: this.detectGreenFlags(jobText)
-                    };
-                    
-                    // Envia para o Hub de Inteligência (assume controle)
-                    this.updateIntelligence(atsIntelligence);
-                    // ====================================================
-                    
-                    this.displayAnalysisResults(analise);
-                    this.atualizarStats();
-
-                    this.showNotification(`✅ Análise ATS concluída! Score: ${atsIntelligence.score}/100`, 'success');
-
-                } catch (error) {
-                    console.error('Erro na análise:', error);
-                    this.showNotification('Erro na análise da vaga', 'error');
-                } finally {
-                    this.hideLoading();
-                }
-            }
-            
             // Métodos auxiliares para análise avançada (adicionar após analisarVaga)
             detectCulturalTone(jobText) {
                 const text = jobText.toLowerCase();
@@ -5638,37 +5832,47 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
                 if (text.includes('consultoria') || text.includes('cliente') || text.includes('projeto')) return 'consultivo';
                 return 'profissional';
             }
-            
+
             extractKeyRequirements(jobText) {
                 const lines = jobText.split('\n');
-                const requirements = lines.filter(line => 
-                    line.toLowerCase().includes('requisito') || 
+                const requirements = lines.filter(line =>
+                    line.toLowerCase().includes('requisito') ||
                     line.toLowerCase().includes('obrigatório') ||
                     line.toLowerCase().includes('necessário')
                 );
                 return requirements.slice(0, 3).join(' | ');
             }
-            
+
             detectRedFlags(jobText) {
                 const redFlags = [];
                 const text = jobText.toLowerCase();
                 const flags = ['24/7', 'plantão', 'multitarefa', 'salário a combinar', 'sobreaviso'];
-                
+
                 flags.forEach(flag => {
                     if (text.includes(flag)) redFlags.push(flag);
                 });
                 return redFlags;
             }
-            
+
             detectGreenFlags(jobText) {
                 const greenFlags = [];
                 const text = jobText.toLowerCase();
                 const flags = ['remoto total', 'home office', 'flexibilidade', 'plano de carreira', 'treinamento'];
-                
+
                 flags.forEach(flag => {
                     if (text.includes(flag)) greenFlags.push(flag);
                 });
                 return greenFlags;
+            }
+
+            updateIntelligence(atsIntelligence) {
+                this.intelligenceHub = {
+                    ...this.intelligenceHub,
+                    ...atsIntelligence,
+                    analyzed: true
+                };
+
+                console.log('Inteligência atualizada:', this.intelligenceHub);
             }
 
             displayAnalysisResults(analise) {
@@ -5804,16 +6008,13 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
 
             clearJobText() {
                 document.getElementById('job-text').value = '';
-                document.getElementById('auto-detection').innerHTML = `
-                    <span class="tag tag-primary">
-                        <i class="fas fa-sync fa-spin"></i> Aguardando texto...
-                    </span>
-                `;
-
+                const detectionDiv = document.getElementById('auto-detection');
+                if (detectionDiv) {
+                    detectionDiv.innerHTML = '<span class="tag tag-primary">Aguardando análise...</span>';
+                }
                 document.getElementById('analysis-placeholder').classList.remove('hidden');
                 document.getElementById('analysis-results').classList.add('hidden');
-
-                this.showNotification('Texto limpo!', 'info');
+                this.showNotification('Texto da vaga limpo!', 'info');
             }
 
             loadInitialExample() {
@@ -5870,13 +6071,41 @@ Benefícios: Remoto total, bônus por performance, VR/VA`;
             async pasteFromClipboard() {
                 try {
                     const text = await navigator.clipboard.readText();
-                    if (text && text.length > 10) {
-                        document.getElementById('job-text').value = text;
-                        this.autoDetectChanges(text);
-                        this.showNotification('Texto colado com sucesso!', 'success');
+                    if (text) {
+                        const jobTextElement = document.getElementById('job-text');
+                        jobTextElement.value = text;
+
+                        // Disparar evento de input para detecção automática
+                        const inputEvent = new Event('input', { bubbles: true });
+                        jobTextElement.dispatchEvent(inputEvent);
+
+                        this.showNotification('Texto colado do clipboard!', 'success');
+
+                        // Opcional: auto-analisar após colar
+                        setTimeout(() => {
+                            if (text.length > 100) {
+                                this.analisarVagaHibrida();
+                            }
+                        }, 500);
+
+                        return true;
+                    } else {
+                        this.showNotification('Clipboard vazio ou sem texto', 'warning');
+                        return false;
                     }
                 } catch (error) {
-                    this.showNotification('Erro ao colar do clipboard', 'error');
+                    console.error('Erro ao acessar clipboard:', error);
+
+                    // Fallback para prompt
+                    const fallbackText = prompt('Cole o texto da vaga:');
+                    if (fallbackText) {
+                        document.getElementById('job-text').value = fallbackText;
+                        this.showNotification('Texto colado via prompt!', 'info');
+                        return true;
+                    }
+
+                    this.showNotification('Não foi possível acessar o clipboard', 'error');
+                    return false;
                 }
             }
 
@@ -5936,6 +6165,35 @@ Projetos Acadêmicos
                 this.preencherFormularioCV(cvMaker);
                 this.sistema.configurarCV(cvMaker);
                 this.showNotification('CV Márcio Maker carregado!', 'success');
+            }
+
+            carregarCVFusao() {
+                const cvFusao = {
+                    nome: "Márcio Gemelli (CV Fusão Completo)",
+                    cargo: "Desenvolvedor Full Stack & Tech Lead",
+                    localizacao: "São Paulo, SP (Remoto)",
+                    salario: "R$ 12.000 - R$ 18.000 PJ",
+                    objetivo: "Liderar equipes de desenvolvimento ágil, arquitetar sistemas escaláveis e mentorar desenvolvedores juniores. Busco projetos desafiadores que unam tecnologia de ponta com impacto real no negócio.",
+                    habilidades: "JavaScript, TypeScript, React, Node.js, Python, AWS, Docker, Kubernetes, PostgreSQL, MongoDB, GraphQL, CI/CD, Scrum, Agile, Liderança Técnica, Arquitetura de Microserviços",
+                    experiencia: `Tech Lead - Empresa ABC (2021 - Atual)
+• Liderança de equipe de 8 desenvolvedores
+• Arquitetura de sistema que processa 1M+ requisições/dia
+• Redução de custos AWS em 35%
+• Implementação de CI/CD que acelerou deploys em 70%
+
+Desenvolvedor Full Stack - Startup XYZ (2019 - 2021)
+• Desenvolvimento de aplicação React/Node.js com 50k usuários
+• Integração com APIs de pagamento e geolocalização
+• Otimização de performance que reduziu load time em 60%
+
+Analista de Sistemas - Corporação DEF (2017 - 2019)
+• Manutenção de sistemas legados
+• Migração de bancos de dados SQL Server para PostgreSQL
+• Automação de processos internos`
+                };
+
+                this.preencherFormularioCV(cvFusao);
+                this.showNotification("CV Fusão (completo) carregado!", "success");
             }
 
             preencherFormularioCV(cvDados) {
@@ -6041,34 +6299,39 @@ Projetos Acadêmicos
             }
 
             enhanceCV() {
-                const experiencia = document.getElementById('cv-experience').value;
-                if (!experiencia) return;
-
-                this.showLoading('Melhorando experiência com IA...');
+                this.showLoading('Melhorando CV com IA...', 'Reescrevendo objetivo e habilidades');
 
                 setTimeout(() => {
-                    const linhas = experiencia.split('\n');
-                    const linhasMelhoradas = linhas.map(linha => {
-                        if (linha.trim() && linha.includes('•') && !/(\d+%|\d+\+|\d+x)/.test(linha)) {
-                            const melhorias = [
-                                ' (aumentando eficiência em 25%)',
-                                ' (reduzindo custos em 30%)',
-                                ' (melhorando performance em 40%)',
-                                ' (otimizando processos em 35%)',
-                                ' (escalando para 2x mais usuários)',
-                                ' (reduzindo tempo de resposta em 50%)'
-                            ];
-                            const melhoria = melhorias[Math.floor(Math.random() * melhorias.length)];
-                            return linha + melhoria;
+                    try {
+                        // Melhorar objetivo
+                        const objetivoAtual = document.getElementById('cv-objective').value;
+                        if (objetivoAtual && objetivoAtual.length > 10) {
+                            const novoObjetivo = objetivoAtual.replace(/busco/i, 'profissional especializado em')
+                                .replace(/oportunidade/i, 'desafios')
+                                .replace(/onde possa/i, 'com foco em');
+                            document.getElementById('cv-objective').value = novoObjetivo + " Comprometido com excelência técnica e entrega de resultados mensuráveis.";
                         }
-                        return linha;
-                    });
 
-                    document.getElementById('cv-experience').value = linhasMelhoradas.join('\n');
-                    this.updateExperienceField();
-                    this.showNotification('CV melhorado com métricas!', 'success');
-                    this.hideLoading();
-                }, 800);
+                        // Melhorar habilidades
+                        const skillsAtual = document.getElementById('cv-skills').value;
+                        if (skillsAtual) {
+                            const skillsArray = skillsAtual.split(',').map(s => s.trim());
+                            const skillsMelhoradas = skillsArray
+                                .filter(s => s.length > 2)
+                                .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+                                .join(', ');
+                            document.getElementById('cv-skills').value = skillsMelhoradas;
+                        }
+
+                        this.updateCVPreview();
+                        this.showNotification('CV melhorado com IA!', 'success');
+
+                    } catch (error) {
+                        this.showNotification('Erro ao melhorar CV', 'error');
+                    } finally {
+                        this.hideLoading();
+                    }
+                }, 1500);
             }
 
             resetCV() {
@@ -6205,7 +6468,7 @@ Projetos Acadêmicos
                 modal.classList.add('active');
             }
 
-                        async executarRewriting() {
+            async executarRewriting() {
                 // ============ VERIFICAÇÃO DE SEGURANÇA ============
                 // A Análise ATS precisa ter dado as ordens primeiro
                 if (!this.intelligenceHub.analyzed) {
@@ -6214,7 +6477,7 @@ Projetos Acadêmicos
                     this.switchTab('analysis');
                     return;
                 }
-                
+
                 const status = this.sistema.getStatus();
                 if (!status.relevanciaAnalisada) {
                     this.showNotification('Analise a relevância primeiro!', 'warning');
@@ -6233,16 +6496,16 @@ Projetos Acadêmicos
                         return;
                     }
                 }
-                
+
                 // ============ ANÁLISE ATS DIRECIONA O REWRITING ============
                 console.log("🎯 Rewriting direcionado por ATS:", this.intelligenceHub);
-                
+
                 this.showLoading(`Executando rewriting direcionado por ATS (Score: ${this.intelligenceHub.matchScore}/100)...`);
 
                 try {
                     // Passa as diretrizes da análise para o sistema
                     this.sistema.dados.atsDirectives = this.intelligenceHub;
-                    
+
                     const cvReescrito = this.sistema.executarRewriting(this.selectedPersona);
 
                     this.displayRewritingResults(cvReescrito);
@@ -6258,7 +6521,7 @@ Projetos Acadêmicos
                 }
             }
 
-                        displayRewritingResults(cvReescrito, langConfig) {
+            displayRewritingResults(cvReescrito, langConfig) {
                 // ============ MOSTRA O CONTROLE DA ANÁLISE ATS ============
                 const atsControlInfo = `
                     <div class="mb-4 p-3 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg text-white">
@@ -6295,7 +6558,7 @@ Projetos Acadêmicos
                     </div>
                 `;
                 // =========================================================
-                
+
                 document.getElementById('rewriting-placeholder').classList.add('hidden');
                 document.getElementById('rewriting-results').classList.remove('hidden');
 
@@ -6315,14 +6578,14 @@ Projetos Acadêmicos
                             <i class="fas fa-user-tie"></i> ${langConfig?.ui?.appliedPersona || 'Persona Aplicada'}: ${personaName}
                         </h4>
                         <p class="text-sm text-purple-700">
-                            ${this.intelligenceHub.analyzed ? 
-                                (this.intelligenceHub.personaRecommendation === this.selectedPersona ? 
-                                    `✅ ${langConfig?.ui?.recommendedByATS || '(Recomendada pela Análise ATS)'}` : 
-                                    this.intelligenceHub.personaRecommendation ? 
-                                    `ℹ️ ${langConfig?.ui?.manuallySelected || '(Selecionada manualmente)'} - ${langConfig?.ui?.atsRecommends || 'Análise recomenda'}: ${this.intelligenceHub.personaRecommendation}` :
-                                    `ℹ️ ${langConfig?.ui?.manuallySelected || '(Selecionada manualmente)'}`) :
-                                `⚠️ ${langConfig?.ui?.noATSAnalysis || '(Análise ATS não realizada)'}`
-                            }
+                            ${this.intelligenceHub.analyzed ?
+                        (this.intelligenceHub.personaRecommendation === this.selectedPersona ?
+                            `✅ ${langConfig?.ui?.recommendedByATS || '(Recomendada pela Análise ATS)'}` :
+                            this.intelligenceHub.personaRecommendation ?
+                                `ℹ️ ${langConfig?.ui?.manuallySelected || '(Selecionada manualmente)'} - ${langConfig?.ui?.atsRecommends || 'Análise recomenda'}: ${this.intelligenceHub.personaRecommendation}` :
+                                `ℹ️ ${langConfig?.ui?.manuallySelected || '(Selecionada manualmente)'}`) :
+                        `⚠️ ${langConfig?.ui?.noATSAnalysis || '(Análise ATS não realizada)'}`
+                    }
                             <br><strong>${langConfig?.ui?.preserved || 'Preservado'}:</strong> ${langConfig?.ui?.experienceEducation || 'Experiência, Educação, Contato, Datas, Empresas'}
                             <br><strong>${langConfig?.ui?.adapted || 'Adaptado'}:</strong> ${langConfig?.ui?.objectiveSkills || 'Objetivo, Resumo, Ordenação de Habilidades'}
                         </p>
@@ -6793,11 +7056,11 @@ Projetos Acadêmicos
                 this.showNotification('Gerando PDF... Abra a janela de impressão', 'info');
             }
 
-                        // ============ COMANDO CENTRAL DA ANÁLISE ATS ============
+            // ============ COMANDO CENTRAL DA ANÁLISE ATS ============
             // Este método recebe os dados da análise e assume controle das outras IAs
             updateIntelligence(data) {
                 console.log("📊 Inteligência ATS carregada:", data);
-                
+
                 this.intelligenceHub = {
                     keywords: data.keywords || [],
                     requirements: data.requirements || "Requisitos extraídos da vaga",
@@ -6809,23 +7072,23 @@ Projetos Acadêmicos
                     greenFlags: data.greenFlags || [],
                     priorityKeywords: this.extractPriorityKeywords(data.keywords)
                 };
-                
+
                 // Notifica o sistema que a análise está no controle
                 this.showNotification('✅ Análise ATS concluída! As IAs agora seguem estas diretrizes.', 'success');
-                
+
                 // Atualiza badge da aba de análise
                 const badge = document.getElementById('analysis-badge');
                 if (badge) badge.innerText = '✓';
-                
+
                 return this.intelligenceHub;
             }
-            
+
             // Recomenda persona baseada nas keywords
             recommendPersona(keywords) {
                 if (!keywords || !keywords.length) return null;
-                
+
                 const kwLower = keywords.map(k => k.toLowerCase());
-                
+
                 if (kwLower.some(k => ['frontend', 'react', 'vue', 'angular', 'css', 'ui', 'ux', 'javascript'].includes(k))) {
                     return 'frontend';
                 } else if (kwLower.some(k => ['backend', 'node', 'python', 'java', 'api', 'database', 'server', 'sql'].includes(k))) {
@@ -6839,12 +7102,12 @@ Projetos Acadêmicos
                 }
                 return null;
             }
-            
+
             // Extrai keywords de alta prioridade
             extractPriorityKeywords(keywords) {
                 if (!keywords) return [];
                 const priorityTerms = ['obrigatório', 'requisito', 'essencial', 'imprescindível', 'necessário'];
-                return keywords.filter(kw => 
+                return keywords.filter(kw =>
                     priorityTerms.some(term => kw.toLowerCase().includes(term.toLowerCase()))
                 );
             }
@@ -7347,6 +7610,67 @@ Projetos Acadêmicos
                 }
 
                 return greenFlags;
+            }
+
+            updateIntelligence(atsIntelligence) {
+                this.intelligenceHub = {
+                    ...this.intelligenceHub,
+                    ...atsIntelligence,
+                    analyzed: true,
+                    personaRecommendation: this.recommendPersona(atsIntelligence)
+                };
+
+                // Atualizar UI se a seção ATS estiver visível
+                const atsSection = document.getElementById('ats-analysis-section');
+                if (atsSection && this.intelligenceHub.analyzed) {
+                    atsSection.style.display = 'block';
+                    this.updateATSDisplay();
+                }
+
+                console.log('✅ Inteligência ATS atualizada:', this.intelligenceHub);
+            }
+
+            updateATSDisplay() {
+                if (!this.intelligenceHub.analyzed) return;
+
+                // Atualizar score
+                const scoreElement = document.querySelector('.ats-score-number');
+                if (scoreElement) {
+                    scoreElement.textContent = `${this.intelligenceHub.score}/100`;
+                    scoreElement.className = 'ats-score-number ' +
+                        (this.intelligenceHub.score >= 80 ? 'score-excelente' :
+                            this.intelligenceHub.score >= 60 ? 'score-bom' :
+                                this.intelligenceHub.score >= 40 ? 'score-medio' : 'score-baixo');
+                }
+
+                // Atualizar flags
+                this.updateFlagsDisplay('ats-green-flags', this.intelligenceHub.greenFlags);
+                this.updateFlagsDisplay('ats-red-flags', this.intelligenceHub.redFlags);
+
+                // Atualizar recomendações
+                if (this.intelligenceHub.personaRecommendation) {
+                    this.updatePersonaRecommendation();
+                }
+            }
+
+            recommendPersona(atsIntelligence) {
+                const keywords = atsIntelligence.keywords || [];
+                const frontendKeywords = ['react', 'vue', 'angular', 'frontend', 'ui', 'ux'];
+                const backendKeywords = ['backend', 'api', 'server', 'database', 'node', 'python'];
+
+                const frontendCount = keywords.filter(k =>
+                    frontendKeywords.some(fk => k.toLowerCase().includes(fk))
+                ).length;
+
+                const backendCount = keywords.filter(k =>
+                    backendKeywords.some(bk => k.toLowerCase().includes(bk))
+                ).length;
+
+                if (frontendCount > backendCount && frontendCount > 2) return 'frontend';
+                if (backendCount > frontendCount && backendCount > 2) return 'backend';
+                if (frontendCount > 1 && backendCount > 1) return 'fullstack';
+
+                return 'fullstack'; // padrão
             }
 
             detectImplicitCulture(jobText) {
